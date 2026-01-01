@@ -1,0 +1,218 @@
+{
+  "tutorial_name": "Manage Pops - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Naya Master Channel Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Master Channel kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Master Channel' section par click karay aur aap 'Master Channel' page par aa jaogay.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Master Channel' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/master_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme do fields hongi: 'Master Channel Name' aur 'Status' (dropdown: Active / Inactive). Fields fill kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/master_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Business Channel Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Business Channel kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Business Channel' section par click karay aur aap 'Business Channel' page par aa jaogay.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Business Channel' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/business_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme teen fields hongi: 'Select Master Channel' (dropdown), 'Business Channel Name' (input), aur 'Status' (dropdown). Fields select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/business_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Business Sub Channel Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Business Sub Channel kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Business Sub Channel' section par click karay aur aap 'Business Sub Channel' page par aa jaogay.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Business Sub Channel' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/business_sub_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme char fields hongi: 'Select Master Channel' (dropdown), 'Select Business Channels' (dropdown), 'Business Sub Channel Name' (input), aur 'Status' (dropdown). Appropriate values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/business_sub_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Customer Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Customer kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Customer' section par click karay aur aap 'Customer' page par aa jaogay.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Customer' page par 'View Details' ke saath next '+' button hoga, is '+' button par click karay.",
+          "snapshot": "static/images/customer_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme multiple fields hongi, jaise: 'Select Town/City', 'Select Section', 'Select Sector', 'Customer Name', 'Sub Address', 'Customer Address', 'Select Channel', 'Select Sub Channel', 'Business Owner Name (POC)', 'Email Address', 'Contact No', 'Is On Whatsapp?', 'ID Card No', 'NTN No', 'Customer NTN Status', 'GST No', 'Customer GST Status', 'Filer GST %', 'Filer Advance Tax %', 'Non Filer GST %', 'Non Filer Advance Tax %', 'Counter Sales Customer', 'Category', 'Credit Limit', 'Credit Days', 'Shelf Rent', 'Is Varified', 'Select Discount', 'Discount Not Allowed', 'Status' aur 'Has Assets'. Zaruri values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/customer_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Customer ki Details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke existing Customer details kaise dekhte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Customer' section par click karay aur aap 'Customer' page par aa jaogay.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Dropdowns 'Select Distributor' aur 'Select Sector' mein se values select karay, phir 'View Detail' button par click karay taake customer records load ho jayen.",
+          "snapshot": "static/images/customer_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Master Channel ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Master Channel ki details kaisay dekhni hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Master Channel' section par click karo, aur aap 'Master Channel' page par aa jaogay.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Search bar mein Master Channel ki details type karo toh master Channel ke records saamne aa jayein ge.",
+          "snapshot": "static/images/master_channel_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Business Channel ki details dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke Business Channel ki details kaisay dekhni hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Business Channel' section par click karay aur page open ho jayega.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Search bar mein Business Channel ki details type karo toh business channe ke records saamne aa jayein ge.",
+          "snapshot": "static/images/business_channel_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Business Sub Channel ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko guide kiya gaya hai ke Business Sub Channel ki details kaisay check karni hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Business Sub Channel' section par click karay, is se aap 'Business Sub Channel' page par aa jaogay.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Search bar mein Business sub Channel ki details type karo toh business sub Channel ke records saamne aa jayein ge.",
+          "snapshot": "static/images/business_sub_channel_search.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Master Channel Page kaha py hai",
+      "description": "Is section mein user ko bataya gaya hai ke Master Channel page system mein kaha located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Master Channel' section par click karay aur aap 'Master Channel' page par aa jaogay.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Master Channel' page par hein. Is page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/master_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Business Channel Page kaha py hai",
+      "description": "Is section mein user ko bataya gaya hai ke Business Channel page system mein kaha located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Business Channel' section par click karay aur aap 'Business Channel' page par aa jaogay.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Business Channel' page par ho. Is page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/business_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Business Sub Channel Page kahan py hai",
+      "description": "Is section mein user ko bataya gaya hai ke Business Sub Channel page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Business Sub Channel section par click karay aur aap Business Sub Channel page par aa jaogay.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap Business Sub Channel page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/business_sub_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Customer Page kahan py hai",
+      "description": "Is section mein user ko bataya gaya hai ke Customer page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Customer' section par click karay aur aap 'Customer' page par aa jaogay.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Customer' page par ho. Is page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/customer.png"
+        }
+      ]
+    }
+  ]
+}

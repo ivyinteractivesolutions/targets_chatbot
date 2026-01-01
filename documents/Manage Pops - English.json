@@ -1,0 +1,218 @@
+{
+  "tutorial_name": "Manage Pops - English",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New Master Channel",
+      "description": "This section guides the user through adding a new Master Channel in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Master Channel' section and you'd be navigated to the 'Master Channel' page.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Master Channel' page, click on the '+' button that is located at the top right corner.",
+          "snapshot": "static/images/master_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear with the two fields on this 'Master Channel' page. The first field would ask for the 'Master Channel Name'. The second field would be a dropdown list named 'Status'. Select or enter the values and click the 'Add' button.",
+          "snapshot": "static/images/master_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Business Channel",
+      "description": "This section guides the user through adding a new Business Channel in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Channel' section and you'd be navigated to the 'Business Channel' page.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Business Channel' page, click on the '+' button that is located at the top right corner.",
+          "snapshot": "static/images/business_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear with three fields on this business channel page. The fields are: 'Select Master Channel' (dropdown), 'Business Channel Name' (input), and 'Status' (dropdown). Select or enter the values and click the 'Add' button.",
+          "snapshot": "static/images/business_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Business Sub Channel",
+      "description": "This section guides the user through adding a new business sub channel in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Sub Channel' section and you'd be navigated to the 'Business Sub Channel' page.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Business Sub Channel' page, click on the '+' button that is located at the top right corner.",
+          "snapshot": "static/images/business_sub_channel_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear with four fields on this business sub channel page. The fields are: 'Select Master Channel' (dropdown), 'Select Business Channels' (dropdown), 'Business Sub Channel Name' (input), and 'Status' (dropdown). Select or enter the values and click the 'Add' button.",
+          "snapshot": "static/images/business_sub_channel_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Customer",
+      "description": "This section guides the user through adding a new Customer in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Customer' section and you'd be navigated to the 'Customer' page.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button that is next to the 'View Details' button on this 'Customer' page.",
+          "snapshot": "static/images/customer_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If you clicked on the '+' button, a pop up would appear with many fields on this Customer page. The fields are: 'Select Town/City' (dropdown),'Select Section' (dropdown),'Select Sector' (dropdown), 'Customer Name' (input),'Sub Address' (input),'Customer Address' (input), 'Select Channel' (dropdown), 'Select Sub Channel' (dropdown), 'Business Owner Name (POC)' (input), 'Email Address' (input), 'Contact No' (input), 'Is On Whatsapp?' (check), 'ID Card No' (input), 'NTN No' (input), 'Customer NTN Status' (dropdown), 'GST No' (input), 'Customer GST Status' (dropdown), 'Filer GST %' (input), 'Filer Advance Tax %' (input), 'Non Filer GST %' (input), 'Non Filer Advance Tax %' (input), 'Counter Sales Customer' (dropdown), 'Category' (dropdown), 'Credit Limit' (input), 'Credit Days' (input), 'Shelf Rent' (input), 'Is Varified' (dropdown), 'Select Discount' (dropdown), 'Discount Not Allowed' (dropdown), 'Status' (dropdown) and 'Has Assets' (dropdown). Select or enter the values and then click the 'Add' button.",
+          "snapshot": "static/images/customer_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "view details of Customer ",
+      "description": "This section guides the user through retrieving the details of an existing customer in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Customer' section to navigate to the 'Customer' page.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the options from 'Select Distributor' and 'Select Sector' dropdowns. Then Click on 'View Detail' button to load the customer records.",
+          "snapshot": "static/images/customer_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Master Channel",
+      "description": "This section explains how the user can view the details of an existing Master Channel.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Master Channel' section, and you will be redirected to the 'Master Channel' page.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the Master Channel name in the search bar to view the matching records.",
+          "snapshot": "static/images/master_channel_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Business Channel",
+      "description": "This section explains how to retrieve the details of an existing Business Channel.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Channel' section to open the 'Business Channel' page.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the Business Channel name in the search bar to display the relevant records.",
+          "snapshot": "static/images/business_channel_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Business Sub Channel",
+      "description": "This section guides the user on how to view the details of an existing Business Sub Channel.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Sub Channel' section to navigate to the 'Business Sub Channel' page.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the Business Sub Channel name into the search bar to view the matching records.",
+          "snapshot": "static/images/business_sub_channel_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Master Channel page located",
+      "description": "This section would let user know where is the Master Channel page located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Master Channel' section and you will be navigated to the 'Master Channel' page.",
+          "snapshot": "static/images/master_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Master Channel' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/master_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Business Channel page located",
+      "description": "This section would let user know where the Business Channel page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Channel' section and you will be navigated to the 'Business Channel' page.",
+          "snapshot": "static/images/business_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Business Channel' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/business_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Business sub Channel page located",
+      "description": "This section would let user know where the Business sub Channel page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Business Sub Channel' section and you will be navigated to the 'Business Sub Channel' page.",
+          "snapshot": "static/images/business_sub_channel_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Business Sub Channel' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/business_sub_channel.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Customer page located",
+      "description": "This section would let user know where the Customer page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Customer' section and you will be navigated to the 'Customer' page.",
+          "snapshot": "static/images/customer_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Customer' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/customer.png"
+        }
+      ]
+    }
+  ]
+}

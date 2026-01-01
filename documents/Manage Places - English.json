@@ -1,0 +1,507 @@
+{
+  "tutorial_name": "Manage Places - English",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New Region",
+      "description": "This section guides the user through adding a new region to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Region' section to navigate to the 'Region' page.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Region' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/region_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with two fields. Enter the 'Region Name' and select a value from the 'Status' dropdown (Active / Non-Active). Finally, click the 'Add' button.",
+          "snapshot": "static/images/region_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Area",
+      "description": "This section guides the user through adding a new area to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Area' section to navigate to the 'Area' page.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Area' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/area_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with three fields: 'Select Region' (dropdown), 'Area Name' (input), and 'Status' (dropdown). Select a region, enter the area name (e.g., Peshawar, Islamabad), choose a status, and click 'Add'.",
+          "snapshot": "static/images/area_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Territory",
+      "description": "This section guides the user through adding a new territory to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Territory' section to navigate to the 'Territory' page.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Territory' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/territory_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with four fields: 'Select Region', 'Select Area', 'Territory Name', and 'Status'. Select the appropriate values and click 'Add'.",
+          "snapshot": "static/images/territory_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Town",
+      "description": "This section guides the user through adding a new town to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Town' section to navigate to the 'Town' page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Town' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/town_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with three fields: 'Select Territory', 'Town Name', and 'Status'. Select a territory, enter the town name, choose the status, and click 'Add'.",
+          "snapshot": "static/images/town_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New City",
+      "description": "This section guides the user through adding a new city to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'City' section to navigate to the 'City' page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'City' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/town_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with three fields: 'Select Territory', 'Town Name', and 'Status'. Select a territory, enter the town name, choose the status, and click 'Add'.",
+          "snapshot": "static/images/town_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Distributor",
+      "description": "This section guides the user through adding a new distributor to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor' section to navigate to the 'Distributor' page.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Distributor' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/distributor_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with 29 fields, including dropdowns for 'Select Region', 'Select Area', 'Select Territory', and inputs such as 'Distributor', 'Contact Person Name', 'FBR Title', 'Distributor Address', 'Province', 'Check-In Radius', and 'GST Value'. Fill in all required details and click 'Add' to save the distributor.",
+          "snapshot": "static/images/distributor_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Section",
+      "description": "This section guides the user through adding a new section to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Sections' option to navigate to the 'Sections' page.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Sections' page, click the '+' button at the top right corner.",
+          "snapshot": "static/images/section_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with fields for 'Select Town', 'Section Name', and 'Status'. Select the town, enter the section name (e.g., Bannu), choose the status, and click 'Add'.",
+          "snapshot": "static/images/section_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Sector",
+      "description": "This section guides the user through adding a new sector to the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Sectors' option to navigate to the 'Sectors' page.",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Sectors' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/sector_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with five fields: 'Select Distributor', 'Select Town', 'Select Section', 'Select Sector', and 'Status'. Fill out all fields and click 'Add'.",
+          "snapshot": "static/images/sector_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Region",
+      "description": "This section guides the user through searching for an existing region.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Region' section to navigate to the 'Region' page.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Region' page, click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/region_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the region name you want to search. If it exists, it will appear in the list.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Area",
+      "description": "This section guides the user through searching for an existing area.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Area' section to navigate to the 'Area' page.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/area_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the area you want to search. If found, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Territory",
+      "description": "This section guides the user through searching for an existing territory.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Territory' section to navigate to the 'Territory' page.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/territory_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the territory you want to search. If found, it will appear.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Town",
+      "description": "This section guides the user through searching for an existing town.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Town' section to navigate to its page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/town_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the town name you want to search. If it exists, it will appear.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of City",
+      "description": "This section guides the user through searching for an existing city.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'City' section to navigate to its page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/town_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the city name you want to search. If it exists, it will appear.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Distributor",
+      "description": "This section guides the user through searching for an existing distributor.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor' section to navigate to the 'Distributor' page.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/distributor_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the distributor name you want to search. If it exists, it will be shown.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Section",
+      "description": "This section guides the user through searching for an existing section.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Section' to navigate to the 'Section' page.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/section_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the section you want to search. If it exists, it will appear.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Sector",
+      "description": "This section guides the user through searching for an existing sector.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Sector' to navigate to the 'Sector' page.",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click the 'Search' field located at the top left corner.",
+          "snapshot": "static/images/sector_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the sector name you want to search. If it exists, you will see it in the list.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Distributor Zones",
+      "description": "This section guides the user through searching for an existing Distributor Zones.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor Zones' section to navigate to the 'Distributor Zones' page.",
+          "snapshot": "static/images/distributor_zone_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select value from 'Select Distributor' then click the 'Search' button",
+          "snapshot": "static/images/distributor_zone.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If data exists for that particular distributor zone you will see it in the list.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Region page located",
+      "description": "This section would let user know where the Region page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Region' section and you will be navigated to the 'Region' page.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Region' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/region.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Area page located",
+      "description": "This section would let user know where the Area page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Area' section and you will be navigated to the 'Area' page.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Area' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/area.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Territory page located",
+      "description": "This section would let user know where the Territory page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Territory' section and you will be navigated to the 'Territory' page.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Territory' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/territory.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Town page located",
+      "description": "This section would let user know where the Town page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Town' section and you will be navigated to the 'Town' page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Town' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/town.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is City page located",
+      "description": "This section would let user know where the City page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'City' section and you will be navigated to the 'City' page.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'City' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/town.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Distributor page located",
+      "description": "This section would let user know where the Distributor page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor' section and you will be navigated to the 'Distributor' page.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Distributor' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/distributor.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Sections page located",
+      "description": "This section would let user know where the Sections page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Sections' section and you will be navigated to the 'Sections' page.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Sections' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/section.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Sector page located",
+      "description": "This section would let user know where the Sector page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Sector' section and you will be navigated to the 'Sector' page.",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Sector' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/sector.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Distributor Zones page located",
+      "description": "This section would let user know where the Distributor Zones page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor Zones' section and you will be navigated to the 'Distributor Zones' page.",
+          "snapshot": "static/images/distributor_zone_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Distributor Zones' page. You can explore this page according to your requirements.",
+          "snapshot": "static/images/distributor_zone.png"
+        }
+      ]
+    }
+  ]
+}

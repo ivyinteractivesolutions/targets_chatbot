@@ -1,0 +1,2383 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tutorial JSON Builder</title>
+
+    <style>
+      /* Reset and Base Styles */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        min-height: 100vh;
+        color: #333;
+        line-height: 1.6;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+
+      /* Header Styles */
+      .header {
+        text-align: center;
+        margin-bottom: 40px;
+        padding: 30px;
+        background: linear-gradient(135deg, #198754 0%, #198754 100%);
+        border-radius: 16px;
+        color: white;
+        box-shadow: 0 10px 30px #198754;
+      }
+
+      .header-content {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 15px;
+        margin-bottom: 10px;
+      }
+
+      .header-icon {
+        font-size: 2.5rem;
+        animation: float 3s ease-in-out infinite;
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        font-weight: 700;
+      }
+
+      .subtitle {
+        font-size: 1.1rem;
+        opacity: 0.9;
+        max-width: 600px;
+        margin: 0 auto;
+      }
+
+      /* Main Content */
+      .main-content {
+        background: white;
+        border-radius: 16px;
+        padding: 30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        margin-bottom: 30px;
+      }
+
+      /* Form Sections */
+      .form-section {
+        margin-bottom: 40px;
+        padding-bottom: 30px;
+        border-bottom: 2px solid #f0f0f0;
+      }
+
+      .form-section:last-of-type {
+        border-bottom: none;
+      }
+
+      .form-section h2 {
+        color: #2c3e50;
+        margin-bottom: 25px;
+        font-size: 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Form Groups */
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .req {
+        color: #e74c3c;
+        font-weight: bold;
+      }
+
+      /* Input with Icon */
+      .input-with-icon,
+      .select-with-icon {
+        position: relative;
+      }
+
+      .input-with-icon i,
+      .select-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-size: 1.1rem;
+      }
+
+      .input-with-icon input,
+      .input-with-icon textarea,
+      .select-with-icon select {
+        width: 100%;
+        padding: 14px 15px 14px 45px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+      }
+
+      .input-with-icon textarea {
+        resize: vertical;
+        min-height: 60px;
+      }
+
+      .input-with-icon input:focus,
+      .input-with-icon textarea:focus,
+      .select-with-icon select:focus {
+        outline: none;
+        border-color: #198754;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+
+      .file-extension {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-weight: 500;
+      }
+
+      .select-with-icon select {
+        appearance: none;
+        cursor: pointer;
+      }
+
+      .select-with-icon::after {
+        content: "▼";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+      }
+
+      .helper-text {
+        display: block;
+        margin-top: 5px;
+        color: #6c757d;
+        font-size: 0.85rem;
+      }
+
+      /* Sections Container */
+      .sections-container {
+        margin: 40px 0;
+      }
+
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+      }
+
+      /* Section Cards */
+      .section-card {
+        background: #f8f9fa;
+        border-radius: 12px;
+        padding: 25px;
+        margin-bottom: 25px;
+        border-left: 5px solid #198754;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        position: relative;
+      }
+
+      .section-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+      }
+
+      .section-card .section-header {
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .section-card h3 {
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .section-number {
+        background: #198754;
+        color: white;
+        width: 28px;
+        height: 28px;
+        border-radius: 50%;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        margin-right: 5px;
+      }
+
+      /* Steps Container */
+      .steps-container {
+        margin-top: 30px;
+        padding: 20px;
+        background: white;
+        border-radius: 10px;
+        border: 2px dashed #e0e0e0;
+        position: relative;
+      }
+
+      .steps-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+      }
+
+      .steps-header h4 {
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      /* Step Cards */
+      .step {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-left: 4px solid #2ecc71;
+      }
+
+      /* FIXED: Step header layout with proper button alignment */
+      .step-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e0e0e0;
+      }
+
+      .step-number {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      /* FIXED: Step delete button with visible trash icon */
+      .step-header .btn-danger.btn-sm {
+        padding: 8px 10px !important;
+        min-width: 40px !important;
+        height: 36px !important;
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+        background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
+        border: none !important;
+        border-radius: 6px !important;
+      }
+
+      .step-header .btn-danger.btn-sm i {
+        font-size: 14px !important;
+        margin: 0 !important;
+        color: white !important;
+        display: block !important;
+        line-height: 1 !important;
+      }
+
+      .step-header .btn-danger.btn-sm:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226) !important;
+        transform: scale(1.05);
+      }
+
+      /* Ensure button icon spacing is correct */
+      .btn-icon i {
+        margin: 0 !important;
+      }
+
+      /* File Upload */
+      .file-upload {
+        margin-top: 10px;
+      }
+
+      .file-upload-label {
+        display: block;
+        cursor: pointer;
+      }
+
+      .file-upload-label input[type="file"] {
+        display: none;
+      }
+
+      .file-upload-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 15px;
+        background: #e3f2fd;
+        border: 2px dashed #198754;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        color: #198754;
+        font-weight: 500;
+      }
+
+      .file-upload-content:hover {
+        background: #d1e9ff;
+        border-color: #198754;
+      }
+
+      .file-preview {
+        margin-top: 10px;
+        padding: 10px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        min-height: 40px;
+      }
+
+      .img-path {
+        display: block;
+        padding: 8px;
+        border-radius: 6px;
+        font-family: monospace;
+        font-size: 0.9rem;
+      }
+
+      .img-path.success {
+        background: #d4edda;
+        color: #155724;
+        border-left: 4px solid #28a745;
+      }
+
+      .img-path.error {
+        background: #f8d7da;
+        color: #721c24;
+        border-left: 4px solid #dc3545;
+      }
+
+      .upload-progress {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+
+      .progress-bar {
+        flex: 1;
+        height: 6px;
+        background: #e0e0e0;
+        border-radius: 3px;
+        overflow: hidden;
+      }
+
+      .progress-bar::after {
+        content: "";
+        display: block;
+        height: 100%;
+        width: 60%;
+        background: linear-gradient(90deg, #198754, #2ecc71);
+        animation: progress 1.5s ease-in-out infinite;
+      }
+
+      @keyframes progress {
+        0%,
+        100% {
+          transform: translateX(-100%);
+        }
+        50% {
+          transform: translateX(100%);
+        }
+      }
+
+      /* Empty State */
+      .empty-state {
+        text-align: center;
+        padding: 60px 20px;
+        background: #f8f9fa;
+        border-radius: 12px;
+        border: 2px dashed #dee2e6;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .empty-icon {
+        font-size: 3rem;
+        color: #adb5bd;
+        margin-bottom: 20px;
+      }
+
+      .empty-state h3 {
+        color: #6c757d;
+        margin-bottom: 10px;
+      }
+
+      .empty-state p {
+        color: #adb5bd;
+        margin-bottom: 25px;
+        max-width: 400px;
+      }
+
+      /* Buttons */
+      .btn {
+        padding: 12px 24px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, #198754, #198754);
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: linear-gradient(135deg, #198754, #198754);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
+      }
+
+      .btn-success {
+        background: linear-gradient(135deg, #2ecc71, #27ae60);
+        color: white;
+      }
+
+      .btn-success:hover:not(:disabled) {
+        background: linear-gradient(135deg, #27ae60, #219653);
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
+      }
+
+      .btn-success:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+      }
+
+      .btn-outline {
+        background: transparent;
+        border: 2px solid #198754;
+        color: #3498db;
+      }
+
+      .btn-outline:hover {
+        background: #198754;
+        color: white;
+      }
+
+      .btn-danger {
+        background: linear-gradient(135deg, #e74c3c, #c0392b);
+        color: white;
+      }
+
+      .btn-danger:hover {
+        background: linear-gradient(135deg, #c0392b, #a93226);
+      }
+
+      .btn-icon {
+        padding: 10px;
+        border-radius: 6px;
+        min-width: 40px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
+      }
+
+      .btn-sm {
+        padding: 8px 16px;
+        font-size: 0.9rem;
+      }
+
+      .btn-large {
+        padding: 16px 32px;
+        font-size: 1.1rem;
+      }
+
+      /* Form Actions */
+      .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 40px;
+        padding-top: 25px;
+        border-top: 2px solid #f0f0f0;
+      }
+
+      .form-stats {
+        display: flex;
+        gap: 20px;
+        color: #6c757d;
+        font-weight: 500;
+      }
+
+      .form-stats span {
+        padding: 8px 16px;
+        background: #f8f9fa;
+        border-radius: 20px;
+        border: 1px solid #e0e0e0;
+      }
+
+      /* Footer */
+      .footer {
+        text-align: center;
+        padding: 20px;
+        color: #6c757d;
+        font-size: 0.9rem;
+      }
+
+      /* Error States */
+      .error {
+        border-color: #e74c3c !important;
+      }
+
+      /* NEW: Add section button at bottom */
+      .add-section-footer {
+        margin-top: 20px;
+        text-align: center;
+        padding-top: 20px;
+        border-top: 2px dashed #e0e0e0;
+      }
+
+      /* NEW: Add step button at bottom */
+      .add-step-footer {
+        margin-top: 20px;
+        text-align: center;
+        padding-top: 20px;
+        border-top: 2px dashed #e0e0e0;
+      }
+
+      /* Toast Notification Styles */
+      .toast-container {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .toast {
+        padding: 15px 20px;
+        border-radius: 10px;
+        color: white;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        animation: slideIn 0.3s ease-out forwards;
+        max-width: 350px;
+        min-width: 250px;
+        transform: translateX(120%);
+        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+      }
+
+      .toast.show {
+        transform: translateX(0);
+      }
+
+      .toast.hide {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+
+      .toast-success {
+        background: linear-gradient(135deg, #198754, #28a745);
+        border-left: 4px solid #146c43;
+      }
+
+      .toast-error {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        border-left: 4px solid #a71d2a;
+      }
+
+      .toast-info {
+        background: linear-gradient(135deg, #198754, #198754);
+        border-left: 4px solid #198754;
+      }
+
+      .toast-icon {
+        font-size: 1.2rem;
+      }
+
+      .toast-content {
+        flex: 1;
+      }
+
+      .toast-title {
+        font-weight: 600;
+        font-size: 1rem;
+        margin-bottom: 3px;
+      }
+
+      .toast-message {
+        font-size: 0.9rem;
+        opacity: 0.9;
+      }
+
+      .toast-close {
+        background: none;
+        border: none;
+        color: white;
+        font-size: 1.2rem;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        opacity: 0.7;
+        transition: opacity 0.2s;
+      }
+
+      .toast-close:hover {
+        opacity: 1;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateX(100%);
+          opacity: 0;
+        }
+        to {
+          transform: translateX(0);
+          opacity: 1;
+        }
+      }
+
+      @keyframes checkmark {
+        0% {
+          transform: scale(0);
+        }
+        50% {
+          transform: scale(1.2);
+        }
+        100% {
+          transform: scale(1);
+        }
+      }
+
+      .checkmark-animation {
+        animation: checkmark 0.5s ease-in-out;
+      }
+
+      /* Select with Icon Styles */
+      .select-with-icon {
+        position: relative;
+      }
+
+      .select-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        font-size: 1.1rem;
+        z-index: 1;
+      }
+
+      .select-with-icon select {
+        width: 100%;
+        padding: 14px 15px 14px 45px;
+        border: 2px solid #e0e0e0;
+        border-radius: 10px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+        background: #f8f9fa;
+        appearance: none;
+        cursor: pointer;
+        position: relative;
+        z-index: 2;
+      }
+
+      .select-with-icon select:focus {
+        outline: none;
+        border-color: #198754;
+        background: white;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+      }
+
+      .select-with-icon::after {
+        content: "▼";
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #6c757d;
+        pointer-events: none;
+        z-index: 2;
+      }
+
+      /* Image Preview Styles - Clean Version */
+      .image-preview-container {
+        display: none;
+        margin-top: 10px;
+        padding: 15px;
+        background: #f8f9fa;
+        border-radius: 8px;
+        border: 1px solid #e0e0e0;
+        animation: fadeIn 0.3s ease;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(-10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .preview-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        padding-bottom: 8px;
+        border-bottom: 1px solid #dee2e6;
+      }
+
+      .preview-title {
+        font-weight: 600;
+        color: #2c3e50;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .preview-title i {
+        color: #198754;
+      }
+
+      .btn-remove-image {
+        background: none;
+        border: 1px solid #dc3545;
+        color: #dc3545;
+        padding: 4px 10px;
+        border-radius: 4px;
+        font-size: 0.85rem;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        transition: all 0.2s;
+      }
+
+      .btn-remove-image:hover {
+        background: #dc3545;
+        color: white;
+      }
+
+      .preview-content {
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+      }
+
+      .preview-image {
+        max-width: 150px;
+        max-height: 100px;
+        border-radius: 6px;
+        border: 2px solid #dee2e6;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        object-fit: cover;
+        cursor: zoom-in;
+        transition: transform 0.2s;
+      }
+
+      .preview-image:hover {
+        transform: scale(1.03);
+      }
+
+      .image-info {
+        flex: 1;
+      }
+
+      .img-path {
+        display: block;
+        padding: 8px 10px;
+        background: white;
+        border: 1px solid #dee2e6;
+        border-radius: 4px;
+        font-family: "Courier New", monospace;
+        font-size: 0.8rem;
+        color: #495057;
+        word-break: break-all;
+        margin-top: 5px;
+      }
+
+      /* No File State */
+      .no-file-state {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        color: #6c757d;
+        text-align: center;
+        border: 2px dashed #dee2e6;
+        border-radius: 8px;
+        margin-top: 10px;
+        min-height: 120px;
+        transition: all 0.3s;
+      }
+
+      .no-file-state:hover {
+        border-color: #198754;
+        background: #f8fff9;
+      }
+
+      .icon-placeholder {
+        font-size: 2rem;
+        margin-bottom: 10px;
+        color: #adb5bd;
+      }
+
+      .no-file-text {
+        font-size: 0.9rem;
+      }
+
+      /* Upload Progress */
+      .upload-progress {
+        display: none;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        gap: 10px;
+      }
+
+      .upload-progress span {
+        font-size: 0.9rem;
+        color: #6c757d;
+      }
+
+      /* File Upload Content Enhancement */
+      .file-upload-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 12px 15px;
+        background: #f8f9fa;
+        border: 2px dashed #198754;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        color: #198754;
+        font-weight: 500;
+        cursor: pointer;
+        margin-top: 5px;
+      }
+
+      .file-upload-content:hover {
+        background: #e8f7ed;
+        border-color: #146c43;
+      }
+
+      .image-modal {
+        display: none;
+        position: fixed;
+        z-index: 10000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.9);
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s;
+      }
+
+      .image-modal-content {
+        max-width: 90%;
+        max-height: 90%;
+        border-radius: 8px;
+        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
+        cursor: zoom-out;
+        animation: zoomIn 0.3s;
+      }
+
+      @keyframes zoomIn {
+        from {
+          transform: scale(0.8);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      .image-modal-close {
+        position: absolute;
+        top: 20px;
+        right: 30px;
+        color: white;
+        font-size: 40px;
+        font-weight: bold;
+        cursor: pointer;
+        z-index: 10001;
+        transition: all 0.3s;
+      }
+
+      .image-modal-close:hover {
+        color: #198754;
+        transform: scale(1.1);
+      }
+
+      .select-with-icon select.error {
+        border-color: #e74c3c !important;
+        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
+        animation: shake 0.5s;
+      }
+
+      @keyframes shake {
+        0%,
+        100% {
+          transform: translateX(0);
+        }
+        10%,
+        30%,
+        50%,
+        70%,
+        90% {
+          transform: translateX(-5px);
+        }
+        20%,
+        40%,
+        60%,
+        80% {
+          transform: translateX(5px);
+        }
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .container {
+          padding: 10px;
+        }
+
+        .header {
+          padding: 20px;
+        }
+
+        h1 {
+          font-size: 2rem;
+        }
+
+        .main-content {
+          padding: 20px;
+        }
+
+        /* Ensure section delete button stays top-right */
+        .section-card > .section-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+        }
+
+        /* Ensure step delete button is properly visible on mobile */
+        .step-header .btn-danger.btn-sm {
+          padding: 6px 8px !important;
+          min-width: 36px !important;
+          height: 36px !important;
+        }
+
+        .step-header .btn-danger.btn-sm i {
+          font-size: 12px !important;
+        }
+
+        .form-actions {
+          flex-direction: column;
+          gap: 15px;
+          text-align: center;
+        }
+
+        .btn-large {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .form-stats {
+          flex-direction: column;
+          gap: 10px;
+          width: 100%;
+        }
+
+        .form-stats span {
+          width: 100%;
+          text-align: center;
+        }
+
+        .preview-content {
+          flex-direction: column;
+        }
+
+        .preview-image {
+          max-width: 100%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <header class="header">
+        <div class="header-content">
+          <i class="fas fa-tools header-icon"></i>
+          <h1>Edit JSON</h1>
+        </div>
+        <p class="subtitle">Edit tutorials for the chatbot</p>
+      </header>
+      s
+      <div
+        class="edit-mode-container"
+        style="
+          margin-bottom: 20px;
+          padding: 15px;
+          background: white;
+          border-radius: 10px;
+          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        "
+      >
+        <h3 style="margin-bottom: 10px; color: #2c3e50">
+          <i class="fas fa-edit"></i> Edit Existing Tutorial
+        </h3>
+        <div style="display: flex; gap: 10px; align-items: center">
+          <div class="select-with-icon" style="flex: 1">
+            <i class="fas fa-file-code"></i>
+            <select id="edit-filename-select" onchange="onFileSelectChange()">
+              <option value="">-- Select a tutorial to edit --</option>
+              <!-- Options will be populated dynamically -->
+            </select>
+          </div>
+          <button
+            class="btn btn-primary"
+            onclick="loadSelectedJSON()"
+            id="load-tutorial-btn"
+            disabled
+          >
+            <i class="fas fa-pencil-alt"></i> Load JSON
+          </button>
+          <button
+            class="btn btn-danger"
+            onclick="deleteSelectedJSON()"
+            id="delete-tutorial-btn"
+            disabled
+          >
+            <i class="fas fa-trash"></i> Delete
+          </button>
+          <button class="btn btn-outline" onclick="clearForm()">
+            <i class="fas fa-plus"></i> New Tutorial
+          </button>
+        </div>
+        <div id="tutorial-info" style="margin-top: 10px; display: none">
+          <small style="color: #666">
+            <span id="selected-tutorial-name"></span> •
+            <span id="selected-language"></span> •
+            <span id="selected-sections"></span>
+          </small>
+        </div>
+      </div>
+      <main class="main-content">
+        <div class="form-container">
+          <div class="form-section main-form">
+            <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
+            <div class="form-group">
+              <label for="tutorial_name"
+                >Tutorial Name <span class="req">*</span></label
+              >
+              <div class="input-with-icon">
+                <i class="fas fa-heading"></i>
+                <input
+                  id="tutorial_name"
+                  placeholder="Enter tutorial name"
+                  required
+                />
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="language">Language <span class="req">*</span></label>
+              <div class="select-with-icon">
+                <i class="fas fa-language"></i>
+                <select id="language" required>
+                  <option value="">-- Select Language --</option>
+                  <option value="en">English</option>
+                  <option value="ur-roman">Roman Urdu</option>
+                  <option value="ur">Urdu</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="json_filename"
+                >JSON File Name <span class="req">*</span></label
+              >
+              <div class="input-with-icon">
+                <i class="fas fa-file-code"></i>
+                <input
+                  id="json_filename"
+                  placeholder="e.g., my-tutorial"
+                  required
+                />
+                <span class="file-extension">.json</span>
+              </div>
+              <small class="helper-text"
+                >File will be saved as [name].json</small
+              >
+            </div>
+          </div>
+
+          <div class="sections-container">
+            <div class="section-header">
+              <h2><i class="fas fa-layer-group"></i> Tutorial Sections</h2>
+            </div>
+            <div id="sections" class="sections-list"></div>
+
+            <!-- Add Section Button at Bottom -->
+            <div class="add-section-footer">
+              <button class="btn btn-primary" onclick="addSection()">
+                <i class="fas fa-plus"></i> Add Section
+              </button>
+            </div>
+
+            <div class="empty-state" id="empty-state">
+              <i class="fas fa-layer-group empty-icon"></i>
+              <h3>No sections yet</h3>
+              <p>Click "Add Section" to start building your tutorial</p>
+              <button class="btn btn-primary" onclick="addSection()">
+                <i class="fas fa-plus"></i> Add First Section
+              </button>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button class="btn btn-primary btn-large" onclick="exportJSON()">
+              <i class="fas fa-save"></i> Save Tutorial JSON
+            </button>
+            <div class="form-stats">
+              <span id="section-count">0 sections</span>
+              <span id="step-count">0 steps</span>
+            </div>
+          </div>
+
+          <!-- Add this after the form actions or create a new section -->
+          <div
+            class="vectordb-actions"
+            style="
+              margin-top: 20px;
+              padding: 15px;
+              background: #f8f9fa;
+              border-radius: 10px;
+              border-left: 4px solid #198754;
+            "
+          >
+            <h3 style="margin-bottom: 12px; color: #2c3e50; font-size: 1.4rem">
+              <i class="fas fa-brain"></i> Update MIRA's Knowledge
+            </h3>
+            <p
+              style="
+                margin-bottom: 18px;
+                color: #555;
+                font-size: 1rem;
+                line-height: 1.5;
+              "
+            >
+              After saving your tutorial changes, update MIRA so it can learn
+              the latest content and help users better.
+            </p>
+            <button
+              class="btn btn-success"
+              onclick="updateVectorDB()"
+              id="update-vectordb-btn"
+              style="padding: 14px 28px; font-size: 1.1rem"
+            >
+              <i class="fas fa-sync-alt"></i> Teach MIRA Now
+            </button>
+            <div
+              id="vectordb-status"
+              style="margin-top: 10px; display: none"
+            ></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Image Zoom Modal -->
+    <div id="imageModal" class="image-modal">
+      <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
+      <img id="fullSizeImage" class="image-modal-content" />
+    </div>
+    <script>
+      // Toast notification system
+      function showToast(type, title, message, duration = 3000) {
+        // Create toast container if it doesn't exist
+        let container = document.querySelector(".toast-container");
+        if (!container) {
+          container = document.createElement("div");
+          container.className = "toast-container";
+          document.body.appendChild(container);
+        }
+
+        // Create toast element
+        const toast = document.createElement("div");
+        toast.className = `toast toast-${type}`;
+
+        // Set icon based on type
+        let icon = "";
+        let iconClass = "";
+        if (type === "success") {
+          icon = "✓";
+          iconClass = "fas fa-check-circle";
+        } else if (type === "error") {
+          icon = "✕";
+          iconClass = "fas fa-exclamation-circle";
+        } else {
+          icon = "ℹ";
+          iconClass = "fas fa-info-circle";
+        }
+
+        toast.innerHTML = `
+          <div class="toast-icon">
+            <i class="${iconClass} checkmark-animation"></i>
+          </div>
+          <div class="toast-content">
+            <div class="toast-title">${title}</div>
+            <div class="toast-message">${message}</div>
+          </div>
+          <button class="toast-close" onclick="this.parentElement.remove()">
+            <i class="fas fa-times"></i>
+          </button>
+        `;
+
+        // Add to container
+        container.appendChild(toast);
+
+        // Trigger animation
+        setTimeout(() => {
+          toast.classList.add("show");
+        }, 10);
+
+        // Auto remove after duration
+        setTimeout(() => {
+          toast.classList.remove("show");
+          toast.classList.add("hide");
+          setTimeout(() => {
+            if (toast.parentElement) {
+              toast.remove();
+            }
+          }, 300);
+        }, duration);
+
+        return toast;
+      }
+      let sectionCount = 0;
+      let totalSteps = 0;
+
+      function updateStats() {
+        const sections = document.querySelectorAll(
+          "#sections .section-card"
+        ).length;
+        const steps = document.querySelectorAll(".step").length;
+
+        document.getElementById(
+          "section-count"
+        ).textContent = `${sections} section${sections !== 1 ? "s" : ""}`;
+        document.getElementById("step-count").textContent = `${steps} step${
+          steps !== 1 ? "s" : ""
+        }`;
+
+        const emptyState = document.getElementById("empty-state");
+        if (sections > 0) {
+          emptyState.style.display = "none";
+        } else {
+          emptyState.style.display = "flex";
+        }
+      }
+
+      function addSection() {
+        const sectionsContainer = document.getElementById("sections");
+        const sectionId = Date.now();
+
+        const section = document.createElement("div");
+        section.className = "section-card";
+        section.id = `section-${sectionId}`;
+        section.innerHTML = `
+          <div class="section-header">
+            <h3><i class="fas fa-layer-group"></i> Section <span class="section-number"></span></h3>
+            <button class="btn btn-danger btn-sm" onclick="removeSection('${sectionId}')" title="Remove section">
+              <i class="fas fa-trash"></i> Delete Section
+            </button>
+          </div>
+          
+          <div class="form-group">
+            <label>Section Title <span class="req">*</span></label>
+            <div class="input-with-icon">
+              <i class="fas fa-heading"></i>
+              <input class="section-title" placeholder="Enter section title" required />
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Section Description <span class="req">*</span></label>
+            <div class="input-with-icon">
+              <i class="fas fa-align-left"></i>
+              <textarea class="section-desc" placeholder="Describe what this section covers" rows="3" required></textarea>
+            </div>
+          </div>
+          
+          <div class="steps-container">
+            <div class="steps-header">
+              <h4><i class="fas fa-list-ol"></i> Steps</h4>
+            </div>
+            <div class="steps-list"></div>
+            
+            <!-- Add Step Button at Bottom -->
+            <div class="add-step-footer">
+              <button class="btn btn-primary" onclick="addStep(this)">
+                <i class="fas fa-plus"></i> Add Step
+              </button>
+            </div>
+          </div>`;
+
+        sectionsContainer.appendChild(section);
+        updateSectionNumbers();
+        updateStats();
+
+        // Scroll to the new section
+        section.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function removeSection(sectionId) {
+        if (
+          confirm(
+            "Are you sure you want to remove this section and all its steps?"
+          )
+        ) {
+          const section = document.getElementById(`section-${sectionId}`);
+          const steps = section.querySelectorAll(".step").length;
+          totalSteps -= steps;
+          section.remove();
+          updateSectionNumbers();
+          updateStats();
+        }
+      }
+
+      function updateSectionNumbers() {
+        document.querySelectorAll(".section-card").forEach((section, index) => {
+          section.querySelector(".section-number").textContent = index + 1;
+        });
+      }
+
+      function addStep(btn) {
+        const stepsList = btn
+          .closest(".steps-container")
+          .querySelector(".steps-list");
+        const stepNum = stepsList.children.length + 1;
+
+        const step = document.createElement("div");
+        step.className = "step";
+        step.innerHTML = `
+  <div class="step-header">
+  <div class="step-number">
+    <i class="fas fa-footsteps"></i>
+    <span>Step ${stepNum}</span>
+  </div>
+  <button class="btn btn-danger btn-sm" onclick="removeStep(this)" title="Remove step">
+    <i class="fas fa-trash"></i> Delete Step
+  </button>
+</div>
+    
+    <div class="form-group">
+      <label>Step Description <span class="req">*</span></label>
+      <div class="input-with-icon">
+        <i class="fas fa-align-left"></i>
+        <textarea class="step-desc" placeholder="Describe this step in detail" rows="2" required></textarea>
+      </div>
+    </div>
+    
+    <div class="form-group">
+      <label>Snapshot <span class="req">*</span></label>
+      <div class="file-upload">
+        <label class="file-upload-label">
+          <input type="file" accept="image/*" onchange="uploadImage(this)" />
+          <div class="file-upload-content">
+            <i class="fas fa-image"></i>
+            <span>Choose an image</span>
+          </div>
+        </label>
+        <div class="file-preview">
+          <div class="image-preview-container" style="display: none;">
+            <div class="preview-header">
+              <span class="preview-title"><i class="fas fa-image"></i> Preview:</span>
+              <button type="button" class="btn-remove-image" onclick="removeImage(this)">
+                <i class="fas fa-times"></i> Remove
+              </button>
+            </div>
+            <div class="preview-content">
+              <img class="preview-image" onclick="viewFullImage(this.src)">
+              <div class="image-info">
+                <div class="img-path"></div>
+
+              </div>
+            </div>
+          </div>
+          <div class="no-file-state">
+            <i class="fas fa-image icon-placeholder"></i>
+            <span class="no-file-text">No image selected</span>
+          </div>
+        </div>
+      </div>
+      <small class="helper-text">Supported: JPG, PNG, GIF, SVG</small>
+    </div>`;
+
+        stepsList.appendChild(step);
+        updateStepNumbers();
+        updateStats();
+
+        // Scroll to the new step
+        step.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      }
+
+      function removeStep(btn) {
+        const step = btn.closest(".step");
+        if (confirm("Are you sure you want to remove this step?")) {
+          step.remove();
+          updateStepNumbers();
+          updateStats();
+        }
+      }
+
+      function updateStepNumbers() {
+        document.querySelectorAll(".steps-list").forEach((stepsList) => {
+          stepsList.querySelectorAll(".step").forEach((step, index) => {
+            // Update step number
+            step.querySelector(".step-number span").textContent = `Step ${
+              index + 1
+            }`;
+
+            // Ensure delete button has proper text
+            const deleteBtn = step.querySelector(".step-header .btn-danger");
+            if (deleteBtn && !deleteBtn.textContent.includes("Delete Step")) {
+              deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete Step';
+            }
+          });
+        });
+      }
+      async function uploadImage(input) {
+        const file = input.files[0];
+        if (!file) return;
+
+        const filePreview = input
+          .closest(".file-upload")
+          .querySelector(".file-preview");
+        const imagePreviewContainer = filePreview.querySelector(
+          ".image-preview-container"
+        );
+        const noFileState = filePreview.querySelector(".no-file-state");
+        const uploadProgress = filePreview.querySelector(".upload-progress");
+
+        // Show upload progress
+        if (!uploadProgress) {
+          const progressDiv = document.createElement("div");
+          progressDiv.className = "upload-progress";
+          progressDiv.innerHTML = `<div class="progress-bar"></div><span>Uploading...</span>`;
+          filePreview.appendChild(progressDiv);
+        }
+
+        imagePreviewContainer.style.display = "none";
+        noFileState.style.display = "none";
+        filePreview.querySelector(".upload-progress").style.display = "flex";
+
+        const formData = new FormData();
+        formData.append("image", file);
+
+        // Get the old filename if it exists (for renaming)
+        const oldPath = input.dataset.path;
+        if (oldPath) {
+          // Extract just the filename from the old path
+          const oldFilename = oldPath.split("/").pop();
+          formData.append("old_filename", oldFilename);
+        }
+
+        try {
+          const res = await fetch("/upload-image", {
+            method: "POST",
+            body: formData,
+          });
+
+          if (!res.ok) {
+            throw new Error("Upload failed");
+          }
+
+          const data = await res.json();
+          input.dataset.path = data.path;
+
+          // Update UI with image preview
+          filePreview.querySelector(".upload-progress").style.display = "none";
+
+          // Show image preview
+          const previewImage =
+            imagePreviewContainer.querySelector(".preview-image");
+          const imgPath = imagePreviewContainer.querySelector(".img-path");
+
+          previewImage.src = data.path;
+          previewImage.alt = "Step snapshot";
+          imgPath.textContent = data.path;
+
+          imagePreviewContainer.style.display = "block";
+          noFileState.style.display = "none";
+
+          // Show success toast
+          showToast(
+            "success",
+            "Upload Complete",
+            "Image uploaded successfully!",
+            2000
+          );
+        } catch (error) {
+          filePreview.querySelector(".upload-progress").style.display = "none";
+          noFileState.style.display = "flex";
+          noFileState.querySelector(".no-file-text").textContent =
+            "Upload failed. Please try again.";
+          noFileState.style.color = "#dc3545";
+
+          showToast(
+            "error",
+            "Upload Failed",
+            "Failed to upload image. Please try again.",
+            3000
+          );
+          console.error("Upload error:", error);
+        }
+      }
+
+      function validateForm() {
+        // 1. Check mandatory fields
+        let valid = true;
+        const requiredFields = document.querySelectorAll(
+          "input[required], textarea[required], select[required]"
+        );
+
+        requiredFields.forEach((el) => {
+          if (!el.value.trim()) {
+            valid = false;
+            el.classList.add("error");
+          } else {
+            el.classList.remove("error");
+          }
+        });
+
+        if (!valid) {
+          showToast(
+            "error",
+            "Validation Error",
+            "Please fill in all required fields marked with *",
+            4000
+          );
+          return false;
+        }
+
+        // 2. At least one section must exist
+        const sectionCards = document.querySelectorAll(
+          "#sections .section-card"
+        );
+        if (sectionCards.length === 0) {
+          showToast(
+            "error",
+            "Validation Error",
+            "Please add at least one section to save the tutorial.",
+            4000
+          );
+          return false;
+        }
+
+        // 3. Each section must have at least one step
+        for (const section of sectionCards) {
+          const steps = section.querySelectorAll(".step");
+          if (steps.length === 0) {
+            showToast(
+              "error",
+              "Validation Error",
+              "Each section must have at least one step.",
+              4000
+            );
+            section.scrollIntoView({ behavior: "smooth" });
+            return false;
+          }
+
+          for (const step of steps) {
+            const desc = step.querySelector(".step-desc").value.trim();
+
+            // Only check description, snapshot is optional
+            if (!desc) {
+              showToast(
+                "error",
+                "Validation Error",
+                "Step description is required.",
+                4000
+              );
+              step.scrollIntoView({ behavior: "smooth" });
+              return false;
+            }
+          }
+        }
+
+        return true;
+      }
+
+      async function loadSelectedJSON() {
+        const select = document.getElementById("edit-filename-select");
+        const filename = select.value;
+
+        if (!filename) {
+          showToast(
+            "error",
+            "Error",
+            "No file selected to edit. Please select a file from the dropdown.",
+            3000
+          );
+
+          // Highlight the dropdown to show error
+          select.classList.add("error");
+          setTimeout(() => {
+            select.classList.remove("error");
+          }, 2000);
+
+          return;
+        }
+
+        try {
+          // Show loading state
+          const loadBtn = document.getElementById("load-tutorial-btn");
+          const originalText = loadBtn.innerHTML;
+          loadBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Loading...';
+          loadBtn.disabled = true;
+
+          // Load the JSON file
+          const response = await fetch(
+            `/load-json?filename=${encodeURIComponent(filename)}`
+          );
+          const result = await response.json();
+
+          if (!response.ok) {
+            throw new Error(result.error || "Failed to load file");
+          }
+
+          // Populate the form with existing data
+          populateForm(result);
+
+          // Also set the json_filename field with the friendly name
+          document.getElementById("json_filename").value = result.tutorial_name;
+
+          // Show success message
+          showToast(
+            "success",
+            "Loaded",
+            `Now editing "${result.tutorial_name}"`,
+            2000
+          );
+        } catch (error) {
+          showToast(
+            "error",
+            "Error",
+            error.message || "Failed to load tutorial",
+            3000
+          );
+          console.error("Load error:", error);
+        } finally {
+          // Restore button
+          const loadBtn = document.getElementById("load-tutorial-btn");
+          loadBtn.innerHTML = '<i class="fas fa-pencil-alt"></i> Load JSON';
+          loadBtn.disabled = false;
+        }
+      }
+
+      function populateForm(data) {
+        // Clear existing sections
+        document.getElementById("sections").innerHTML = "";
+
+        // Set basic info
+        document.getElementById("tutorial_name").value =
+          data.tutorial_name || "";
+        document.getElementById("language").value = data.language || "en";
+        document.getElementById("json_filename").value =
+          data.tutorial_name || "";
+
+        // Add sections
+        if (data.sections && Array.isArray(data.sections)) {
+          data.sections.forEach((section, sectionIndex) => {
+            // Add section
+            addSection();
+
+            // Get the newly added section
+            const sections = document.querySelectorAll(".section-card");
+            const currentSection = sections[sections.length - 1];
+
+            // Set section data
+            currentSection.querySelector(".section-title").value =
+              section.section_title || "";
+            currentSection.querySelector(".section-desc").value =
+              section.description || "";
+
+            // Add steps
+            if (section.steps && Array.isArray(section.steps)) {
+              section.steps.forEach((step, stepIndex) => {
+                const addStepBtn = currentSection.querySelector(
+                  ".add-step-footer .btn-primary"
+                );
+                if (addStepBtn) {
+                  addStep(addStepBtn);
+
+                  // Get the newly added step
+                  const stepsList = currentSection.querySelector(".steps-list");
+                  const steps = stepsList.querySelectorAll(".step");
+                  const currentStep = steps[steps.length - 1];
+
+                  // Set step data
+                  currentStep.querySelector(".step-desc").value =
+                    step.description || "";
+
+                  // Set snapshot path and show preview if exists
+                  const fileInput =
+                    currentStep.querySelector('input[type="file"]');
+                  if (fileInput && step.snapshot) {
+                    // Store the path in both dataset and as a custom attribute for renaming
+                    fileInput.dataset.path = step.snapshot;
+                    fileInput.setAttribute(
+                      "data-old-filename",
+                      step.snapshot.split("/").pop()
+                    );
+
+                    const filePreview =
+                      currentStep.querySelector(".file-preview");
+                    const imagePreviewContainer = filePreview.querySelector(
+                      ".image-preview-container"
+                    );
+                    const previewImage =
+                      imagePreviewContainer.querySelector(".preview-image");
+                    const imgPath =
+                      imagePreviewContainer.querySelector(".img-path");
+                    const noFileState =
+                      filePreview.querySelector(".no-file-state");
+
+                    // Show image preview
+                    previewImage.src = step.snapshot;
+                    previewImage.alt = "Step snapshot";
+                    imgPath.textContent = step.snapshot;
+
+                    imagePreviewContainer.style.display = "block";
+                    noFileState.style.display = "none";
+
+                    // Add click event for zoom
+                    previewImage.onclick = function () {
+                      viewFullImage(this.src);
+                    };
+                  }
+                }
+              });
+            }
+          });
+        }
+
+        updateSectionNumbers();
+        updateStepNumbers();
+        updateStats();
+      }
+      function clearForm() {
+        if (
+          confirm("Start a new tutorial? Any unsaved changes will be lost.")
+        ) {
+          // Clear all form fields
+          document.getElementById("tutorial_name").value = "";
+          document.getElementById("language").value = "";
+          document.getElementById("json_filename").value = "";
+          document.getElementById("sections").innerHTML = "";
+
+          // Reset dropdown selection
+          document.getElementById("edit-filename-select").value = "";
+          onFileSelectChange();
+
+          updateStats();
+          showToast(
+            "info",
+            "New Tutorial",
+            "Ready to create a new tutorial",
+            2000
+          );
+        }
+      }
+
+      async function loadAvailableFiles() {
+        try {
+          const response = await fetch("/list-json-files");
+          const result = await response.json();
+
+          if (response.ok && result.files) {
+            populateFileDropdown(result.files);
+            // Store files globally for later use
+            window.availableFiles = result.files;
+          }
+        } catch (error) {
+          console.error("Error loading files:", error);
+        }
+      }
+      function populateFileDropdown(files) {
+        const select = document.getElementById("edit-filename-select");
+
+        // Clear existing options (except first one)
+        while (select.options.length > 1) {
+          select.remove(1);
+        }
+
+        // Add files with friendly names
+        files.forEach((file) => {
+          const option = document.createElement("option");
+          option.value = file.filename;
+
+          // Create friendly name
+          let friendlyName = file.tutorial_name;
+          if (file.language && file.language !== "unknown") {
+            const langMap = {
+              en: " (English)",
+              "ur-roman": " (Roman Urdu)",
+              ur: " (Urdu)",
+            };
+            friendlyName += langMap[file.language] || ` (${file.language})`;
+          }
+
+          option.textContent = friendlyName;
+          option.dataset.tutorialName = file.tutorial_name;
+          option.dataset.language = file.language;
+          option.dataset.sectionsCount = file.sections_count;
+          select.appendChild(option);
+        });
+      }
+
+      function onFileSelectChange() {
+        const select = document.getElementById("edit-filename-select");
+        const selectedOption = select.options[select.selectedIndex];
+        const loadBtn = document.getElementById("load-tutorial-btn");
+        const deleteBtn = document.getElementById("delete-tutorial-btn");
+        const infoDiv = document.getElementById("tutorial-info");
+
+        if (selectedOption.value) {
+          loadBtn.disabled = false;
+          deleteBtn.disabled = false;
+
+          // Show file info
+          document.getElementById("selected-tutorial-name").textContent =
+            selectedOption.dataset.tutorialName;
+          document.getElementById("selected-language").textContent =
+            getLanguageName(selectedOption.dataset.language);
+          document.getElementById("selected-sections").textContent = `${
+            selectedOption.dataset.sectionsCount
+          } section${selectedOption.dataset.sectionsCount != 1 ? "s" : ""}`;
+          infoDiv.style.display = "block";
+        } else {
+          loadBtn.disabled = true;
+          deleteBtn.disabled = true;
+          infoDiv.style.display = "none";
+        }
+      }
+
+      function getLanguageName(langCode) {
+        const langMap = {
+          en: "English",
+          "ur-roman": "Roman Urdu",
+          ur: "Urdu",
+          unknown: "Unknown",
+        };
+        return langMap[langCode] || langCode;
+      }
+      // Function to delete selected JSON
+      async function deleteSelectedJSON() {
+        const select = document.getElementById("edit-filename-select");
+        const filename = select.value;
+
+        if (!filename) return;
+
+        const tutorialName =
+          select.options[select.selectedIndex].dataset.tutorialName;
+
+        if (
+          !confirm(
+            `Are you sure you want to delete "${tutorialName}"? This action cannot be undone.`
+          )
+        ) {
+          return;
+        }
+
+        try {
+          const deleteBtn = document.getElementById("delete-tutorial-btn");
+          const originalText = deleteBtn.innerHTML;
+          deleteBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Deleting...';
+          deleteBtn.disabled = true;
+
+          // Note: You'll need to add a delete endpoint to your app.py
+          const response = await fetch("/delete-json", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ filename: filename }),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            showToast(
+              "success",
+              "Deleted",
+              `"${tutorialName}" has been deleted`,
+              3000
+            );
+
+            // Remove from dropdown
+            select.remove(select.selectedIndex);
+            select.value = "";
+            onFileSelectChange();
+
+            // Clear form if the deleted file was being edited
+            const currentFilename = document.getElementById(
+              "edit-filename-select"
+            ).value;
+            if (!currentFilename) {
+              clearForm();
+            }
+          } else {
+            throw new Error(result.error || "Failed to delete file");
+          }
+        } catch (error) {
+          showToast(
+            "error",
+            "Error",
+            error.message || "Failed to delete tutorial",
+            3000
+          );
+          console.error("Delete error:", error);
+        } finally {
+          const deleteBtn = document.getElementById("delete-tutorial-btn");
+          deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+          deleteBtn.disabled = false;
+        }
+      }
+
+      function removeImage(btn) {
+        const imagePreviewContainer = btn.closest(".image-preview-container");
+        const filePreview = imagePreviewContainer.closest(".file-preview");
+        const fileInput =
+          filePreview.parentElement.querySelector('input[type="file"]');
+        const noFileState = filePreview.querySelector(".no-file-state");
+
+        // Clear the file input AND dataset.path
+        fileInput.value = "";
+        if (fileInput.dataset.path) {
+          delete fileInput.dataset.path;
+        }
+
+        // Hide preview, show "no file" state
+        imagePreviewContainer.style.display = "none";
+        noFileState.style.display = "flex";
+        noFileState.querySelector(".no-file-text").textContent =
+          "No image selected";
+        noFileState.style.color = "#6c757d";
+
+        showToast("info", "Image Removed", "Snapshot has been removed", 2000);
+      }
+
+      // Image zoom functionality
+      function viewFullImage(imageSrc) {
+        const modal = document.getElementById("imageModal");
+        const fullSizeImage = document.getElementById("fullSizeImage");
+
+        fullSizeImage.src = imageSrc;
+        modal.style.display = "flex";
+
+        // Prevent body scroll when modal is open
+        document.body.style.overflow = "hidden";
+      }
+
+      function closeImageModal() {
+        const modal = document.getElementById("imageModal");
+        modal.style.display = "none";
+
+        // Restore body scroll
+        document.body.style.overflow = "auto";
+      }
+
+      // Close modal when clicking outside the image
+      document.addEventListener("click", function (event) {
+        const modal = document.getElementById("imageModal");
+        if (event.target === modal) {
+          closeImageModal();
+        }
+      });
+
+      // Close modal with Escape key
+      document.addEventListener("keydown", function (event) {
+        const modal = document.getElementById("imageModal");
+        if (event.key === "Escape" && modal.style.display === "flex") {
+          closeImageModal();
+        }
+      });
+
+      async function updateVectorDB() {
+        const btn = document.getElementById("update-vectordb-btn");
+        const statusDiv = document.getElementById("vectordb-status");
+        const originalText = btn.innerHTML;
+
+        // Show loading state
+        btn.innerHTML =
+          '<i class="fas fa-spinner fa-spin"></i> MIRA is learning...';
+        btn.disabled = true;
+        statusDiv.style.display = "block";
+        statusDiv.innerHTML =
+          '<div style="color: #666; font-size: 1.1rem; padding: 10px;"><i class="fas fa-spinner fa-spin"></i> Please wait while MIRA reads your new tutorials...</div>';
+
+        try {
+          const response = await fetch("/update-vectordb", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+          });
+
+          const result = await response.json();
+          if (response.ok && result.success) {
+            // Parse the enhanced output for layman-friendly details
+            const output = result.output || "";
+            const lines = output.split("\n");
+
+            let additions = [];
+            let updates = [];
+            let removals = [];
+            let summary = "";
+
+            lines.forEach((line) => {
+              if (line.startsWith("NEW:")) {
+                additions.push(line.replace("NEW:", "").trim());
+              } else if (line.startsWith("UPDATED:")) {
+                updates.push(line.replace("UPDATED:", "").trim());
+              } else if (line.startsWith("REMOVED:")) {
+                removals.push(line.replace("REMOVED:", "").trim());
+              } else if (line.startsWith("FINAL SUMMARY:")) {
+                summary = line.replace("FINAL SUMMARY:", "").trim();
+              }
+            });
+
+            let detailsHtml = "";
+
+            // Add JSON Save Status if available
+            if (window.lastSaveStatus) {
+              detailsHtml += `
+                <div style="margin-bottom: 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #c3e6cb;">
+                  <strong style="color: #198754;"><i class="fas fa-file-check"></i> File Status:</strong>
+                  <div style="font-size: 0.95rem; margin-top: 5px;">
+                    The tutorial <strong>"${window.lastSaveStatus.tutorial_name}"</strong> was successfully saved as <code>${window.lastSaveStatus.filename}</code> at ${window.lastSaveStatus.timestamp}.
+                  </div>
+                </div>`;
+            }
+
+            if (additions.length > 0) {
+              detailsHtml += `
+                <div style="margin-top: 15px;">
+                  <strong style="color: #0d6efd;"><i class="fas fa-plus-circle"></i> New Information Learned:</strong>
+                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                    ${additions
+                      .map(
+                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                </div>`;
+            }
+
+            if (updates.length > 0) {
+              detailsHtml += `
+                <div style="margin-top: 15px;">
+                  <strong style="color: #198754;"><i class="fas fa-sync-alt"></i> Information Updated:</strong>
+                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                    ${updates
+                      .map(
+                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                </div>`;
+            }
+
+            if (removals.length > 0) {
+              detailsHtml += `
+                <div style="margin-top: 15px;">
+                  <strong style="color: #dc3545;"><i class="fas fa-minus-circle"></i> Obsolete Information Removed:</strong>
+                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                    ${removals
+                      .map(
+                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                      )
+                      .join("")}
+                  </ul>
+                </div>`;
+            }
+
+            if (!detailsHtml) {
+              detailsHtml = `
+                <div style="margin-top: 15px; padding: 10px; background: #e9ecef; border-radius: 8px; color: #495057;">
+                  <i class="fas fa-info-circle"></i> MIRA checked everything and it's already up to date! No new changes were needed.
+                </div>`;
+            }
+
+            statusDiv.innerHTML = `
+                <div style="color: #155724; padding: 25px; background: #d4edda; border-radius: 12px; border: 2px solid #c3e6cb; box-shadow: 0 4px 12px rgba(25, 135, 84, 0.1); margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
+                        <i class="fas fa-check-circle" style="font-size: 2rem; color: #28a745;"></i>
+                        <h4 style="margin: 0; font-size: 1.3rem;">Great News!</h4>
+                    </div>
+                    <p style="margin: 0; font-size: 1.1rem; font-weight: 600;">
+                        MIRA has successfully learned the latest changes!
+                    </p>
+                    
+                    ${detailsHtml}
+
+                    <div style="margin-top: 18px; padding-top: 12px; border-top: 1px solid #c3e6cb; font-size: 0.95rem; color: #155724; font-weight: 500;">
+                        <i class="fas fa-database"></i> ${
+                          summary || "Global knowledge bank refreshed."
+                        }
+                    </div>
+                    <div style="margin-top: 8px; font-size: 0.85rem; color: #155724; opacity: 0.8;">
+                        Your tutorials are now live and MIRA is ready to guide users with this new information.
+                    </div>
+                </div>
+            `;
+            showToast(
+              "success",
+              "Update Complete",
+              "MIRA's knowledge has been refreshed!",
+              3000
+            );
+          } else {
+            statusDiv.innerHTML = `
+                <div style="color: #721c24; padding: 20px; background: #f8d7da; border-radius: 12px; border: 2px solid #f5c6cb; margin-top: 15px;">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem;"></i>
+                        <h4 style="margin: 0;">Learning Interrupted</h4>
+                    </div>
+                    <p style="margin: 0; font-size: 1rem;">
+                        Something went wrong while MIRA was trying to learn. 
+                        <strong>Error:</strong> ${
+                          result.message || "Failed to process content"
+                        }
+                    </p>
+                </div>
+            `;
+            showToast(
+              "error",
+              "Update Failed",
+              "Failed to update vector database",
+              4000
+            );
+          }
+        } catch (error) {
+          statusDiv.innerHTML = `
+            <div style="color: #721c24; padding: 10px; background: #f8d7da; border-radius: 5px; border-left: 4px solid #dc3545;">
+                <i class="fas fa-exclamation-circle"></i> <strong>Connection Error!</strong>
+                <div style="margin-top: 5px; font-size: 0.85rem; color: #721c24;">
+                    ${error.message}
+                </div>
+            </div>
+        `;
+          showToast(
+            "error",
+            "Network Error",
+            "Could not connect to server",
+            4000
+          );
+        } finally {
+          // Restore button
+          btn.innerHTML = originalText;
+          btn.disabled = false;
+        }
+      }
+      // Modified exportJSON function to handle updates
+      async function exportJSON() {
+        if (!validateForm()) return;
+
+        const saveBtn = event.target;
+        const originalText = saveBtn.innerHTML;
+        saveBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
+        saveBtn.disabled = true;
+
+        try {
+          const data = {
+            tutorial_name: document.getElementById("tutorial_name").value,
+            language: document.getElementById("language").value,
+            json_filename: document.getElementById("json_filename").value,
+            sections: [],
+          };
+
+          // Collect sections data
+          document.querySelectorAll(".section-card").forEach((section) => {
+            const title = section.querySelector(".section-title");
+            if (!title) return;
+
+            const sec = {
+              section_title: title.value,
+              description: section.querySelector(".section-desc").value,
+              steps: [],
+            };
+
+            section.querySelectorAll(".step").forEach((step, i) => {
+              // Get the file input
+              const fileInput = step.querySelector('input[type="file"]');
+              let snapshotPath = "";
+
+              // Check for existing image path
+              if (fileInput && fileInput.dataset.path) {
+                snapshotPath = fileInput.dataset.path;
+              } else {
+                // Check if there's an image preview (for loaded existing images)
+                const previewImage = step.querySelector(".preview-image");
+                if (
+                  previewImage &&
+                  previewImage.src &&
+                  previewImage.src !== ""
+                ) {
+                  snapshotPath = previewImage.src;
+                }
+              }
+
+              const stepData = {
+                step_number: i + 1,
+                description: step.querySelector(".step-desc").value,
+                snapshot: snapshotPath,
+              };
+              sec.steps.push(stepData);
+            });
+
+            data.sections.push(sec);
+          });
+
+          // Check if we're editing an existing file
+          const editSelect = document.getElementById("edit-filename-select");
+          const editFilename = editSelect.value;
+          const endpoint = editFilename ? "/update-json" : "/save-json";
+          const payload = editFilename
+            ? {
+                ...data,
+                original_filename: editFilename,
+              }
+            : data;
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload),
+          });
+
+          const result = await response.json();
+
+          if (response.ok) {
+            const message = editFilename
+              ? "Tutorial updated successfully!"
+              : "Tutorial saved successfully!";
+            showToast("success", "Success!", message, 3000);
+
+            // Store the last save status for MIRA feedback
+            window.lastSaveStatus = {
+              filename:
+                result.new_filename ||
+                editFilename ||
+                data.json_filename + ".json",
+              tutorial_name: data.tutorial_name,
+              timestamp: new Date().toLocaleTimeString(),
+            };
+
+            // If we were editing, update the dropdown
+            if (editFilename) {
+              // Update the tutorial name in the dropdown
+              const selectedOption =
+                editSelect.options[editSelect.selectedIndex];
+              if (selectedOption) {
+                selectedOption.dataset.tutorialName = data.tutorial_name;
+
+                // Update the display text
+                let friendlyName = data.tutorial_name;
+                const langMap = {
+                  en: " (English)",
+                  "ur-roman": " (Roman Urdu)",
+                  ur: " (Urdu)",
+                };
+                friendlyName += langMap[data.language] || ` (${data.language})`;
+                selectedOption.textContent = friendlyName;
+              }
+            }
+
+            // Reload the file list to reflect changes
+            loadAvailableFiles();
+          } else {
+            showToast(
+              "error",
+              "Error",
+              result.error || "Failed to save tutorial",
+              4000
+            );
+          }
+        } catch (error) {
+          showToast(
+            "error",
+            "Error",
+            "Failed to save tutorial. Please try again.",
+            4000
+          );
+          console.error("Save error:", error);
+        } finally {
+          saveBtn.innerHTML = originalText;
+          saveBtn.disabled = false;
+        }
+      }
+      // Initialize empty state
+      updateStats();
+      document.addEventListener("DOMContentLoaded", function () {
+        loadAvailableFiles();
+        updateStats();
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,159 @@
+{
+  "tutorial_name": "Manage Property",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New Asset",
+      "description": "This section guides the user to add new assets in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Assets' section and you will be navigated to the 'Assets' page.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Assets' page, click on the '+' button located at the top right corner.",
+          "snapshot": "static/images/assets_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with fourteen fields. The fields include: 'Asset Name' (input), 'Asset Type' (input), 'Asset Code' (input), 'Asset Category' (input), 'Asset Serial Number' (input), 'Asset Model Number' (input), 'Asset Value' (input), 'Asset Barcode' (input), 'Asset Manufacturer' (input), 'Asset Vendor' (input), 'Asset Purchasing Date' (date field), 'Asset Manufacturing Date' (date field), 'Asset Warranty Expiry Date' (date field), and 'Status' (dropdown). Fill in the required information and click the 'Add' button.",
+          "snapshot": "static/images/assets_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Customer Asset",
+      "description": "This section guides the user to add new customer assets in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Customer Assets' section and you will be navigated to the 'Customer Assets' page.",
+          "snapshot": "static/images/customer_assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Customer Assets' page, click the '+' button located at the top right corner.",
+          "snapshot": "static/images/customer_assets_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with eight fields. The fields include: 'Select Region' (dropdown), 'Select Area' (dropdown), 'Select Territory' (dropdown), 'Select Distributor' (dropdown), 'Select Customer' (dropdown), 'Select Asset' (dropdown), 'Induction Date' (date field), and 'Status' (dropdown). Select the appropriate values and click the 'Add' button.",
+          "snapshot": "static/images/customer_assets_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Asset Servicing Record",
+      "description": "This section guides the user to add a new asset servicing record in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Asset Servicing Record' section and you will be navigated to the 'Asset Servicing Record' page.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button located at the top right corner of the 'Asset Servicing Record' page.",
+          "snapshot": "static/images/asset_servicing_records_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A popup will appear with nine fields. The fields are: 'Asset ID' (input), 'Service Type' (input), 'Service Charges' (input), 'Service Date' (date field), 'Parts Name' (input), 'Parts Charges' (input), 'Service Company' (input), 'Service Invoice Image' (image upload), and 'Status' (dropdown). Fill in the details and click the 'Add' button.",
+          "snapshot": "static/images/asset_servicing_records_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Assets",
+      "description": "This section guides the user to search for the details of assets in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Assets' section to open the 'Assets' page.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Assets' page, click on the 'Search' field located at the top left of this page.",
+          "snapshot": "static/images/assets_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the asset name you want to search for. If the asset exists, it will appear on the screen.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Asset Servicing Records",
+      "description": "This section guides the user to search for the details of asset servicing records in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Asset Servicing Records' section and you will be navigated to the 'Asset Servicing Records' page.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this page, click on the 'Search' field located at the top left.",
+          "snapshot": "static/images/asset_servicing_records_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the aasset servicing record you want to search for. If it exists, it will appear in the results.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Assets located",
+      "description": "This section would let user know where the Assets page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Assets' section and you will be navigated to the 'Assets' page.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Assets' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/assets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Customer Assets located",
+      "description": "This section would let user know where the Assets page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Customer Assets' section and you will be navigated to the 'Customer Assets' page.",
+          "snapshot": "static/images/customer_assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Customer Assets' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/customer_assets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Asset Servicing Record located",
+      "description": "This section would let user know where the Assets Servicing Record page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Asset Servicing Record' section and you will be navigated to the 'Asset Servicing Record' page.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Asset Servicing Record' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/asset_servicing_records.png"
+        }
+      ]
+    }
+  ]
+}

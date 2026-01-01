@@ -1,0 +1,291 @@
+{
+  "tutorial_name": "Manage People - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Naya User Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya user kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Users' section par click karay aur aap 'Users' page par pohanch jaogay.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Users' page par top right corner mein maujood '+' icon par click karay.",
+          "snapshot": "static/images/users_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek pop-up open hoga jisme bohat saari fields hongi, jaise: 'Full Name', 'Username', 'Designation', 'User Email', 'Password', 'Mobile No', 'Check In Radius', 'Select Access Type', 'Select Role Access Area', 'Select Sector', 'Select Access Group', 'Status', 'Is Location Locked', 'Can Approve Journey', aur 'Can Mark Attendance?'. Zaroori fields fill karay aur 'Add' button par click kar do.",
+          "snapshot": "static/images/users_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Agent Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya agent kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Agents' section par click karay aur aap 'Agents' page par aa jaogay.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'View Detail' button ke sath wale '+' icon par click karay.",
+          "snapshot": "static/images/agents_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek pop-up open hoga jisme left side par 4 sections honge: 'Employee Registration', 'Employee Settings', 'Restrictions', aur 'App Permissions'. Har section mein required fields hongi. Ek ek section fill karte jao aur sab complete karne ke baad 'Add' button par click karay.",
+          "snapshot": "static/images/agents_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya PJP Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya PJP kaise add hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'PJP' section par click karay aur aap 'PJP' page par pohanch jaogay.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Get PJP' button ke sath wale '+' icon par click karay.",
+          "snapshot": "static/images/pjp_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek pop-up open hoga jisme 6 fields hongi: 'Select Distributor', 'Select Agent', 'Select Week(s)', 'Select Day(s)', 'Select Section(s)', aur 'Select Sector(s)'. Saare options select karay aur 'Add' par click kar do.",
+          "snapshot": "static/images/pjp_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Access Group Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya access group kaise add hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Access Group' section par click karay aur aap 'Access Group' page par aa jaogay.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top right corner mein '+' icon par click karay.",
+          "snapshot": "static/images/access_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek pop-up open hoga jisme 2 fields hongi: 'Access Group Name' aur 'Status'. Access group ka naam enter karay, status select karay aur 'Add' button par click kar do.",
+          "snapshot": "static/images/access_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "User ki details dekhnay ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke system mein user kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Users' section par click karay aur aap 'Users' page par pohanch jaogay.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein 'Search' icon par click karay.",
+          "snapshot": "static/images/users_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "'Users' ka naam ya 'Sector' type karo. Agar user exist karta hoga to show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Access Group ki details dekhnay ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke access group kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Access Group' section par click karay, aur tum 'Access Group' page par aa jaogay.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein 'Search' icon par click karo.",
+          "snapshot": "static/images/access_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "'Access Group' ka naam type karo. Agar exist karega to list mein show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Agent Targets ki details dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke agent targets kaise dekhe jaate hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Agent Targets' section par click karo, aur tum 'Agent Targets' page par aa jaogay.",
+          "snapshot": "static/images/agent_targets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Distributor', 'Agent' aur 'Type' dropdowns se select karo.",
+          "snapshot": "static/images/agent_targets_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "'View Details' button par click karo aur selected filters ka data show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Agent ki Details Dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke selected fields ke base par agent ki details kaise dekhte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Agent' section par click karo, aur tum 'Agent' page par aa jaogay.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Distributor' select karo, phir 'View Detail' par click karo taake agent ke records load ho jayen ge.",
+          "snapshot": "static/images/agents.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar agent mojood hoga, toh uski details neeche results mein show ho jayengi.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "PJP ki details dekhnay ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke selected filters ke hisaab se PJP kaise search kiya jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'PJP' section par click karo, aur tum 'PJP' page par aa jaogay.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Distributor', 'Agent', 'Week(s)', aur 'Day(s)' dropdowns se select karo.",
+          "snapshot": "static/images/pjp_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "'Get PJP' button par click karo aur selected fields ka data show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Users Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke Users page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": " 'Users' section par click karo, aur tum 'Users' page par aa jaogay.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Users' page par ho. Yahan se aap apni requirement ke mutabiq explore kar sakte ho.",
+          "snapshot": "static/images/users.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Agents Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke Agents page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Agents' section par click karo, aur tum 'Agents' page par aa jaogay.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Agents' page par ho. Yahan se aap apni requirement ke mutabiq kaam kar sakte ho.",
+          "snapshot": "static/images/agents.png"
+        }
+      ]
+    },
+    {
+      "section_title": "PJP Page Kahan Hai",
+      "description": "Is section mein bataya gaya hai ke PJP page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'PJP' section par click karo, aur tum 'PJP' page par aa jaogay.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'PJP' page par ho. Yahan se aap apni requirement ke mutabiq explore kar sakte ho.",
+          "snapshot": "static/images/pjp.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Agent Targets Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke Agent Targets page kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Agent Targets' section par click karo, aur tum 'Agent Targets' page par aa jaogay.",
+          "snapshot": "static/images/agent_targets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Agent Targets' page par ho. Yahan se aap apni requirement ke mutabiq explore kar sakte ho.",
+          "snapshot": "static/images/agent_targets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "User Access Page Kahan Hai",
+      "description": "Is section mein bataya gaya hai ke User Access page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'User Access' section par click karo, aur tum 'User Access' page par aa jaogay.",
+          "snapshot": "static/images/user_access_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'User Access' page par ho. Yahan se aap options explore kar sakte ho.",
+          "snapshot": "static/images/user_access.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Access Groups Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke Access Groups page kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Access Group' section par click karo, aur tum 'Access Group' page par aa jaogay.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Access Group' page par ho. Yahan se aap apni requirement ke mutabiq explore kar sakte ho.",
+          "snapshot": "static/images/access_group.png"
+        }
+      ]
+    }
+  ]
+}

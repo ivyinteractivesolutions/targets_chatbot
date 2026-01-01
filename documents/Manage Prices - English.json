@@ -1,0 +1,275 @@
+{
+  "tutorial_name": "Manage Prices - English",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New Distributor Price Group",
+      "description": "This section guides the user through adding a new Price Group for the Distributor in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor Price Group' section to navigate to the 'Distributor Price Group' page.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Distributor Price Group' page, click on the '+' icon located at the top right corner.",
+          "snapshot": "static/images/distributor_price_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with two fields: 'Price Group Name' (input) and 'Status'. Enter the required information and click the 'Add' button.",
+          "snapshot": "static/images/distributor_price_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New SKU Discounts Set",
+      "description": "This section guides the user through adding a new SKU Discounts Set in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'SKU Discounts Set' section to navigate to the 'SKU Discounts Set' page.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button next to the 'Get Discount Group' button on the 'SKU Discounts Set' page.",
+          "snapshot": "static/images/sku_discount_set_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with six fields: 'Select Group' (dropdown), 'Group Name' (input), 'Select Items' (dropdown), 'Select Items To Must Have' (dropdown), 'Apply Discount On' (dropdown), and 'Status' (dropdown). Select the proper values and click the 'Add' button.",
+          "snapshot": "static/images/sku_discount_set_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Discount",
+      "description": "This section guides the user through adding a new discount in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Discount' section to navigate to the 'Discount' page.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button next to the 'Get Discount' button on the 'Discount' page.",
+          "snapshot": "static/images/discount_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with multiple fields: 'Customer Discount' (toggle), 'Select Discount' (dropdown), 'Select Distributor Discount Group' (dropdown), 'Select Distributor' (dropdown), 'Select Channel(s)' (dropdown), 'Select Group(s)' (dropdown), 'Discount Value' (input), 'Select Discount Type' (dropdown), 'Slab Start (From)' (input), 'Slab End (To)' (input), 'Discount Start Date' (date), and 'Discount End Date' (date). Fill in the required fields and click 'Add'.",
+          "snapshot": "static/images/discount_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Distributor Discount Group or Add New Dist Discount Group",
+      "description": "This section guides the user through adding a new Distributor Discount Group or Dist Discount Group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Dist Discount Group' section to navigate to the 'Dist Discount Group' page.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' icon located at the top right corner of the 'Dist Discount Group' page.",
+          "snapshot": "static/images/dist_discount_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with two fields: 'Dist Discount Group Name' (input) and 'Status' (dropdown). Select the appropriate values and click 'Add'.",
+          "snapshot": "static/images/dist_discount_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Price",
+      "description": "This section guides the user through searching for the price in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Price' section to navigate to the 'Price' page.",
+          "snapshot": "static/images/price_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the values from 'Select Price Group' and 'Select Business Category' dropdown for the name of the price you want to search and click on the 'Search' button. If the data exists, it will be displayed.",
+          "snapshot": "static/images/price_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Distributor Price Group",
+      "description": "This section guides the user through searching for a Distributor Price Group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor Price Group' section to navigate to the 'Distributor Price Group' page.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Distributor Price Group' page, click on the search bar located at the top left corner.",
+          "snapshot": "static/images/distributor_price_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the name of the price group you want to search. If it exists, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Distributor/Dist Discount Group",
+      "description": "This section guides the user through searching a Dist Discount Group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Dist Discount Group' section to navigate to the 'Dist Discount Group' page.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Dist Discount Group' page, click on the search bar located at the top left corner.",
+          "snapshot": "static/images/dist_discount_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the discount group name you want to search. If data exists, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "view details of SKU Discount Set ",
+      "description": "This section guides the user on how to retrieve SKU discounts.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'SKU Discount Set' section to navigate to the 'SKU Discount Set' page.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the required options from the following dropdowns: Distributor , category , Price Group and status",
+          "snapshot": "static/images/sku_discount_set.png"
+        },
+        {
+          "step_number": 3,
+          "description": "After selecting all required fields, click the 'Get Discount Group' button.",
+          "snapshot": "static/images/sku_discount_set_get_discount_group_button.png"
+        },
+        {
+          "step_number": 4,
+          "description": "If data exists, the SKU discount set for the selected Price Group will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Discount",
+      "description": "This section guides the user on how to view the existing discounts.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Discount' section to navigate to the 'Discount' page.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the required 'Discount Level' from the dropdown",
+          "snapshot": "static/images/discount_discount_level_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Then click on the 'Get Discount' button.The system will retrieve the discount details for the selected level.",
+          "snapshot": "static/images/discount_get_discount_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Distributor Price Group page located",
+      "description": "This section would let the user know where the Distributor Price Group page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Distributor Price Group' section to navigate to the 'Distributor Price Group' page.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Distributor Price Group'.You can explore this page according to your requirments",
+          "snapshot": "static/images/distributor_price_group.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is SKU discount set page located",
+      "description": "This section would let user know where the SKU discount set page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'SKU discount set' section to navigate to the 'SKU discount set' page.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'SKU discount set'.You can explore this page according to your requirments",
+          "snapshot": "static/images/sku_discount_set.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Discount page located",
+      "description": "This section would let user know where the Discount page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Discount' section to navigate to the 'Discount' page.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Discount'.You can explore this page according to your requirments",
+          "snapshot": "static/images/discount.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Distributor/Dist Discount Group page located",
+      "description": "This section would let user know where the Dist Discount Group page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Dist Discount Group' section to navigate to the 'Dist Discount Group' page.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Dist Discount Group'.You can explore this page according to your requirments",
+          "snapshot": "static/images/dist_discount_group.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is price page located",
+      "description": "This section would let user know where the price page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Price' section to navigate to the 'Price' page.",
+          "snapshot": "static/images/price_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Price'.You can explore this page according to your requirments",
+          "snapshot": "static/images/price.png"
+        }
+      ]
+    }
+  ]
+}

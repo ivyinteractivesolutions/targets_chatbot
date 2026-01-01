@@ -1,0 +1,270 @@
+{
+  "tutorial_name": "Manage Prices - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Naya Distributor Price Group Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Distributor Price Group kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Price Group' section par click karay aur aap 'Distributor Price Group' page par aa jaogay.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page par top right corner mein '+' icon par click karay.",
+          "snapshot": "static/images/distributor_price_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme do fields hongi: 'Price Group Name' (input) aur 'Status' (dropdown: Active / Inactive). Required information fill karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/distributor_price_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya SKU Discounts Set Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya SKU Discounts Set kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'SKU Discounts Set' section par click karay aur aap 'SKU Discounts Set' page par aa jaogay.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Get Discount Group' button ke next mojood '+' button par click karay.",
+          "snapshot": "static/images/sku_discount_set_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme six fields hongi: 'Select Group' (dropdown), 'Group Name' (input), 'Select Items' (dropdown), 'Select Items To Must Have' (dropdown), 'Apply Discount On' (dropdown), aur 'Status' (dropdown). Proper values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/sku_discount_set_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Discount Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Discount kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Discount' section par click karay aur aap 'Discount' page par aa jaogay.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Get Discount' button ke next '+' button par click karay.",
+          "snapshot": "static/images/discount_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme multiple fields hongi, jaise: 'Customer Discount' (toggle), 'Select Discount' (dropdown), 'Select Distributor Discount Group' (dropdown), 'Select Distributor' (dropdown), 'Select Channel(s)' (dropdown), 'Select Group(s)' (dropdown), 'Discount Value' (input), 'Select Discount Type' (dropdown), 'Slab Start (From)' (input), 'Slab End (To)' (input), 'Discount Start Date' (date), aur 'Discount End Date' (date). Zaruri fields fill kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/discount_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Distributor/Dist Discount Group Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya Dist Discount Group kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Dist Discount Group' section par click karay aur aap 'Dist Discount Group' page par aa jaogay.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' icon par click karay.",
+          "snapshot": "static/images/dist_discount_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme do fields hongi: 'Dist Discount Group Name' (input) aur 'Status' (dropdown). Proper values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/dist_discount_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Price ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke system mein price kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Price' section par click karay aur aap 'Price' page par aa jaogay.",
+          "snapshot": "static/images/price_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Dropdowns 'Select Price Group' aur 'Select Business Category' select karay, phir 'Search' button par click karay. Agar data exists karta hai to display hoga.",
+          "snapshot": "static/images/price_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor Price Group ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Distributor Price Group ki details kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Price Group' section par click karay aur aap us page par aa jaogay.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page k top left corner mein 'Search' field par click karay.",
+          "snapshot": "static/images/distributor_price_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Jo price group search karna hai uska naam type karay. Agar exists kya to display hojaye ga data.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Discount ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko guide kiya gaya hai ke discount kasy dekhe jate h.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Discount' section ko click krein or aap 'Discount' walay page py phonch jye gy.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Dropdown se required 'Discount Level' select karein. Aur phir 'Select Discount Group' dropdown se required discount group select karein.",
+          "snapshot": "static/images/discount_discount_level_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Phir 'Get Discount' button par click karein. Agar record hua toh aap ki select ki hui details ke mutabiq discount details show hongi.",
+          "snapshot": "static/images/discount_get_discount_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "SKU Discount Set ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko guide kiya gaya hai SKU discounts kaise dekhay jate hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'SKU Discount' section py click karo. Or ap 'SKU Discount Set' page py phonch jaogay.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap ko 5 field show ho ge jese ke 'Price Group Level (Dropdown)', Select Distributor (Dropdown)','Select Category (Dropdown)','Select price group (dropdown)' aur 'Status (Dropdown)'. Inme se required fields select karein aur phir 'Get Discount Group' button per click karein.",
+          "snapshot": "static/images/sku_discount_set_get_discount_group_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar aap ki details hui toh aap ki select ki hui details ke mutabiq SKU discounts set show hongi.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor Discount Group ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Distributor Discount Group kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Discount Group' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page par top left corner mein 'Search' field par click karay.",
+          "snapshot": "static/images/dist_discount_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Jo discount group search karna hai uska naam type karay. Agar data exists kare to display hoga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor Price Group page kaha pay hai",
+      "description": "Is section mein user ko bataya gaya hai ke Distributor Price Group page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Price Group' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/distributor_price_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Distributor Price Group' page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/distributor_price_group.png"
+        }
+      ]
+    },
+    {
+      "section_title": " SKU Discount Set page kahan pay hai ",
+      "description": "Is section mein user ko bataya gaya hai ke SKU Discount Set page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'SKU Discount Set' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/sku_discount_set_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'SKU Discount Set' page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/sku_discount_set.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Discount page kahan pay hai ",
+      "description": "Is section mein user ko bataya gaya hai ke Discount page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Discount' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/discount_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Discount' page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/discount.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Distributor Discount Group page kahan pay hai",
+      "description": "Is section mein user ko bataya gaya hai ke Distributor Discount Group page system mein kaha located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Dist Discount Group' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/dist_discount_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Dist Discount Group' page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/dist_discount_group.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Price page kahn pay hai ",
+      "description": "Is section mein user ko bataya gaya hai ke Price page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Price' section par click karay aur aap page par aa jaogay.",
+          "snapshot": "static/images/price_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Price' page par ho. Is page ko apne requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/price.png"
+        }
+      ]
+    }
+  ]
+}

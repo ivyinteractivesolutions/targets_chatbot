@@ -1,0 +1,291 @@
+{
+  "tutorial_name": "Manage People - English",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New User",
+      "description": "This section guides the user through adding a new user in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Users' section and you will be navigated to the 'Users' page.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Users' page, click on the '+' icon located at the top right corner.",
+          "snapshot": "static/images/users_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear containing several fields. These fields include: 'Full Name' (input), 'Username' (input), 'Designation' (input), 'User Email' (input), 'Password' (input), 'Mobile No' (input), 'Check In Radius' (input), 'Select Access Type' (dropdown list), 'Select Role Access Area' (dropdown list), 'Select Sector' (dropdown list), 'Select Access Group' (dropdown list), 'Status' (dropdown list), 'Is Location Locked' (dropdown list), 'Can Approve Journey' (dropdown list), and 'Can Mark Attendance?' (dropdown list). Fill in the required fields with the appropriate options and click the 'Add' button.",
+          "snapshot": "static/images/users_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Agent",
+      "description": "This section guides the user through adding a new agent in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Agents' section and you will be navigated to the 'Agents' page.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' icon located next to the 'View Detail' button.",
+          "snapshot": "static/images/agents_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up containing multiple fields will appear. On the left side of the pop-up, there are four sections: Employee Registration, Employee Settings, Restrictions, and App Permissions. Each section contains required fields. Enter the necessary data in each section, starting from Employee Registration through to App Permissions. Once completed, click the 'Add' button to save the agent.",
+          "snapshot": "static/images/agents_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New PJP",
+      "description": "This section guides the user through adding a new PJP in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'PJP' section and you will be navigated to the 'PJP' page.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' icon located next to the 'Get PJP' button.",
+          "snapshot": "static/images/pjp_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with six fields on the 'PJP' page. The fields are: 'Select Distributor' (dropdown), 'Select Agent' (dropdown), 'Select Week(s)' (dropdown), 'Select Day(s)' (dropdown), 'Select Section(s)' (dropdown), and 'Select Sector(s)' (dropdown). Select the appropriate values and click 'Add'.",
+          "snapshot": "static/images/pjp_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Access Group",
+      "description": "This section guides the user through adding a new access group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Access Group' section and you will be navigated to the 'Access Group' page.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Access Group' page, click on the '+' icon located at the top right corner.",
+          "snapshot": "static/images/access_group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with two fields. The fields are: 'Access Group Name' (input) and 'Status' (dropdown). Enter the name of the access group in the 'Access Group Name' field, choose the status (Active/Inactive), and then click the 'Add' button.",
+          "snapshot": "static/images/access_group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of User",
+      "description": "This section guides the user through searching for a user in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Users' section and you will be navigated to the 'Users' page.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Users' page, click on the 'Search' icon located at the top left corner.",
+          "snapshot": "static/images/users_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the user you want to search for. If it exists, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Access Group",
+      "description": "This section guides the user through searching for an access group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Access Group' section and you will be navigated to the 'Access Group' page.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Access Group' page, click on the 'Search' icon located at the top left corner.",
+          "snapshot": "static/images/access_group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the access group name you want to search for. If it exists, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Agent Targets",
+      "description": "This section guides the user through viewing agent targets based on selected fields.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Agent Targets' section and you will be navigated to the 'Agent Targets' page.",
+          "snapshot": "static/images/agent_targets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the Distributor, Agent, and Type from the dropdowns as required.",
+          "snapshot": "static/images/agent_targets_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Click on the 'View Details' button to display the records based on the selected fields.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Agent",
+      "description": "This section guides the user through viewing agent based on selected fields.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Agent' section and you will be navigated to the 'Agent' page.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the Distributor, then click on 'View Detail' to load the agent records.",
+          "snapshot": "static/images/agents.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If the agent exists, it will appear in the results.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of PJP",
+      "description": "This section guides the user through searching the PJP based on selected fields.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'PJP' section and you will be navigated to the 'PJP' page.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the 'Distributor', 'Agent', 'Week(s)', 'Day(s)', 'Section(s)', and 'Sector(s)' from the dropdown lists as required.",
+          "snapshot": "static/images/pjp_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Click on the 'Get PJP' button to display the 'PJP' records based on the selected fields.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Users page located",
+      "description": "This section would let user know where is the Users page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Users' section and you will be navigated to the 'Users' page.",
+          "snapshot": "static/images/users_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Users' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/users.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Agents page located",
+      "description": "This section would let user know where is the Agents page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Agents' section and you will be navigated to the 'Agents' page.",
+          "snapshot": "static/images/agents_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Agents' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/agents.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is PJP page located",
+      "description": "This section would let user know where is the PJP page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'PJP' section and you will be navigated to the 'PJP' page.",
+          "snapshot": "static/images/pjp_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'PJP' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/pjp.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Agent Targets page located",
+      "description": "This section would let user know where is the Agent Targets page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Agent Targets' section and you will be navigated to the 'Agent Targets' page.",
+          "snapshot": "static/images/agent_targets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Agent Tragets' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/agent_targets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is User Access page located",
+      "description": "This section would let user know where is the User Access page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'User Access' section and you will be navigated to the 'User Access' page.",
+          "snapshot": "static/images/user_access_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'User Access' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/user_access.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Access Groups page located",
+      "description": "This section would let user know where is the access Groups page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Access Group' section and you will be navigated to the 'Access Group' page.",
+          "snapshot": "static/images/access_group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Access Group' page.You can explore this page according to your requirments",
+          "snapshot": "static/images/access_group.png"
+        }
+      ]
+    }
+  ]
+}

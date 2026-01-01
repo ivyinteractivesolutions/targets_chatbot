@@ -1,0 +1,122 @@
+{
+  "tutorial_name": "Manage Payment - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Bank Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke 'Bank' page system mein kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Bank' section par click karay, aur aap 'Bank' page par aa jaogay.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Bank' page par ho. Yahan aap bank add, view, edit, search ya delete kar sakte ho.",
+          "snapshot": "static/images/bank.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Wallet Page Kahan Hai",
+      "description": "Is section mein user ko bataya gaya hai ke 'Wallet' page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Wallet' section par click karay, aur aap 'Wallet' page par aa jaogay.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Wallet' page par ho. Yahan se aap wallet add, view, edit ya delete kar sakte ho.",
+          "snapshot": "static/images/wallet.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Bank ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke 'Bank' kaise search hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Bank' section par click karay, aur aap 'Bank' page par aa jaogay.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Bank' page ke top left corner mein 'Search' icon par click karay.",
+          "snapshot": "static/images/bank_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "'Bank' name type karay. Agar wo system mein hoga to aap ko show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Wallet ki details dekhnay ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke wallet ko system mein kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Wallet' section par click karay, aur aap 'Wallet' page par aa jaogay.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Wallet' page ke top left corner mein 'Search' icon par click karay.",
+          "snapshot": "static/images/wallet_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Jis 'Wallet' ka naam search karna hai woh type karay. Agar 'Wallet' maujood hoga to show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Bank Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya bank kaise add hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Bank' section par click karay, aur aap 'Bank' page par aa jaogay.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Bank' page par top right corner mein '+' icon par click karay.",
+          "snapshot": "static/images/bank_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Pop-up mein 5 fields hongi: 'Bank Name', 'Bank Short Name', 'Bank Headquarter', 'Bank Code', aur 'Status'. Saare fields fill karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/bank_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Wallet Add Karna",
+      "description": "Is section mein bataya gaya hai ke system mein naya wallet kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Wallet' section par click karay, aur aap 'Wallet' page par pohanch jaogay.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Wallet' page par top right corner mein maujood '+' icon par click karay.",
+          "snapshot": "static/images/wallet_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Pop-up mein do fields hongi: 'Transaction Type' (dropdown) aur 'Status' (dropdown). Dono select karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/wallet_popup_fields.png"
+        }
+      ]
+    }
+  ]
+}

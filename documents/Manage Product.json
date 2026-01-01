@@ -1,0 +1,490 @@
+{
+  "tutorial_name": "Manage Product",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add new Categories",
+      "description": "This section guides the user to Add new category in the System",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Categories' section and you’ll be navigated to the 'Categories' page.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Categories' page, there would be a '+' button located at the top right corner. Click on this '+' button.",
+          "snapshot": "static/images/categories_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a popup would appear with four fields. The fields are: 'Product Category Name' (input), 'Status' (dropdown), 'Image (W)' (image path) and 'Image (M)'. After selecting the appropriate values and uploading the relative images, click on the 'Add' button.",
+          "snapshot": "static/images/categories_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add new Product",
+      "description": "This section guides the user to add new product in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Product' section and you'd be navigated to the 'Product' page.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Product' page, click on the '+' button that is located at the top right corner.",
+          "snapshot": "static/images/product_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If you clicked on the '+' button a popup will appear with five fields. The fields are 'Select Category' (dropdown), 'Product Name' (imput) , 'Status' (dropdown), 'Image (W)' (image path) and 'Image (M)' (image path). After selecting the appropriate values and uploading the relative images, click on the 'Add' button.",
+          "snapshot": "static/images/product_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add new Brand",
+      "description": "This section guides the user to add new brand in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Brand' section and you’ll be navigated to the 'Brand' page.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Brand' page, click on the '+' button located at the top right corner of the page.",
+          "snapshot": "static/images/brand_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a popup would appear with the four fields. The fields are 'Brand Name' (input), 'Status' (dropdown), 'Image (W)' (image field) and'Image (M)' (image field). After selecting the appropriate values and uploading the relative images, click on the 'Add' button.",
+          "snapshot": "static/images/brand_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add new Group",
+      "description": "This section guides the user to add the new group in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Group' section and you’ll be navigated to the 'Group' page.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Group' page click on the '+' button located at the top right corner.",
+          "snapshot": "static/images/group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a popup would appear with two fileds. The fields are: 'Group Name' (input) and 'Status' (dropdown). Select the appropraite values and then click on the 'Add' button.",
+          "snapshot": "static/images/group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add new Item (SKU)",
+      "description": "This section guides user to add new Item (SKU) in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Item (SKU)' section and you’ll be navigated to the 'Item (SKU)' page.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button located at the top right corner of the 'Item (SKU)' page.",
+          "snapshot": "static/images/item_sku__plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a popup would appear with thirty seven fields. The fields are: ' Select Product Category' (dropdown), ' Select Product' (dropdown), ' Select Brand' (dropdown), ' Select Group' (dropdown), ' SKU Code' (input), ' HS Code' (input), ' UMO Code' (input), ' SRO' (input), 'SRO serial no' (input), 'Bar code' (input), 'PCT Code' (input), ' Short name' (Input), 'Long name' (input), 'Quantity type' (dropdown), 'Carton' (input), 'Box' (input), 'Weight measure' (input), ' Reorder Level' (input), 'Weightage Type' (Dropdown), 'Weightage value' (Input), 'Weightage divisor' (input), 'Weightage Display name' (input), 'Manual FOC' (dropdown), 'GST Type' (dropdown), 'Advance Tax Type' (dropdown), 'GST Filer' (input), 'GST non filer' (input), 'Adance Tax' (input), 'Advance Tax non filer' (input), 'Advance Tax(Primary)'(Input),'Advance Tax Non-Filer (primary)'(Input), 'Comments' (textarea), 'Link'(input),'Purchase Price' (input), 'Sales Price' (input), 'Description' (textarea), 'Status' (dropdown) 'image' (image picker). Select appropriate values and then click on the 'Add' button.",
+          "snapshot": "static/images/item_sku_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add new Item Points",
+      "description": "This section allows the user to Add Item Points in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Item Points' section and you’ll be navigated to the 'Item Points' page.",
+          "snapshot": "static/images/item_points_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Click on the '+' button located at the top right corner of the 'Item Points' page.",
+          "snapshot": "static/images/item_points_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a popup would appear with five fields. The fields are 'Slab From' (input), 'Slab end' (input), 'Points' (input), 'Select Items' (dropdown) 'select points on' (dropdown). Select the appropriate values and then click on the 'Add' button. ",
+          "snapshot": "static/images/item_points_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Stock Adjustment",
+      "description": "This section guides the user through viewing stock adjustments based on selected distributor.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Stock Adjustment' section to navigate to the 'Stock Adjustment' page.",
+          "snapshot": "static/images/stock_adjustment_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the Distributor from the dropdown list as required.",
+          "snapshot": "static/images/stock_adjustment_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Click on the 'View Detail' button to display the stock adjustment records based on the selected distributor.",
+          "snapshot": "static/images/stock_adjustment_view_detail_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View detail of Categories",
+      "description": "This section guides the user on how to view categories.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Categories' section. This will navigate you to the 'Categories' page.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the category name in the search bar located at the top on the left on this 'Categories' page.",
+          "snapshot": "static/images/categories_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If category existed, the result will be displayed on the screen.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Product",
+      "description": "This section guides the user on how to view the product in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Product' section and you will be navigated to the 'Product' page.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the product name in the search bar at the top. The matching product will be displayed on the screen.",
+          "snapshot": "static/images/product_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If product existed, the result will be displayed on the screen.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Brand",
+      "description": "This section guides the user on how to view existing brand in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Brand' section and you will be navigated to the 'Brand' page.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the brand name you want to search for in the search bar at the top left of 'Brand' page.",
+          "snapshot": "static/images/brand_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If brand existed, the result will be displayed on the screen.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Group",
+      "description": "This section guides the user on how to view existing group details in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Group' section and you will be navigated to the 'Group' page.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Type the group name you want to search for in the search bar at the top left of 'Group' page.",
+          "snapshot": "static/images/group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "If group existed, the result will be displayed on the screen.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Initialize Stock",
+      "description": "This section guides the user through initializing stock by selecting distributor and items.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Initialize Stock' section to navigate to the 'Initialize Stock' page.",
+          "snapshot": "static/images/initialize_stock_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Select the Distributor and Items from the dropdown lists as required.",
+          "snapshot": "static/images/initialize_stock_options.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Click on the 'Submit' button to display the stock information related to the selected distributor and items.",
+          "snapshot": "static/images/initialize_stock_submit_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Categories page located",
+      "description": "This section would let user know where the Categories page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Categories' section and you will be navigated to the 'Categories' page.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Categories' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/categories.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Product page located",
+      "description": "This section would let user know where the Product page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Product' section and you will be navigated to the 'Product' page.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Product' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/product.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Brand page located",
+      "description": "This section would let user know where the Brand page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Brand' section and you will be navigated to the 'Brand' page.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Brand' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/brand.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is group page located",
+      "description": "This section would let user know where the group page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Group' section and you will be navigated to the 'Group' page.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Group' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/group.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is item (SKU) page located",
+      "description": "This section would let user know where the item (SKU) page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Item (SKU)' section and you will be navigated to the 'Item (SKU)' page.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Item (SKU)' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/item_sku.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Stock Adjustment page located",
+      "description": "This section would let user know where the Stock Adjustment page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Stock Adjustment' section and you will be navigated to the 'Stock Adjustment' page.",
+          "snapshot": "static/images/stock_adjustment_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Stock Adjustment' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/stock_adjustment.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Initialize Stock page located",
+      "description": "This section would let user know where the Initialize Stock page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Initialize Stock' section and you will be navigated to the 'Initialize Stock' page.",
+          "snapshot": "static/images/initialize_stock_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Initialize Stock' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/initialize_stock.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Item Points page located",
+      "description": "This section would let user know where the Item Points page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Item Points' section and you will be navigated to the 'Item Points' page.",
+          "snapshot": "static/images/item_points_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Item Points' page. You can explore this page according to your requirments",
+          "snapshot": "static/images/item_points.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Set Order for categories",
+      "description": "This section would let the user know how to set the order of the categories in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Categories' section and you will be navigated to the 'Categories' page.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Categories' page, click on the 'Set Order' button located at the right hand side of the page.",
+          "snapshot": "static/images/categories_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear, use the buttons '>>', '>', '<' and '<<' to manipulate the order of the categories according to your preference. ",
+          "snapshot": "static/images/categories_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Now click on the 'Update' button to update the new order for categories.",
+          "snapshot": "static/images/categories_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Set Order for brands",
+      "description": "This section would let the user know how to set the order of the brands in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Brand' section and you will be navigated to the 'Brand' page.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Brand' page, click on the 'Set Order' button located at the right hand side of the page.",
+          "snapshot": "static/images/brand_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear, use the buttons '>>', '>', '<' and '<<' to manipulate the order of the brands according to your preference. ",
+          "snapshot": "static/images/brand_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Now click on the 'Update' button to update the new order for brands.",
+          "snapshot": "static/images/brand_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Set Order for Groups",
+      "description": "This section would let the user know how to set the order of the groups in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Group' section and you will be navigated to the 'Group' page.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Group' page, click on the 'Set Order' button located at the right hand side of the page.",
+          "snapshot": "static/images/group_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear, use the buttons '>>', '>', '<' and '<<' to manipulate the order of the groups according to your preference. ",
+          "snapshot": "static/images/group_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Now click on the 'Update' button to update the new order for groups.",
+          "snapshot": "static/images/group_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Set Order for Item (SKU)",
+      "description": "This section would let the user know how to set the order of the items (SKU) in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Item (SKU)' section and you’ll be navigated to the 'Item (SKU)' page.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On this 'Item (SKU)' page, click on the 'Set Order' button located at the right hand side of the page.",
+          "snapshot": "static/images/item_sku_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Now a pop up would appear, use the buttons '>>', '>', '<' and '<<' to manipulate the order of the items according to your preference. ",
+          "snapshot": "static/images/item_sku_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Now click on the 'Update' button to update the new order for items.",
+          "snapshot": "static/images/item_sku_set_order_update_button.png"
+        }
+      ]
+    }
+  ]
+}

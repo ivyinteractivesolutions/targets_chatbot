@@ -1,0 +1,159 @@
+{
+  "tutorial_name": "Manage Property - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Naya Asset Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya asset kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Assets' section par click karay aur aap 'Assets' page par aa jaogay.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/assets_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 14 fields hongi: 'Asset Name', 'Asset Type', 'Asset Code', 'Asset Category', 'Asset Serial Number', 'Asset Model Number', 'Asset Value', 'Asset Barcode', 'Asset Manufacturer', 'Asset Vendor', 'Asset Purchasing Date', 'Asset Manufacturing Date', 'Asset Warranty Expiry Date', aur 'Status'. Required information fill karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/assets_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Customer Asset Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya customer asset kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Customer Assets' section par click karay aur aap 'Customer Assets' page par aa jaogay.",
+          "snapshot": "static/images/customer_assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/customer_assets_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 8 fields hongi: 'Select Region', 'Select Area', 'Select Territory', 'Select Distributor', 'Select Customer', 'Select Asset', 'Induction Date', aur 'Status'. Proper values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/customer_assets_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Asset Servicing Record Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya asset servicing record kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Asset Servicing Record' section par click karay aur aap 'Asset Servicing Record' page par aa jaogay.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/asset_servicing_records_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 9 fields hongi: 'Asset ID', 'Service Type', 'Service Charges', 'Service Date', 'Parts Name', 'Parts Charges', 'Service Company', 'Service Invoice Image', aur 'Status'. Required details fill karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/asset_servicing_records_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Assets ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke system mein assets ki detail kaisay dekhta hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Assets' section par click karay aur aap 'Assets' page par aa jaogay.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top left mein 'Search' field par click karay.",
+          "snapshot": "static/images/assets_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Jis asset ko search karna hai uska naam type karay. Agar asset exist karta hai, toh result mein aa jaye ga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Asset Servicing Records ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke system mein asset servicing records ki details kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Asset Servicing Record' section par click karay aur aap 'Asset Servicing Record' page par aa jaogay.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top left mein mojood 'Search' field par click karay.",
+          "snapshot": "static/images/asset_servicing_records_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Jis record ko search karna hai uska naam type karay. Agar record exist karta hai, toh result mein aa jaega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Assets kahan page pay hain",
+      "description": "Is section mein user ko bataya gaya hai ke system mein Assets page kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Assets' section par click karay aur aap 'Assets' page par aa jaogay.",
+          "snapshot": "static/images/assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Assets' page par ho. Page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/assets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Customer Assets page kahan pay hain",
+      "description": "Is section mein user ko bataya gaya hai ke system mein Customer Assets page kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Customer Assets' section par click karay aur aap 'Customer Assets' page par aa jaogay.",
+          "snapshot": "static/images/customer_assets_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Customer Assets' page par ho. Page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/customer_assets.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Asset Servicing Record kahan pay hain",
+      "description": "Is section mein user ko bataya gaya hai ke system mein Asset Servicing Record page kahan located hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Asset Servicing Record' section par click karay aur aap 'Asset Servicing Record' page par aa jaogay.",
+          "snapshot": "static/images/asset_servicing_records_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Asset Servicing Record' page par ho. Page ko apni requirement ke hisaab se explore karay.",
+          "snapshot": "static/images/asset_servicing_records.png"
+        }
+      ]
+    }
+  ]
+}

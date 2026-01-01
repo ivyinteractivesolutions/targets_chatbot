@@ -1,0 +1,507 @@
+{
+  "tutorial_name": "Manage Places - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "Naya Region Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya region kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Region' section par click karay aur aap 'Region' page par pohanch jaogay.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Region' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/region_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme do fields hongi: 'Region Name' aur 'Status' dropdown (Active / Non-Active). Fields fill kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/region_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Area Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya area kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Area' section par click karay aur aap 'Area' page par aa jaogay.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Area' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/area_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme teen fields hongi: 'Select Region' (dropdown), 'Area Name' (input), aur 'Status' (dropdown). Region select karay, area ka name likho, status choose karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/area_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Territory Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya territory kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Territory' section par click karay aur aap 'Territory' page par aa jaogay.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Territory' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/territory_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme char fields hongi: 'Select Region', 'Select Area', 'Territory Name', aur 'Status'. Values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/territory_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Town Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya town kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Town' section par click karay aur aap 'Town' page par aa jaogay.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Town' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/town_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme teen fields hongi: 'Select Territory', 'Town Name', aur 'Status'. Territory select karay, town name likho (e.g., Peshawar1, Peshawar2), status choose karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/town_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya City Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya city kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'City' section par click karay aur aap 'City' page par aa jaogay.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'City' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/town_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme teen fields hongi: 'Select Territory', 'Town Name', aur 'Status'. Territory select karay, town name likho (e.g., Peshawar1, Peshawar2), status choose karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/town_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Distributor Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya distributor kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor' section par click karay aur aap 'Distributor' page par aa jaogay.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Distributor' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/distributor_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 29 fields hongi, jaise: 'Select Region', 'Select Area', 'Select Territory', 'Distributor', 'Contact Person Name', 'FBR Title', 'Distributor Address', 'Province', 'Check-In Radius', aur 'GST Value'. Sab details fill kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/distributor_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Section Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya section kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Sections' option par click karay aur aap 'Sections' page par aa jaogay.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Sections' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/section_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme fields hongi: 'Select Town', 'Section Name', aur 'Status'. Town select karay, section name likho (e.g., Bannu), status choose karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/section_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Naya Sector Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya sector kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Sectors' option par click karay aur aap 'Sectors' page par aa jaogay.",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "'Sectors' page par top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/sector_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 5 fields hongi: 'Select Distributor', 'Select Town', 'Select Section', 'Select Sector', aur 'Status'. Sab fields fill kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/sector_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor Zones ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke system mein distributor kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Zones' section par click karay aur aap 'Distributor Zones' page par aa jaogay.",
+          "snapshot": "static/images/distributor_zone_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Search bar mein distributor ka naam type karay aur 'Search' button par click karay.",
+          "snapshot": "static/images/distributor_zone_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar distributor exist karta hai to details show hongi, warna 'No distributor found' message show hoga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Region ki details dekhnay ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke system mein existing region kaise search karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Region' section par click karay aur aap 'Region' page par aa jaogay.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein 'Search' field par click karay.",
+          "snapshot": "static/images/region_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Region name type karay. Agar exist karega to list mein show hoga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Area ki Details Dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke existing area ko kaise search kiya jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Area' section par click karein aur aap 'Area' page par pohanch jayenge.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein maujood 'Search' field par click karein.",
+          "snapshot": "static/images/area_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Area ka naam type karein. Agar area exist karta hoga toh list mein show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Territory ki Details Dekhne ka tareeqa",
+      "description": "Is section mein aap ko bataya gaya hai ke existing territory ko kaise search karna hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Territory' section par click karein taake aap 'Territory' page par navigate ho jaayein.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein 'Search' field par click karein.",
+          "snapshot": "static/images/territory_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Territory ka naam type karein. Agar woh mojood hoga toh foran list mein aa jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Town ki Details Dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke existing town ko kaise search kiya jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Town' section par click karein aur aap 'Town' page par pohanch jayenge.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein mojood 'Search' field par click karein.",
+          "snapshot": "static/images/town_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Town ka naam type karein. Agar record exist karega toh show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "City ki Details Dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke existing city ko kaise search kiya jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'City' section par click karein aur aap 'City' page par pohanch jayenge.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein mojood 'Search' field par click karein.",
+          "snapshot": "static/images/town_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "City ka naam type karein. Agar record exist karega toh show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor ki Details Dekhne ka tareeqa",
+      "description": "Is section mein aap ko bataya gaya hai ke existing distributor ko kaise search karna hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor' section par click karein aur aap 'Distributor' page par chale jayenge.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left mein mojood 'Search' field par click karein.",
+          "snapshot": "static/images/distributor_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Distributor ka naam type karein. Agar data mojood hoga toh foran show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Section ki Details Dekhne ka tareeqa",
+      "description": "Is section mein bataya gaya hai ke existing section ko kaise search kiya jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Section' par click karein aur aap 'Section' page par navigate ho jayenge.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein maujood 'Search' field par click karein.",
+          "snapshot": "static/images/section_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Section ka naam type karein. Agar woh available hoga toh list mein nazar aa jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Sector ki Details Dekhne ka tareeqa",
+      "description": "Is section mein aap ko guide kiya gaya hai ke existing sector ko kaise search karna hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Sector' par click karein taake aap 'Sector' page par pohanch jaayein.",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Top left corner mein mojood 'Search' field par click karein.",
+          "snapshot": "static/images/sector_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Sector ka naam type karein. Agar us sector ka record hoga toh list mein foran show ho jayega.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Region page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Region page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Region' section par click karay, aur system aaphain 'Region' page par le jayega.",
+          "snapshot": "static/images/region_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Region' page par ho. Yahan apni requirement ke mutabiq sab explore kar sakte ho.",
+          "snapshot": "static/images/region.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Area page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Area page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Area' section par click karay, aur aap seedha 'Area' page par pohanch jaoge.",
+          "snapshot": "static/images/area_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Area' page par ho. Yahan apni requirement ke mutabiq sab kuch explore kar sakte ho.",
+          "snapshot": "static/images/area.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Territory page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Territory page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Territory' section par click karay, aur page khud hi open ho jayega.",
+          "snapshot": "static/images/territory_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Territory' page par ho. Yahan se aap saari cheezein explore kar sakte ho.",
+          "snapshot": "static/images/territory.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Town page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Town page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Town' section par click karay, aur aap 'Town' page par phonch ho jaoge.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Town' page par ho. Yahan apni requirement ke mutabiq sab kuch explore kar sakte ho.",
+          "snapshot": "static/images/town.png"
+        }
+      ]
+    },
+    {
+      "section_title": "City page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke City page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'City' section par click karay, aur aap 'City' page par phonch ho jaoge.",
+          "snapshot": "static/images/town_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'City' page par ho. Yahan apni requirement ke mutabiq sab kuch explore kar sakte ho.",
+          "snapshot": "static/images/town.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor page kahan hai",
+      "description": "Is section mein user ko guide kiya gaya hai ke Distributor page system mein kahan located hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor' section par click karay, aur aap 'Distributor' page par pohanch jaoge.",
+          "snapshot": "static/images/distributor_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Distributor' page par ho. Yahan sari details check kar sakte ho.",
+          "snapshot": "static/images/distributor.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Sections page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Sections page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Sections' par click karay aur aap seedha 'Sections' page par aa jaoge.",
+          "snapshot": "static/images/section_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Sections' page par ho. Yahan apni requirement ke mutabiq cheezein explore karay.",
+          "snapshot": "static/images/section.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Sector page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Sector page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Sector' section par click karay, aur aap 'Sector' page par phonch jye gy .",
+          "snapshot": "static/images/sector_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Sector' page par ha. Yahan apni zaroorat ke mutabiq sab kuch explore kar sakte ho.",
+          "snapshot": "static/images/sector.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Distributor Zones page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Distributor Zones page system mein kahan hota hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Distributor Zones' section par click karay, aur aap 'Distributor Zones' page par pohanch jaoge.",
+          "snapshot": "static/images/distributor_zone_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Distributor Zones' page par ho. Yahan apni requirement ke mutabiq sab kuch explore kar sakte ho.",
+          "snapshot": "static/images/distributor_zone.png"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,10 @@
+.env
+.venv/
+__pycache__/
+chroma_db/
+ab.mp4
+*.pyc
+.vscode/
+node_modules/
+build/
+dist/

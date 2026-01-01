@@ -1,0 +1,122 @@
+{
+  "tutorial_name": "Manage Payment - English",
+  "language": "en",
+  "sections": [
+    {
+      "section_title": "Add New Wallet",
+      "description": "This section guides the user on how to add new wallet in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Wallet' section and you will be navigated to 'Wallet' page.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Wallet' page, click on the '+' icon located at the top right corner.",
+          "snapshot": "static/images/wallet_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with two fields on this 'Wallet' page. The fields are: 'Transaction Type' (dropdown list) and 'Status' (dropdown list). Select the appropriate values and click the 'Add' button.",
+          "snapshot": "static/images/wallet_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Add New Bank",
+      "description": "This section guides the user on how to add a new bank in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Bank' section and you will be navigated to 'Bank' page.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Bank' page, click on the '+' icon located at the top right corner.",
+          "snapshot": "static/images/bank_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "A pop-up will appear with five fields on the 'Bank' page. The fields are: 'Bank Name' (input), 'Bank Short Name' (input), 'Bank Headquarter' (input), 'Bank Code' (input), and 'Status' (dropdown). Select the appropriate values and click the 'Add' button.",
+          "snapshot": "static/images/bank_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Wallet",
+      "description": "This section guides the user through searching for a wallet in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Wallet' section and you will be navigated to 'Wallet' page.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Wallet' page, click on the 'Search' icon located at the top left corner.",
+          "snapshot": "static/images/wallet_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the wallet name you want to search. If data for the wallet exist, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "View details of Bank",
+      "description": "This section guides the user through searching for a bank in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Bank' section and you will be navigated to 'Bank' page.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "On the 'Bank' page, click on the 'Search' icon located at the top left corner.",
+          "snapshot": "static/images/bank_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Type the bank name you want to search. If data for bank exist, it will be displayed.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Where is wallet page located",
+      "description": "This section would let user know where the wallet page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Wallet' section and you will be navigated to 'Wallet' page.",
+          "snapshot": "static/images/wallet_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Wallet' page. You can add, view, edit, or delete wallet information from this page.",
+          "snapshot": "static/images/wallet.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Where is Bank page located",
+      "description": "This section would let user know where the Bank page is located in the system.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "Click on the 'Bank' section and you will be navigated to 'Bank' page.",
+          "snapshot": "static/images/bank_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Now you are on the 'Bank' page. You can add, view, edit, search, or delete bank details from this page.",
+          "snapshot": "static/images/bank.png"
+        }
+      ]
+    }
+  ]
+}

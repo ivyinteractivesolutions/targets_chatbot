@@ -1,0 +1,532 @@
+{
+  "tutorial_name": "Manage Product - Roman Urdu",
+  "language": "ur-roman",
+  "sections": [
+    {
+      "section_title": "new/nayee Category Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein new/naya category kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Categories' section par click karay aur aap 'Categories' page par aa jaogay.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/categories_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme char fields hongi: 'Product Category Name' (input), 'Status' (dropdown), 'Image (W)' aur 'Image (M)'. Proper values select karay aur images upload kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/categories_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "new/naya Product Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein new/naya product kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Product' section par click karay aur aap 'Product' page par aa jaogay.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/product_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme paanch fields hongi: 'Select Category' (dropdown), 'Product Name' (input), 'Status' (dropdown), 'Image (W)' aur 'Image (M)'. Proper values select karay aur images upload kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/product_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "new/naya Brand Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein new/naya brand kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Brand' section par click karay aur aap 'Brand' page par aa jaogay.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/brand_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme char fields hongi: 'Brand Name' (input), 'Status' (dropdown), 'Image (W)' aur 'Image (M)'. Proper values select karay aur images upload kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/brand_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "new/naya Group Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein naya group kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Group' section par click karay aur aap 'Group' page par aa jaogay.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/group_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme do fields hongi: 'Group Name' (input) aur 'Status' (dropdown). Proper values select karay aur 'Add' button par click karay.",
+          "snapshot": "static/images/group_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "new/naya Item (SKU) Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein new/naya Item (SKU) kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Item (SKU)' section par click karay aur aap 'Item (SKU)' page par aa jaogay.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/item_sku_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme 37 fields hongi, jaise: 'Select Product Category', 'Select Product', 'Select Brand', 'Select Group', 'SKU Code', 'HS Code', 'UMO Code', 'SRO', 'SRO serial no', 'Bar code', 'PCT Code', 'Short Name', 'Long Name', 'Quantity Type', 'Carton', 'Box', 'Weight Measure', 'Reorder Level', 'Weightage Type', 'Weightage Value', 'Weightage Divisor', 'Weightage Display Name', 'Manual FOC', 'GST Type', 'Advance Tax Type', 'GST Filer', 'GST Non-Filer', 'Advance Tax', 'Advance Tax Non-Filer', 'Advance Tax (Primary)', 'Advance Tax Non-Filer (Primary)', 'Comments', 'Link', 'Purchase Price', 'Sales Price', 'Description', 'Status', aur 'Image'. Proper values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/item_sku_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Item Points Add Karna",
+      "description": "Is section mein user ko bataya gaya hai ke system mein Item Points kaise add karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Item Points' section par click karay aur aap 'Item Points' page par aa jaogay.",
+          "snapshot": "static/images/item_points_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Page ke top right corner mein '+' button par click karay.",
+          "snapshot": "static/images/item_points_plus_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ek popup khulega jisme paanch fields hongi: 'Slab From', 'Slab End', 'Points', 'Select Items' aur 'Select Points On'. Proper values select kar ke 'Add' button par click karay.",
+          "snapshot": "static/images/item_points_popup_fields.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Stock Adjustment Dekhna",
+      "description": "Is section mein user ko bataya gaya hai ke stock adjustment kaise dekha jata hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Stock Adjustment' section par click karay aur aap 'Stock Adjustment' page par aa jaogay.",
+          "snapshot": "static/images/stock_adjustment_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Dropdown se required Distributor select karay.",
+          "snapshot": "static/images/stock_adjustment_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Us ke baad 'View Detail' button par click karay taake selected distributor ka stock adjustment record display ho.",
+          "snapshot": "static/images/stock_adjustment_view_detail_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Stock Initialize Karna",
+      "description": "Is section mein user ko bataya gaya hai ke stock kaise initialize karte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Initialize Stock' section par click karay aur aap 'Initialize Stock' page par aa jaogay.",
+          "snapshot": "static/images/initialize_stock_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Dropdown se required Distributor aur Items select karay.",
+          "snapshot": "static/images/initialize_stock_options.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Us k baad 'Submit' button par click karay taake selected distributor aur items ka stock display hojaye.",
+          "snapshot": "static/images/initialize_stock_submit_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Categories ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Categories se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Categories' section par click karay aur aap 'Categories' page par aa jaogay.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Is 'Categories' page par top left corner mein mojood 'Search' bar mein category ka naam enter karein.",
+          "snapshot": "static/images/categories_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar aap k enter ki hui category ki details system mein pehlay se mojood hui toh aap ko show hojaye gi.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Product ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Product se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Product' section par click karay aur aap 'Product' page par aa jaogay.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Is 'Product' page par top left corner mein mojood 'Search' bar mein product ka naam enter karein.",
+          "snapshot": "static/images/product_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar aap k enter kyay hua product ki details system mein pehlay se mojood hui toh aap ko show hojaye ga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Brand ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Brand se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Brand' section par click karay aur aap 'Brand' page par aa jaogay.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Is 'Brand' page par top left corner mein mojood 'Search' bar mein brand ka naam enter karein.",
+          "snapshot": "static/images/brand_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar aap k enter kyay hua brand ki details system mein pehlay se mojood hui toh aap ko show hojaye ga.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Group ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Group se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Group' section par click karay aur aap 'Group' page par aa jaogay.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Is 'Group' page par top left corner mein mojood 'Search' bar mein group ka naam enter karein.",
+          "snapshot": "static/images/group_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Agar aap k enter kyay huay group ki details system mein pehlay se mojood hui toh aap ko show hojaye gi.",
+          "snapshot": ""
+        }
+      ]
+    },
+    {
+      "section_title": "Stock Adjustment ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Stock Adjustment se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Stock Adjustment' section par click karay aur aap 'Stock Adjustment' page par aa jaogay.",
+          "snapshot": "static/images/stock_adjustment_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab is 'Stock Adjustment' page per top left corner mein mojood distributor wali filed se distributor select kare",
+          "snapshot": "static/images/stock_adjustment_search_bar.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Us k baad 'View Detail' button par click karein. Agar system mein aap k select kyay hue distributor se related details hui toh details display hojaye gi.",
+          "snapshot": "static/images/stock_adjustment_search_bar.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Initialize Stock ki details dekhne ka tareeqa",
+      "description": "Is section mein user ko bataya gaya hai ke Initialize Stock se related details system mein kaisay dekhtay hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Initialize Stock' section par click karay aur aap 'Initialize Stock' page par aa jaogay.",
+          "snapshot": "static/images/intialize_stock_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab is 'Initialize Stock' page per Distributor aur Items select karein.",
+          "snapshot": "static/images/initialize_stock_options.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Distributor aur Item select karnay k baad 'Submit' button par enter karein.",
+          "snapshot": "static/images/initialize_stock_submit_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Categories wala page kaha hain",
+      "description": "Is section mein user ko bataya gaya hai ke Categories page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Categories' section par click karo, aur aap 'Categories' page par chalay jao ge.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Categories' page par ho. Yahan aap categories explore ya search kar sakte ho.",
+          "snapshot": "static/images/categories.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Product wala page kaha hai",
+      "description": "Is section mein user ko bataya gaya hai ke Product page system mein kaha hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Product' section par click karo aur aap 'Product' page par chalay jao ge.",
+          "snapshot": "static/images/product_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Product' page par ho. Yahan aap products explore ya search kar sakte ho.",
+          "snapshot": "static/images/product.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Brand wala page kaha hai",
+      "description": "Is section mein user ko bataya gaya hai ke Brand page system mein kaha hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Brand' section par click karo aur 'Brand' page open ho jayega.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Brand' page par ho. Yahan aap brands explore ya search kar sakte ho.",
+          "snapshot": "static/images/brand.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Group wala page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Group page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Group' section par click karo aur 'Group' page open ho jayega.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Group' page par ho. Yahan aap groups explore ya search kar sakte ho.",
+          "snapshot": "static/images/group.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Item (SKU) wala page kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Item (SKU) page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Item (SKU)' section par click karo aur 'Item (SKU)' page open ho jayega.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Item (SKU)' page par ho. Yahan aap 'Item (SKU)' explore ya search kar sakte ho.",
+          "snapshot": "static/images/item_sku.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Stock Adjustment kaha hai",
+      "description": "Is section mein user ko bataya gaya hai ke Stock Adjustment page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Stock Adjustment' section par click karo aur 'Stock Adjustment' page open ho jayega.",
+          "snapshot": "static/images/stock_adjustment_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Stock Adjustment' page par ho. Yahan aap stock adjust kar sakte ho.",
+          "snapshot": "static/images/stock_adjustment.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Initialize Stock kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Initialize Stock page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Initialize Stock' section par click karo aur 'Initialize Stock' page open ho jayega.",
+          "snapshot": "static/images/initialize_stock_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Initialize Stock' page par ho. Yahan aap items ka stock initialize kar sakte ho.",
+          "snapshot": "static/images/initialize_stock.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Item Points kahan hai",
+      "description": "Is section mein user ko bataya gaya hai ke Item Points page system mein kahan hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Item Points' section par click karo aur 'Item Points' page open ho jayega.",
+          "snapshot": "static/images/item_points_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Ab aap 'Item Points' page par ho. Yahan aap item points dekh sakte ho ya manage kar sakte ho.",
+          "snapshot": "static/images/item_points.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Categories ka order set karna",
+      "description": "Is section mein user bataya gaya hai ke system mein categories ka order kaise set karna hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Categories' section par click karein, Or  aap 'Categories' page par pohanch jayenge.",
+          "snapshot": "static/images/categories_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Categories page par right side par maujood 'Set Order' button par click karein.",
+          "snapshot": "static/images/categories_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Ab ek pop-up open hoga. '>>', '>', '<' aur '<<' is trha ky buttons nzr aye gy apko is button ka use karke categories ka order apni zarurat ke mutabiq theek karein.",
+          "snapshot": "static/images/categories_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Order set ho jane ke baad 'Update' button par click karein.",
+          "snapshot": "static/images/categories_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Brands ka order set karna",
+      "description": "Is section mein user ko bataya  gaya hai ke brands ka order kaise set kar sakte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Brand' section par click karein,Or aap 'Brand' page par phonch jayenge.",
+          "snapshot": "static/images/brand_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Brand page par right side par maujood 'Set Order' button par click karein.",
+          "snapshot": "static/images/brand_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Pop-up open hone par '>>', '>', '<' aur '<<' buttons ka istemal karke brands ka order adjust karein.",
+          "snapshot": "static/images/brand_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Changes save karne ke liye 'Update' button par click karein.",
+          "snapshot": "static/images/brand_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": " Groups ka order manage karna",
+      "description": "Is section mein user ko bataya gaya hai ke groups ka order kaise manage krte  hai.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Group' section par click karein aur 'Group' page par phonch jye gy.",
+          "snapshot": "static/images/group_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Group page par right side par maujood 'Set Order' button par click karein.",
+          "snapshot": "static/images/group_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "eik Pop-up open ho ga , is pop-up mein diye gaye buttons '>>', '>', '<' aur '<<' ka istemal karke groups ka order change kar skte h.",
+          "snapshot": "static/images/group_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Jab order ban jye phir 'Update' button par click karein.",
+          "snapshot": "static/images/group_set_order_popup_update_button.png"
+        }
+      ]
+    },
+    {
+      "section_title": "Item (SKU) ka order set karna",
+      "description": "Is section mein user ko bataya gaya ha ky items (SKU) ka order kasy set krte hain.",
+      "steps": [
+        {
+          "step_number": 1,
+          "description": "'Item (SKU)' section par click karein, Or aap 'Item (SKU)' page par phonch kye gy.",
+          "snapshot": "static/images/item_sku_page.png"
+        },
+        {
+          "step_number": 2,
+          "description": "Item (SKU) page par right side par maujood 'Set Order' button par click karein.",
+          "snapshot": "static/images/item_sku_set_order_button.png"
+        },
+        {
+          "step_number": 3,
+          "description": "Eik Pop-up open ho ga  is pop-up mein diye gaye '>>', '>', '<' aur '<<' buttons ka istemal karke items ky order set karein.",
+          "snapshot": "static/images/item_sku_set_order_popup.png"
+        },
+        {
+          "step_number": 4,
+          "description": "Order save karne ke liye 'Update' button par click karein.",
+          "snapshot": "static/images/item_sku_set_order_update_button.png"
+        }
+      ]
+    }
+  ]
+}
