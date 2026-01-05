@@ -7,6 +7,3 @@ chroma_db/
 node_modules/
 build/
 dist/
-IMPROVEMENTS.txt
-Summary_of_Changes_*.txt
-implementation_plan.txt
