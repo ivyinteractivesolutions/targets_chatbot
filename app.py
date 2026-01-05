@@ -8,6 +8,7 @@ import subprocess
 import traceback
 from werkzeug.utils import secure_filename
 from react_agent_system_langgraph import process_user_query
+from session_manager import SessionManager
 
 app = Flask(__name__)
 
@@ -18,99 +19,36 @@ JSON_OUTPUT_FOLDER = "documents"
 
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# Store conversation history in memory (for chatbot)
-conversation_histories = {}
+# Session Management
+session_manager = SessionManager()
 
-def get_conversation_history(session_id):
-    """Get or create conversation history for a session"""
-    if session_id not in conversation_histories:
-        conversation_histories[session_id] = []
-    return conversation_histories[session_id]
+def get_current_user_id():
+    """Placeholder for actual user authentication"""
+    return "default_user"  # For now, everything is under 'default_user'
+
+def validate_tutorial_data(data, check_original=False):
+    """Shared validation logic for tutorial JSON data"""
+    required_root = ["tutorial_name", "language", "json_filename", "sections"]
+    if check_original:
+        required_root.append("original_filename")
+        
+    for field in required_root:
+        if not data.get(field):
+            return f"{field} is required"
+
+    for section in data.get("sections", []):
+        if not section.get("section_title") or not section.get("description"):
+            return "Section title and description are required"
+
+        if not section.get("steps"):
+            return "Each section must have at least one step"
+
+        for step in section["steps"]:
+            if not step.get("description"):
+                return "Step description is required"
+    return None
 
 
-# ===== NAVIGATION ROUTES =====
-@app.route("/")
-def navigation():
-    return '''
-    <!DOCTYPE html>
-    <html>
-    <head>
-        <title>Navigation</title>
-        <style>
-            body {
-                font-family: Arial, sans-serif;
-                margin: 0;
-                padding: 0;
-                background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                min-height: 100vh;
-            }
-            .nav-container {
-                background: white;
-                border-radius: 16px;
-                padding: 40px;
-                box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-                text-align: center;
-            }
-            h1 {
-                color: #2c3e50;
-                margin-bottom: 30px;
-            }
-            .nav-buttons {
-                display: flex;
-                flex-direction: column;
-                gap: 20px;
-            }
-            .nav-btn {
-                padding: 16px 32px;
-                border: none;
-                border-radius: 8px;
-                font-size: 1.1rem;
-                font-weight: 600;
-                cursor: pointer;
-                transition: all 0.3s ease;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-                text-decoration: none;
-                color: white;
-            }
-            .nav-btn-chat {
-                background: linear-gradient(135deg, #198754, #198754);
-            }
-            .nav-btn-edit {
-                background: linear-gradient(135deg, #3498db, #2980b9);
-            }
-            .nav-btn:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            }
-            .icon {
-                font-size: 1.2rem;
-            }
-        </style>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    </head>
-    <body>
-        <div class="nav-container">
-            <h1>Choose Application</h1>
-            <div class="nav-buttons">
-                <a href="/chatbot" class="nav-btn nav-btn-chat">
-                    <i class="fas fa-robot icon"></i>
-                    Chatbot Assistant
-                </a>
-                <a href="/edit-json" class="nav-btn nav-btn-edit">
-                    <i class="fas fa-edit icon"></i>
-                    JSON Editor
-                </a>
-            </div>
-        </div>
-    </body>
-    </html>
-    '''
 # ===== ROUTES FOR CHATBOT =====
 @app.route("/chatbot")
 def index():
@@ -118,24 +56,57 @@ def index():
 
 @app.route("/chat", methods=["POST"])
 def chat():
-    user_message = request.json["message"]
-    # Use a simple session ID (in production, use actual session management)
-    session_id = request.remote_addr  # Simple session identifier
+    user_message = request.json.get("message")
+    session_id = request.json.get("session_id")
+    user_id = get_current_user_id()
+
+    if not session_id:
+        return jsonify({"error": "session_id is required"}), 400
 
     try:
-        # Get conversation history for this session
-        conversation_history = get_conversation_history(session_id)
+        # Get session data
+        session_data = session_manager.get_session(user_id, session_id)
+        if not session_data:
+            return jsonify({"error": "Session not found"}), 404
+            
+        full_history = session_data.get("history", [])
         
+        # Convert objects to simple strings for the LangGraph agent
+        # The agent expects a list of "User: ..." and "Assistant: ..." strings
+        simple_history = []
+        for msg in full_history:
+            if isinstance(msg, dict):
+                role = "User" if msg.get("role") == "user" else "Assistant"
+                simple_history.append(f"{role}: {msg.get('content', '')}")
+            else:
+                simple_history.append(str(msg))
+
         # Process with React agent system
-        response = process_user_query(user_message, conversation_history)
+        response = process_user_query(user_message, simple_history)
         
-        # Update conversation history in the system
-        conversation_histories[session_id] = conversation_history
+        # Update full history with objects
+        full_history.append({"role": "user", "content": user_message})
+        
+        # Store the full response object for the assistant message
+        assistant_msg = {
+            "role": "assistant",
+            "content": response.get("content", ""),
+            "data": response # Store the whole thing for rich rendering
+        }
+        full_history.append(assistant_msg)
+        
+        # If this is the first message, update the title
+        title = None
+        if len(full_history) <= 2: 
+            title = user_message
+            
+        session_manager.save_session(user_id, session_id, full_history, title=title)
         
         return jsonify(response)
         
     except Exception as e:
         print(f"Error in chat endpoint: {e}")
+        traceback.print_exc()
         return jsonify({
             "type": "error",
             "content": "Sorry, I'm experiencing technical difficulties. Please try again.",
@@ -145,6 +116,47 @@ def chat():
                 "What can you help me with?"
             ]
         })
+
+# ===== SESSION ENDPOINTS =====
+@app.route("/sessions", methods=["GET"])
+def list_sessions():
+    user_id = get_current_user_id()
+    sessions = session_manager.list_sessions(user_id)
+    return jsonify({"sessions": sessions})
+
+@app.route("/sessions", methods=["POST"])
+def create_session():
+    user_id = get_current_user_id()
+    session_id = session_manager.create_session(user_id)
+    return jsonify({"session_id": session_id})
+
+@app.route("/sessions/<session_id>", methods=["GET"])
+def get_session(session_id):
+    user_id = get_current_user_id()
+    session_data = session_manager.get_session(user_id, session_id)
+    if not session_data:
+        return jsonify({"error": "Session not found"}), 404
+    return jsonify(session_data)
+
+@app.route("/sessions/<session_id>", methods=["DELETE"])
+def delete_session(session_id):
+    user_id = get_current_user_id()
+    success = session_manager.delete_session(user_id, session_id)
+    if success:
+        return jsonify({"message": "Session deleted successfully"})
+    return jsonify({"error": "Session not found"}), 404
+
+@app.route("/sessions/<session_id>", methods=["PUT"])
+def rename_session(session_id):
+    user_id = get_current_user_id()
+    new_title = request.json.get("title")
+    if not new_title:
+        return jsonify({"error": "Title is required"}), 400
+        
+    success = session_manager.rename_session(user_id, session_id, new_title)
+    if success:
+        return jsonify({"message": "Session renamed successfully"})
+    return jsonify({"error": "Session not found"}), 404
 # ===== ROUTES FOR JSON EDITOR =====
 @app.route("/edit-json")
 def edit_json():
@@ -178,23 +190,9 @@ def upload_image():
 @app.route("/save-json", methods=["POST"])
 def save_json():
     data = request.json
-
-    required_root = ["tutorial_name", "language", "json_filename", "sections"]
-    for field in required_root:
-        if not data.get(field):
-            return jsonify({"error": f"{field} is required"}), 400
-
-    for section in data["sections"]:
-        if not section.get("section_title") or not section.get("description"):
-            return jsonify({"error": "Section title and description are required"}), 400
-
-        if not section.get("steps"):
-            return jsonify({"error": "Each section must have at least one step"}), 400
-
-        for step in section["steps"]:
-            if not step.get("description"):
-                return jsonify({"error": "Step description is required"}), 400
-            # Snapshot is now optional, so no validation for it
+    error = validate_tutorial_data(data)
+    if error:
+        return jsonify({"error": error}), 400
 
     json_filename = data["json_filename"].replace(".json", "")
     file_path = os.path.join(JSON_OUTPUT_FOLDER, f"{json_filename}.json")
@@ -233,25 +231,9 @@ def load_json():
 @app.route("/update-json", methods=["POST"])
 def update_json():
     data = request.json
-
-    # Check required fields
-    required_root = ["tutorial_name", "language", "json_filename", "sections", "original_filename"]
-    for field in required_root:
-        if not data.get(field):
-            return jsonify({"error": f"{field} is required"}), 400
-
-    # Validate sections and steps
-    for section in data["sections"]:
-        if not section.get("section_title") or not section.get("description"):
-            return jsonify({"error": "Section title and description are required"}), 400
-
-        if not section.get("steps"):
-            return jsonify({"error": "Each section must have at least one step"}), 400
-
-        for step in section["steps"]:
-            if not step.get("description"):
-                return jsonify({"error": "Step description is required"}), 400
-            # Snapshot is now optional, so no validation for it
+    error = validate_tutorial_data(data, check_original=True)
+    if error:
+        return jsonify({"error": error}), 400
 
     # Determine filenames
     original_filename = data["original_filename"]
