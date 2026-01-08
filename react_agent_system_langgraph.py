@@ -6,10 +6,11 @@ from typing import TypedDict, Any, Dict, List, Annotated, Optional
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
-from langchain_openai import ChatOpenAI
+from langchain_openai import ChatOpenAI, OpenAIEmbeddings
+from langchain_chroma import Chroma
 from langchain_classic.schema import HumanMessage, SystemMessage
 
-from chat import get_bot_response
+from chat import get_bot_response, format_step_text
 
 load_dotenv()
 MODEL = os.getenv("OPENAI_MODEL")
@@ -47,17 +48,18 @@ class RequestAnalyzer:
             history_context = "\nRecent conversation:\n" + "\n".join(conversation_history[-3:])
         
         system_prompt = """You are the 'Request Analyzer' for MIRA, a Management Portal assistant.
-Analyze the user query to determine:
-1. Primary Intent
-2. Language of the query
-3. Key parameters (step numbers, etc.)
+Analyze the user query to determine the primary intent.
 
 Available Intents:
-- "general": Greetings, chit-chat, emotional conversations.
-- "tutorial": How-to questions, step-by-step guides, instructional requests.
-- "capabilities": Questions about what the system can do, purpose, identity.
-- "clarify": User wants explanation of a specific step or more detail.
-- "fallback": Unclear, out-of-scope, or nonsensical queries.
+- "tutorial": Use this for ANY request asking for steps, instructions, "how to", "Add...", "Create...", "View details...", or questions about specific system entities (Wallet, Bank, Region, Distributor, Area, etc.). 
+- "capabilities": ONLY use this when the user asks about MIRA herself (e.g., "What can you do?", "Who are you?", "System features"). 
+- "general": Greetings, chit-chat, or simple conversational emotional markers.
+- "clarify": User explicitly asks for an explanation of a specific step or says "Help me with step X".
+- "history_recall": User asks about previous questions or answers (e.g., "What was my last question?", "What did you say about Bank?").
+- "summarization": User asks for a summary of the whole chat (e.g., "Summarize our chat," "What is the conversation that I did to you?").
+- "fallback": Unclear or completely out-of-scope queries.
+
+CRITICAL: If a query mentions a specific system action (Add, View, Create, Setup) or a system entity (Wallet, Bank, etc.), it MUST be "tutorial".
 
 Return JSON format:
 {
@@ -85,7 +87,7 @@ Language Detection Rules:
             result = json.loads(response.content.strip())
             
             # Normalize Intent
-            valid_intents = ["general", "tutorial", "capabilities", "clarify", "fallback"]
+            valid_intents = ["general", "tutorial", "capabilities", "clarify", "history_recall", "summarization", "fallback"]
             result["intent"] = result.get("intent", "fallback").lower()
             if result["intent"] not in valid_intents:
                 result["intent"] = "fallback"
@@ -125,32 +127,43 @@ class KnowledgeBase:
             "english": [],
             "roman-urdu": []
         }
+        self.refresh()
+
+    def refresh(self):
+        """Re-scan documents and refresh cached topics"""
+        self.capabilities["english"] = []
+        self.capabilities["roman-urdu"] = []
         self._load_knowledge()
 
     def _load_knowledge(self):
-        """Scan documents and extract section titles"""
-        if not os.path.exists(self.doc_dir):
-            return
-
-        for filename in os.listdir(self.doc_dir):
-            if filename.endswith(".json"):
-                try:
-                    with open(os.path.join(self.doc_dir, filename), "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                        lang_code = data.get("language", "").lower()
-                        
-                        # Normalize language key
-                        base_lang = "english"
-                        if "roman" in lang_code or "ur" in lang_code:
-                            base_lang = "roman-urdu"
-                            
-                        sections = data.get("sections", [])
-                        for section in sections:
-                            title = section.get("section_title")
-                            if title and title not in self.capabilities[base_lang]:
-                                self.capabilities[base_lang].append(title)
-                except Exception as e:
-                    print(f"Error loading knowledge from {filename}: {e}")
+        """Extract unique section titles from ChromaDB metadata as the single source of truth"""
+        try:
+            # Connect to vector store to get current indexed topics
+            embeddings = OpenAIEmbeddings(model=os.getenv("EMBEDDING_MODEL"))
+            vectordb = Chroma(
+                persist_directory=os.getenv("CHROMA_PERSIST_DIR"), 
+                embedding_function=embeddings
+            )
+            
+            # Fetch all metadata currently in MIRA's memory
+            data = vectordb.get(include=['metadatas'])
+            metadatas = data.get('metadatas', [])
+            
+            for meta in metadatas:
+                title = meta.get("section_title")
+                lang_code = meta.get("language", "").lower()
+                
+                # Normalize language key
+                base_lang = "english"
+                if "roman" in lang_code or "ur" in lang_code:
+                    base_lang = "roman-urdu"
+                    
+                if title and title not in self.capabilities[base_lang]:
+                    self.capabilities[base_lang].append(title)
+                    
+        except Exception as e:
+            print(f"Error loading knowledge from Vector Store: {e}")
+            # Optional: Add logger or more robust error handling here
 
     def get_topics(self, language: str) -> List[str]:
         """Get topics for a language"""
@@ -231,6 +244,48 @@ Return ONLY a JSON array of strings: ["Suggestion 1", "Suggestion 2", ...]"""
             ]
 
 
+class GreetingGenerator:
+    """Personalizes the introduction for tutorial steps"""
+    def __init__(self):
+        self.llm = ChatOpenAI(temperature=0.3, model=MODEL)
+
+    def generate(self, user_query: str, section_title: str, language: str = "English") -> str:
+        """Generate a personalized greeting"""
+        system_prompt = f"""You are 'MIRA', the portal assistant. 
+Create a ONE-LINE, natural greeting to introduce a list of tutorial steps.
+The greeting should bridge the user's question and the topic of the tutorial.
+
+Topic: {section_title}
+Language: {language}
+
+Examples:
+Input: "where is the agents page?"
+Topic: "Where is Agent page located"
+Response: "Here are the steps to see where the agent page is located:"
+
+Input: "bank kahan hai?"
+Topic: "Where is Bank page located"
+Response: "Bank page kahan hai, iske baray mein steps yeh hain:"
+
+Rules:
+- Keep it to a single line.
+- End with a colon (:).
+- Be polite and direct.
+- Match the input language.
+"""
+        try:
+            response = self.llm.invoke([
+                SystemMessage(content=system_prompt),
+                HumanMessage(content=f"User's Question: {user_query}")
+            ])
+            return response.content.strip()
+        except Exception:
+            # Fallback to generic if LLM fails
+            if language.lower() in ["urdu", "roman-urdu"]:
+                return "Yeh rahe steps:"
+            return "Here are the steps:"
+
+
 # ==================== LANGGRAPH NODES ====================
 class AgentNodes:
     """Collection of LangGraph nodes"""
@@ -239,6 +294,7 @@ class AgentNodes:
         self.knowledge_base = KnowledgeBase()
         self.request_analyzer = RequestAnalyzer()
         self.suggestion_generator = DynamicSuggestionGenerator(self.knowledge_base)
+        self.greeting_generator = GreetingGenerator()
         self.general_llm = ChatOpenAI(temperature=0.9, model=MODEL)
         self.tutorial_llm = ChatOpenAI(temperature=0.0, model=MODEL)
     
@@ -279,6 +335,8 @@ class AgentNodes:
                 "tutorial": "tutorial_agent",
                 "capabilities": "capabilities_agent",
                 "clarify": "clarification_agent",
+                "history_recall": "history_summary_agent",
+                "summarization": "history_summary_agent",
                 "fallback": "fallback_agent"
             }
             state["next_node"] = route_map.get(intent, "fallback_agent")
@@ -445,13 +503,19 @@ class AgentNodes:
                 lang_info = state["validation_results"].get("language_analysis", {})
                 is_urdu = lang_info.get("language", "").lower() in ["urdu", "roman-urdu"]
                 
+                # Dynamic Personalized Greeting
+                section_title = bot_response.get("section_title", "")
+                intro = self.greeting_generator.generate(
+                    state["user_query"], 
+                    section_title, 
+                    language="Roman Urdu" if is_urdu else "English"
+                )
+                
                 if is_urdu:
-                    intro = "Yeh rahe steps:"
                     summary = f"Main pur-umeed hoon ke in {len(formatted_steps)} steps se aapki madad hui hogi."
                     pro_tip = "Tip: Steps ko carefully follow karain."
                     outro = "Shukriya!"
                 else:
-                    intro = "Here are the steps:"
                     summary = f"I hope these {len(formatted_steps)} steps help you achieve your goal."
                     pro_tip = "Pro tip: Follow each step carefully."
                     outro = "Thank you!"
@@ -611,6 +675,70 @@ class AgentNodes:
         state["processing_path"].append("clarification_agent")
         return state
     
+    def history_summary_agent(self, state: AgentState) -> AgentState:
+        """Handle conversation history recall and summarization"""
+        intent = state["llm_intent"]
+        history = state.get("conversation_history", [])
+        is_urdu = state["detected_language"] in ["urdu", "roman-urdu"]
+        
+        if not history:
+            state["response"] = {
+                "type": "general",
+                "content": "Hamari abhi koi guftagu nahi hui." if is_urdu else "We haven't had much of a conversation yet!"
+            }
+            return state
+
+        if intent == "summarization":
+            # Summarize the conversation
+            system_prompt = f"""Summarize the following chat conversation between a user and MIRA (Management Portal Assistant).
+Provide a high-level summary of what was discussed, the topics covered, and any pending questions.
+Language: {'Roman-Urdu' if is_urdu else 'English'}
+Format: Bullet points.
+"""
+            history_text = "\n".join(history)
+            try:
+                response = self.general_llm.invoke([
+                    SystemMessage(content=system_prompt),
+                    HumanMessage(content=f"Conversation History:\n{history_text}")
+                ])
+                summary_content = response.content
+            except Exception:
+                summary_content = "Summary generation failed."
+            
+            state["response"] = {
+                "type": "general",
+                "content": summary_content,
+                "is_urdu": is_urdu
+            }
+        
+        elif intent == "history_recall":
+            # Recall specific parts of the history
+            system_prompt = f"""The user is asking a question about the previous conversation.
+Based on the provided history, answer the user's question accurately.
+If they ask for their 'last question', identify it from the history.
+If they ask 'what did you say about X', find the relevant assistant response.
+Language: {'Roman-Urdu' if is_urdu else 'English'}
+History:
+{"\n".join(history[-10:])}
+"""
+            try:
+                response = self.general_llm.invoke([
+                    SystemMessage(content=system_prompt),
+                    HumanMessage(content=f"User's Recall Question: {state['user_query']}")
+                ])
+                recall_content = response.content
+            except Exception:
+                recall_content = "I'm sorry, I couldn't recall that correctly."
+            
+            state["response"] = {
+                "type": "general",
+                "content": recall_content,
+                "is_urdu": is_urdu
+            }
+
+        state["processing_path"].append("history_summary_agent")
+        return state
+
     def validate_response(self, state: AgentState) -> AgentState:
         """Validate response"""
         if "response" not in state or not state["response"]:
@@ -666,6 +794,7 @@ def create_agent_graph():
     workflow.add_node("capabilities_agent", nodes.capabilities_agent)
     workflow.add_node("tutorial_agent", nodes.tutorial_agent)
     workflow.add_node("clarification_agent", nodes.clarification_agent)
+    workflow.add_node("history_summary_agent", nodes.history_summary_agent)
     workflow.add_node("validate_response", nodes.validate_response)
     workflow.add_node("fallback_agent", nodes.fallback_agent)
     
@@ -687,6 +816,7 @@ def create_agent_graph():
             "capabilities_agent": "capabilities_agent",
             "tutorial_agent": "tutorial_agent",
             "clarification_agent": "clarification_agent",
+            "history_summary_agent": "history_summary_agent",
             "fallback_agent": "fallback_agent"
         }
     )
@@ -696,6 +826,7 @@ def create_agent_graph():
     workflow.add_edge("capabilities_agent", "validate_response")
     workflow.add_edge("tutorial_agent", "validate_response")
     workflow.add_edge("clarification_agent", "validate_response")
+    workflow.add_edge("history_summary_agent", "validate_response")
     workflow.add_edge("fallback_agent", "validate_response")
     
     workflow.add_edge("validate_response", END)
@@ -705,17 +836,12 @@ def create_agent_graph():
     return graph
 
 
-def apply_bold_to_quotes(text: str) -> str:
-    """Replace 'term' with **term** in text."""
-    if not isinstance(text, str):
-        return text
-    # Refined regex to bold terms in single quotes while ignoring apostrophes in contractions
-    return re.sub(r"(?<!\w)'([^']+)'(?!\w)", r"**\1**", text)
+# apply_bold_to_quotes is now replaced by chat.format_step_text
 
 def format_response_recursive(data: Any) -> Any:
     """Recursively apply bold formatting to all strings in a data structure."""
     if isinstance(data, str):
-        return apply_bold_to_quotes(data)
+        return format_step_text(data)
     elif isinstance(data, list):
         return [format_response_recursive(item) for item in data]
     elif isinstance(data, dict):
@@ -786,6 +912,13 @@ class LangGraphAgentSystem:
 
 # ==================== INITIALIZE SYSTEM ====================
 langgraph_system = LangGraphAgentSystem()
+
+def refresh_knowledge_base():
+    """Refresh the knowledge base cache"""
+    try:
+        langgraph_system.graph = create_agent_graph()
+    except Exception as e:
+        print(f"Error refreshing knowledge base: {e}")
 
 def process_user_query(user_query: str, conversation_history: List[str] = None, 
                       last_tutorial: List[Dict[str, Any]] = None) -> Dict[str, Any]:

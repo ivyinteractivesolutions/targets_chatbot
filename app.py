@@ -7,7 +7,7 @@ import sys
 import subprocess
 import traceback
 from werkzeug.utils import secure_filename
-from react_agent_system_langgraph import process_user_query
+from react_agent_system_langgraph import process_user_query, refresh_knowledge_base
 from session_manager import SessionManager
 
 app = Flask(__name__)
@@ -71,6 +71,9 @@ def chat():
             
         full_history = session_data.get("history", [])
         
+        # Get last tutorial context from request
+        last_tutorial = request.json.get("last_tutorial", [])
+        
         # Convert objects to simple strings for the LangGraph agent
         # The agent expects a list of "User: ..." and "Assistant: ..." strings
         simple_history = []
@@ -82,7 +85,7 @@ def chat():
                 simple_history.append(str(msg))
 
         # Process with React agent system
-        response = process_user_query(user_message, simple_history)
+        response = process_user_query(user_message, simple_history, last_tutorial)
         
         # Update full history with objects
         full_history.append({"role": "user", "content": user_message})
@@ -339,9 +342,12 @@ def update_vectordb():
         )
         
         if result.returncode == 0:
+            # Refresh knowledge base cache so it knows about new tutorials
+            refresh_knowledge_base()
+            
             return jsonify({
                 "success": True,
-                "message": "Vector database updated successfully!",
+                "message": "Vector database updated and AI knowledge refreshed successfully!",
                 "output": result.stdout.strip()
             }), 200
         else:

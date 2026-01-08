@@ -143,6 +143,26 @@
       </div>
     </div>
 
+    <!-- Confirmation Modal -->
+    <div class="modal-overlay" id="confirmModal">
+      <div class="confirm-modal">
+        <div class="confirm-icon">⚠️</div>
+        <h3 class="confirm-title">Delete Chat?</h3>
+        <p class="confirm-message">
+          This chat history would be deleted permanently. You won't be able to
+          recover it.
+        </p>
+        <div class="confirm-actions">
+          <button class="confirm-btn cancel" onclick="closeConfirmModal()">
+            Cancel
+          </button>
+          <button class="confirm-btn delete" id="confirmDeleteBtn">
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
+
     <!-- Image Modal -->
     <div class="image-modal" id="imageModal">
       <span class="close-modal" onclick="closeImageModal()">&times;</span>

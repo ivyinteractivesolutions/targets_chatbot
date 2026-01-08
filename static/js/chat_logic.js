@@ -10,11 +10,14 @@ const sidebar = document.getElementById("sidebar");
 const sendBtn = document.getElementById("sendBtn");
 const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
+const confirmModal = document.getElementById("confirmModal");
+const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
 
 // Local in-memory conversation + last tutorial store
 let chatStateHistory = []; // stores "User: ..." and "Assistant: ..." strings
 let lastTutorialSteps = []; // stores last tutorial steps array returned from backend
 let currentSessionId = null;
+let isFirstLoad = true;
 
 function toggleSidebar() {
   sidebar.classList.toggle("collapsed");
@@ -40,14 +43,15 @@ async function fetchSessions() {
     const data = await response.json();
     displaySessions(data.sessions);
 
-    // If no current session, get the latest or create one
-    if (!currentSessionId) {
+    // Auto-select latest session only on first load if no session is active
+    if (isFirstLoad && !currentSessionId) {
       if (data.sessions && data.sessions.length > 0) {
         selectSession(data.sessions[0].session_id);
       } else {
         newChat();
       }
     }
+    isFirstLoad = false;
   } catch (err) {
     console.error("Error fetching sessions:", err);
   }
@@ -172,32 +176,38 @@ async function selectSession(sessionId) {
   }
 }
 
-async function newChat() {
-  try {
-    const response = await fetch(`${API_BASE_URL}/sessions`, {
-      method: "POST",
-    });
-    const data = await response.json();
-    currentSessionId = data.session_id;
+function newChat() {
+  currentSessionId = null;
+  chatHistory.innerHTML = "";
+  chatStateHistory = [];
+  lastTutorialSteps = [];
 
-    chatHistory.innerHTML = "";
-    chatStateHistory = [];
-    lastTutorialSteps = [];
+  chatHistory.classList.remove("active");
+  welcomeContent.classList.remove("hidden");
+  actions.classList.remove("hidden");
+  messageInput.value = "";
+  auto_resize();
 
-    chatHistory.classList.remove("active");
-    welcomeContent.classList.remove("hidden");
-    actions.classList.remove("hidden");
-    messageInput.value = "";
-    auto_resize();
-
-    fetchSessions();
-  } catch (err) {
-    console.error("Error creating new chat:", err);
-  }
+  fetchSessions();
 }
 
-async function deleteSession(sessionId) {
-  if (!confirm("Are you sure you want to delete this chat?")) return;
+let sessionToDelete = null;
+
+function deleteSession(sessionId) {
+  sessionToDelete = sessionId;
+  confirmModal.classList.add("active");
+}
+
+function closeConfirmModal() {
+  confirmModal.classList.remove("active");
+  sessionToDelete = null;
+}
+
+confirmDeleteBtn.onclick = async () => {
+  if (!sessionToDelete) return;
+
+  const sessionId = sessionToDelete;
+  closeConfirmModal();
 
   try {
     const response = await fetch(`${API_BASE_URL}/sessions/${sessionId}`, {
@@ -215,7 +225,7 @@ async function deleteSession(sessionId) {
   } catch (err) {
     console.error("Error deleting session:", err);
   }
-}
+};
 
 async function renameSession(sessionId, currentTitle) {
   const newTitle = prompt("Enter new chat title:", currentTitle);
@@ -590,19 +600,28 @@ async function sendMessage() {
   addMessage(message, true);
   chatStateHistory.push(`User: ${message}`);
 
-  // If this is a "clarify step X" type, we still send lastTutorialSteps so backend can clarify
-  const payload = {
-    message: message,
-    session_id: currentSessionId,
-    last_tutorial: lastTutorialSteps,
-  };
-
   messageInput.value = "";
   auto_resize();
   sendBtn.disabled = true;
   showTypingIndicator();
 
   try {
+    // Lazy Session Creation: Create session if it doesn't exist yet
+    if (!currentSessionId) {
+      const sessResponse = await fetch(`${API_BASE_URL}/sessions`, {
+        method: "POST",
+      });
+      const sessData = await sessResponse.json();
+      currentSessionId = sessData.session_id;
+    }
+
+    // If this is a "clarify step X" type, we still send lastTutorialSteps so backend can clarify
+    const payload = {
+      message: message,
+      session_id: currentSessionId,
+      last_tutorial: lastTutorialSteps,
+    };
+
     const response = await fetch(API_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

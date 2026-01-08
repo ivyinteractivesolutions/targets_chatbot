@@ -14,12 +14,13 @@ class SessionManager:
         now = datetime.now()
         date_str = now.strftime("%Y-%m-%d")
         time_str = now.strftime("%H:%M:%S")
+        timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S")
         
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO Session (session_id, user_id, date, time, title) VALUES (?, ?, ?, ?, ?)",
-            (session_id, user_id, date_str, time_str, "New Chat")
+            "INSERT INTO Session (session_id, user_id, date, time, title, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
+            (session_id, user_id, date_str, time_str, "New Chat", timestamp_str)
         )
         conn.commit()
         conn.close()
@@ -81,17 +82,20 @@ class SessionManager:
         conn = get_db_connection()
         cursor = conn.cursor()
         
+        now = datetime.now()
+        timestamp_str = now.strftime("%Y-%m-%d %H:%M:%S")
+
         # Update title if provided
         if title:
             short_title = title[:50] + ("..." if len(title) > 50 else "")
             cursor.execute(
-                "UPDATE Session SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE session_id = ?",
-                (short_title, session_id)
+                "UPDATE Session SET title = ?, updated_at = ? WHERE session_id = ?",
+                (short_title, timestamp_str, session_id)
             )
         else:
             cursor.execute(
-                "UPDATE Session SET updated_at = CURRENT_TIMESTAMP WHERE session_id = ?",
-                (session_id,)
+                "UPDATE Session SET updated_at = ? WHERE session_id = ?",
+                (timestamp_str, session_id)
             )
 
         # To keep it simple and robust while matching save_session(history) logic:

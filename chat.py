@@ -7,10 +7,6 @@ load_dotenv()
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.prompts import ChatPromptTemplate
-from langchain_classic.memory import ConversationBufferMemory
-from langchain_classic.chains.combine_documents import create_stuff_documents_chain
-from langchain_classic.chains.retrieval import create_retrieval_chain
-from openai import OpenAI
 
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR")
@@ -50,14 +46,9 @@ def build_components():
     retriever = vectordb.as_retriever(search_kwargs={"k": 1})  
     
     llm = ChatOpenAI(model=MODEL_NAME, temperature=0.0)
-    document_chain = create_stuff_documents_chain(llm, prompt)
-    rag_chain = create_retrieval_chain(retriever, document_chain)
-    memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
     
     return {
         "retriever": retriever, 
-        "rag_chain": rag_chain, 
-        "memory": memory,
         "llm": llm,
         "vectordb": vectordb
     }
@@ -120,25 +111,14 @@ def get_bot_response(user_query: str, conversation_history: list = None):
                 "content": "Found relevant sections but no specific steps available."
             }
 
-        # Save question and short summary to memory; also save conversation_history if provided
-        save_meta = {"answer": f"Provided tutorial with {len(all_steps)} steps"}
-        if conversation_history:
-            # store a short serialized history alongside
-            try:
-                save_meta["conversation_preview"] = json.dumps(conversation_history[-6:])
-            except Exception:
-                # If serialization fails, ignore
-                pass
-
-        components["memory"].save_context(
-            {"question": user_query}, 
-            save_meta
-        )
+        # Metadata and history are now managed by app.py and session_manager.py
+        section_title = docs[0].metadata.get("section_title", "")
         
         return {
             "type": "tutorial",
             "steps": all_steps,
             "source_count": len(docs),
+            "section_title": section_title,
             # include optional content text for UI consistent rendering
             "content": f"Sure! Here is the step by step answer to your query. (Found {len(all_steps)} steps.)"
         }

@@ -5,6 +5,7 @@ DB_PATH = "chat_history/chatbot.db"
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH)
+    conn.execute("PRAGMA foreign_keys = ON")
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -24,7 +25,7 @@ def init_db():
             date TEXT NOT NULL,
             time TEXT NOT NULL,
             title TEXT,
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            updated_at TEXT
         )
     ''')
     
