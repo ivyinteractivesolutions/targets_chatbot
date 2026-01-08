@@ -7,3 +7,5 @@ chroma_db/
 node_modules/
 build/
 dist/
+*.db-shm
+*.db-wal
