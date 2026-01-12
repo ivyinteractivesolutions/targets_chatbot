@@ -713,13 +713,14 @@ Format: Bullet points.
         
         elif intent == "history_recall":
             # Recall specific parts of the history
+            history_text = "\n".join(history[-10:])
             system_prompt = f"""The user is asking a question about the previous conversation.
 Based on the provided history, answer the user's question accurately.
 If they ask for their 'last question', identify it from the history.
 If they ask 'what did you say about X', find the relevant assistant response.
 Language: {'Roman-Urdu' if is_urdu else 'English'}
 History:
-{"\n".join(history[-10:])}
+{history_text}
 """
             try:
                 response = self.general_llm.invoke([
