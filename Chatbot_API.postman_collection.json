@@ -1,0 +1,598 @@
+{
+	"info": {
+		"_postman_id": "chatbot-api-collection",
+		"name": "Chatbot API",
+		"description": "Complete API collection for the Chatbot Assistant. Includes chat messaging and session management endpoints.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Session Management",
+			"item": [
+				{
+					"name": "List All Sessions",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						},
+						"description": "Retrieve all chat sessions for the current user. Returns an array of sessions with session_id, title, and updated_at."
+					},
+					"response": []
+				},
+				{
+					"name": "Create New Session",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200) {",
+									"    var jsonData = pm.response.json();",
+									"    pm.collectionVariables.set(\"session_id\", jsonData.session_id);",
+									"    console.log(\"Session ID saved:\", jsonData.session_id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions"
+							]
+						},
+						"description": "Create a new chat session. Returns a session_id that should be used for subsequent chat messages. The session_id is automatically saved to collection variables."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Session Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions/{{session_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"{{session_id}}"
+							]
+						},
+						"description": "Get full session details including chat history. Use this to load a previous conversation."
+					},
+					"response": []
+				},
+				{
+					"name": "Rename Session",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"My Updated Chat Title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/sessions/{{session_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"{{session_id}}"
+							]
+						},
+						"description": "Update the title of an existing session. The title parameter is required."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Session",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/sessions/{{session_id}}",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"sessions",
+								"{{session_id}}"
+							]
+						},
+						"description": "Delete a chat session permanently. This action cannot be undone."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for managing chat sessions (create, list, get, rename, delete)"
+		},
+		{
+			"name": "Chat Messages",
+			"item": [
+				{
+					"name": "Send Message - Tutorial Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"How to add a new region?\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Send a message requesting a tutorial. The response will be of type 'tutorial' with step-by-step instructions. Requires a valid session_id."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message - Capabilities Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"What can you help me with?\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Ask about the chatbot's capabilities. The response will be of type 'capabilities' with features and descriptions."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message - General Question",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"Hello, how are you?\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Send a general conversational message. The response will be of type 'general'."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message - With Tutorial Context",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"clarify step 2\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": [\n        {\n            \"step_number\": 1,\n            \"text\": \"Navigate to Settings > Regions\",\n            \"image\": \"/static/images/step1.png\"\n        },\n        {\n            \"step_number\": 2,\n            \"text\": \"Click the Add New Region button\",\n            \"image\": \"/static/images/step2.png\"\n        },\n        {\n            \"step_number\": 3,\n            \"text\": \"Fill in the region details\",\n            \"image\": \"/static/images/step3.png\"\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Send a message with tutorial context. Use this when asking for clarification on a specific step. The last_tutorial array should contain the steps from the previous tutorial response."
+					},
+					"response": []
+				},
+				{
+					"name": "Send Message - Error Case (No Session ID)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"message\": \"How to add a new region?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/chat",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"chat"
+							]
+						},
+						"description": "Example of an error case - missing session_id. This should return a 400 Bad Request error."
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for sending chat messages and receiving AI responses"
+		},
+		{
+			"name": "Test Scenarios",
+			"item": [
+				{
+					"name": "Complete Chat Flow",
+					"item": [
+						{
+							"name": "1. Create Session",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"session_id\", jsonData.session_id);",
+											"    console.log(\"✓ Session created:\", jsonData.session_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/sessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Send First Message",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message\": \"How to add a new region?\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chat",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Get Session (Verify History)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/sessions/{{session_id}}",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions",
+										"{{session_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "4. List Sessions (Verify Title)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/sessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Complete workflow: Create session → Send message → Verify history → Check session list"
+				},
+				{
+					"name": "Tutorial Flow with Clarification",
+					"item": [
+						{
+							"name": "1. Create Session",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    var jsonData = pm.response.json();",
+											"    pm.collectionVariables.set(\"session_id\", jsonData.session_id);",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{base_url}}/sessions",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"sessions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "2. Request Tutorial",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"if (pm.response.code === 200) {",
+											"    var jsonData = pm.response.json();",
+											"    if (jsonData.type === 'tutorial' && jsonData.steps) {",
+											"        pm.collectionVariables.set(\"last_tutorial_steps\", JSON.stringify(jsonData.steps));",
+											"        console.log(\"✓ Tutorial steps saved\");",
+											"    }",
+											"}"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message\": \"How to create a distributor?\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": []\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chat",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chat"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "3. Clarify Step",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"message\": \"clarify step 2\",\n    \"session_id\": \"{{session_id}}\",\n    \"last_tutorial\": {{last_tutorial_steps}}\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/chat",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"chat"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "Test the tutorial flow: Request tutorial → Get steps → Ask for clarification on a specific step"
+				}
+			],
+			"description": "Pre-configured test scenarios for common workflows"
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Auto-set base URL if not already set",
+					"if (!pm.collectionVariables.get('base_url')) {",
+					"    pm.collectionVariables.set('base_url', 'https://primehouzz.com/assistant/chat');",
+					"}"
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"// Global test script",
+					"pm.test('Response time is less than 5000ms', function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(5000);",
+					"});",
+					"",
+					"pm.test('Response has valid JSON', function () {",
+					"    pm.response.to.be.json;",
+					"});"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "https://primehouzz.com/assistant/chat",
+			"type": "string"
+		},
+		{
+			"key": "session_id",
+			"value": "",
+			"type": "string"
+		},
+		{
+			"key": "last_tutorial_steps",
+			"value": "[]",
+			"type": "string"
+		}
+	]
+}
+

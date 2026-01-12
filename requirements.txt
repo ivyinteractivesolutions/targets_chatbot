@@ -8,3 +8,4 @@ langchain-chroma
 langgraph
 langchain
 flask
+flask-cors

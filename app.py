@@ -1,6 +1,7 @@
 
 
 from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 import os
 import json
 import sys
@@ -11,6 +12,9 @@ from react_agent_system_langgraph import process_user_query, refresh_knowledge_b
 from session_manager import SessionManager
 
 app = Flask(__name__)
+
+# Enable CORS for all routes and all origins
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 # Configuration for both functionalities
 UPLOAD_FOLDER = "static/images"
