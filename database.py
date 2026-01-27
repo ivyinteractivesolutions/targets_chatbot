@@ -4,7 +4,16 @@ import os
 DB_PATH = "chat_history/chatbot.db"
 
 def get_db_connection():
-    conn = sqlite3.connect(DB_PATH)
+    conn = sqlite3.connect(DB_PATH, timeout=20)
+    try:
+        # Only attempt to set WAL if not already set, to minimize locking
+        cursor = conn.execute("PRAGMA journal_mode")
+        mode = cursor.fetchone()[0]
+        if mode.lower() != "wal":
+            conn.execute("PRAGMA journal_mode=WAL")
+    except sqlite3.OperationalError:
+        # Handle cases where the database is locked or on a filesystem that doesn't support WAL
+        pass
     conn.execute("PRAGMA foreign_keys = ON")
     conn.row_factory = sqlite3.Row
     return conn
