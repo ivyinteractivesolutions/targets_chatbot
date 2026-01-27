@@ -2,6 +2,10 @@
 const API_BASE_URL = window.location.origin;
 const API_ENDPOINT = `${API_BASE_URL}/chat`;
 
+// Hardcoded for now, or match what you use in Postman
+const USER_ID = "guest_user";
+const LICENSE_ID = "guest_license";
+
 const chatHistory = document.getElementById("chatHistory");
 const messageInput = document.getElementById("messageInput");
 const actions = document.getElementById("actions");
@@ -12,6 +16,9 @@ const imageModal = document.getElementById("imageModal");
 const modalImage = document.getElementById("modalImage");
 const confirmModal = document.getElementById("confirmModal");
 const confirmDeleteBtn = document.getElementById("confirmDeleteBtn");
+// Voice Integration Elements
+const voiceBtn = document.getElementById("voiceBtn");
+const recordingTimer = document.getElementById("recordingTimer");
 
 // Local in-memory conversation + last tutorial store
 let chatStateHistory = []; // stores "User: ..." and "Assistant: ..." strings
@@ -39,19 +46,36 @@ function selectAction(action) {
 // Fetch and display sessions on load
 async function fetchSessions() {
   try {
-    const response = await fetch(`${API_BASE_URL}/sessions`);
+    const response = await fetch(`${API_BASE_URL}/sessions?user_id=${USER_ID}`);
     const data = await response.json();
     displaySessions(data.sessions);
 
-    // Auto-select latest session only on first load if no session is active
-    if (isFirstLoad && !currentSessionId) {
-      if (data.sessions && data.sessions.length > 0) {
-        selectSession(data.sessions[0].session_id);
+    // Session Restoration Logic (Scalable Client-Side)
+    // Check if we have an active session in this specific tab/window
+    const activeSessionId = sessionStorage.getItem("activeSessionId");
+
+    if (isFirstLoad) {
+      if (activeSessionId) {
+        // CASE 1: Page Reload - Restore the active session
+        // Verify it still exists in the fetched list (in case it was deleted elsewhere)
+        const sessionExists = data.sessions.some(
+          (s) => s.session_id === activeSessionId,
+        );
+
+        if (sessionExists) {
+          selectSession(activeSessionId);
+        } else {
+          // Session ID in storage but not on server (maybe deleted or expired)
+          sessionStorage.removeItem("activeSessionId");
+          newChat();
+        }
       } else {
+        // CASE 2: New Tab/Visit - Always start with a fresh landing page
+        // Do NOT auto-select the latest session
         newChat();
       }
+      isFirstLoad = false;
     }
-    isFirstLoad = false;
   } catch (err) {
     console.error("Error fetching sessions:", err);
   }
@@ -128,6 +152,9 @@ async function selectSession(sessionId) {
   if (currentSessionId === sessionId) return;
   currentSessionId = sessionId;
 
+  // Persist active session to sessionStorage (survives reload, clears on close)
+  sessionStorage.setItem("activeSessionId", sessionId);
+
   // Update UI
   fetchSessions(); // Refresh list to show active state
 
@@ -178,6 +205,9 @@ async function selectSession(sessionId) {
 
 function newChat() {
   currentSessionId = null;
+  // Clear persistence so next reload shows landing page (until a new message starts a session)
+  sessionStorage.removeItem("activeSessionId");
+
   chatHistory.innerHTML = "";
   chatStateHistory = [];
   lastTutorialSteps = [];
@@ -406,7 +436,7 @@ function attachEventListeners(container) {
   container
     .querySelectorAll(".step-image")
     .forEach((img) =>
-      img.addEventListener("click", () => openImageModal(img.src))
+      img.addEventListener("click", () => openImageModal(img.src)),
     );
 
   // Clarify Buttons
@@ -440,7 +470,7 @@ function renderCapabilitiesResponse(data) {
         <div class="capability-info">
           <h3 class="capability-title">${escapeHtml(feature.title)}</h3>
           <p class="capability-description">${escapeHtml(
-            feature.description
+            feature.description,
           )}</p>
         </div>
       </div>
@@ -490,10 +520,10 @@ function renderTutorialResponse(data) {
 
   // Pro Tip & Completion
   html += `<div class="completion-message"><strong>Pro tip:</strong> ${marked.parse(
-    data.pro_tip || ""
+    data.pro_tip || "",
   )}</div>`;
   html += `<div class="completion-message">${marked.parse(
-    data.completion_message || ""
+    data.completion_message || "",
   )}</div>`;
 
   html += renderSuggestedActions(data.suggested_actions);
@@ -526,7 +556,7 @@ function renderRegularResponse(data) {
   // Content typed separately
   if (data.completion_message)
     html += `<div class="completion-message">${marked.parse(
-      data.completion_message
+      data.completion_message,
     )}</div>`;
   html += renderSuggestedActions(data.suggested_actions);
   return html;
@@ -538,7 +568,7 @@ function renderSuggestedActions(actions) {
     '<div class="suggested-actions"><div class="suggested-actions-title">Suggested Actions</div><div class="suggested-actions-list">';
   actions.forEach((action) => {
     html += `<button class="suggested-action-btn" data-action="${escapeHtml(
-      action
+      action,
     )}">${escapeHtml(action)}</button>`;
   });
   html += "</div></div>";
@@ -610,9 +640,13 @@ async function sendMessage() {
     if (!currentSessionId) {
       const sessResponse = await fetch(`${API_BASE_URL}/sessions`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ user_id: USER_ID, license_id: LICENSE_ID }),
       });
       const sessData = await sessResponse.json();
       currentSessionId = sessData.session_id;
+      // Persist the new session ID immediately
+      sessionStorage.setItem("activeSessionId", currentSessionId);
     }
 
     // If this is a "clarify step X" type, we still send lastTutorialSteps so backend can clarify
@@ -666,7 +700,7 @@ async function sendMessage() {
       if (data.conversation_history.length >= chatStateHistory.length) {
         chatStateHistory.length = 0;
         data.conversation_history.forEach((item) =>
-          chatStateHistory.push(item)
+          chatStateHistory.push(item),
         );
       }
     }
@@ -702,3 +736,116 @@ messageInput.addEventListener("input", () => {
 
 // Initialize
 window.onload = fetchSessions;
+
+// ==========================================
+// VOICE INTEGRATION LOGIC
+// ==========================================
+let mediaRecorder = null;
+let audioChunks = [];
+let isRecording = false;
+let timerInterval = null;
+let recordingStartTime = null;
+
+async function toggleRecording() {
+  if (isRecording) {
+    stopRecording();
+  } else {
+    await startRecording();
+  }
+}
+
+async function startRecording() {
+  try {
+    const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+
+    mediaRecorder = new MediaRecorder(stream);
+    audioChunks = [];
+
+    mediaRecorder.ondataavailable = (event) => {
+      audioChunks.push(event.data);
+    };
+
+    mediaRecorder.onstop = async () => {
+      const audioBlob = new Blob(audioChunks, { type: "audio/webm" }); // Chrome uses webm defaults usually
+      await sendAudioToBackend(audioBlob);
+
+      // Stop all tracks to release microphone
+      stream.getTracks().forEach((track) => track.stop());
+    };
+
+    mediaRecorder.start();
+    isRecording = true;
+
+    // Update UI
+    voiceBtn.classList.add("recording");
+    recordingTimer.classList.remove("hidden");
+    recordingTimer.textContent = "00:00";
+
+    // Start Timer
+    recordingStartTime = Date.now();
+    timerInterval = setInterval(updateTimer, 1000);
+  } catch (err) {
+    console.error("Error accessing microphone:", err);
+    alert("Could not access microphone. Please allow permissions.");
+  }
+}
+
+function stopRecording() {
+  if (mediaRecorder && isRecording) {
+    mediaRecorder.stop();
+    isRecording = false;
+
+    // Update UI
+    voiceBtn.classList.remove("recording");
+    recordingTimer.classList.add("hidden");
+
+    // Stop Timer
+    clearInterval(timerInterval);
+  }
+}
+
+function updateTimer() {
+  const elapsed = Math.floor((Date.now() - recordingStartTime) / 1000);
+  const minutes = Math.floor(elapsed / 60)
+    .toString()
+    .padStart(2, "0");
+  const seconds = (elapsed % 60).toString().padStart(2, "0");
+  recordingTimer.textContent = `${minutes}:${seconds}`;
+}
+
+async function sendAudioToBackend(audioBlob) {
+  // Show loading or some indication?
+  // Maybe show typing indicator while transcribing?
+  showTypingIndicator();
+  const formData = new FormData();
+  // We'll append the file. Filename isn't critical but good to have extension.
+  formData.append("audio_data", audioBlob, "voice_note.webm");
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/transcribe`, {
+      method: "POST",
+      body: formData,
+    });
+
+    if (!response.ok) {
+      throw new Error("Generic Transcription Error");
+    }
+
+    const data = await response.json();
+    removeTypingIndicator();
+
+    if (data.text) {
+      // Put text in input and send
+      messageInput.value = data.text;
+      auto_resize();
+      sendMessage();
+    } else {
+      console.warn("No text transcribed");
+    }
+  } catch (err) {
+    removeTypingIndicator();
+    console.error("Transcription failed:", err);
+    // Silent fail or alert?
+    // Maybe just put text in input saying "Error transcribing"
+  }
+}

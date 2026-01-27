@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -126,6 +126,20 @@
               onkeypress="handleKeyPress(event)"
               rows="1"
             ></textarea>
+
+            <!-- Timer Display (Hidden by default) -->
+            <div id="recordingTimer" class="recording-timer hidden">00:00</div>
+
+            <!-- Voice Button -->
+            <button
+              class="voice-btn"
+              onclick="toggleRecording()"
+              id="voiceBtn"
+              title="Hold to record"
+            >
+              <i class="fas fa-microphone"></i>
+            </button>
+
             <button class="send-btn" onclick="sendMessage()" id="sendBtn">
               <svg
                 width="16"

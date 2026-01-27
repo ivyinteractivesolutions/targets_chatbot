@@ -15,39 +15,49 @@ EMBEDDING_MODEL = os.getenv("EMBEDDING_MODEL")
 
 def load_json_docs(docs_dir: Path):
     all_docs = []
-    for path in docs_dir.glob("*.json"):
-        with open(path, "r", encoding="utf-8") as f:
-            data = json.load(f)
+    if not docs_dir.exists():
+        print(f"ERROR: Documents directory {docs_dir} does not exist.")
+        return all_docs
         
-        tutorial_name = data.get("tutorial_name")
-        language = data.get("language")
-
-        for section in data.get("sections"):
-            section_title = section.get("section_title")
-            section_description = section.get("description")
-            section_steps = section.get("steps", [])
-
-            # Enhanced text for better retrieval - works with existing JSON
-            text_for_embedding = (
-                f"Tutorial: {tutorial_name} | "
-                f"Language: {language} | "
-                f"Section: {section_title} | "
-                f"Task: {section_description} | "
-                f"Steps: {len(section_steps)} steps to complete this task"
-            )
+    files = [f for f in os.listdir(docs_dir) if f.endswith(".json")]
+    print(f"DEBUG: Manually listing files: {files}")
+    
+    for filename in files:
+        path = docs_dir / filename
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                data = json.load(f)
             
-            # Enhanced metadata - backward compatible
-            meta = {
-                "content_type": "tutorial",  # New field
-                "tutorial_name": tutorial_name,
-                "language": language,
-                "section_title": section_title,
-                "source": path.name,
-                "steps_json": json.dumps(section_steps),
-                "section_description": section_description  # New field for better context
-            }
+            tutorial_name = data.get("tutorial_name")
+            language = data.get("language")
+            sections = data.get("sections", [])
 
-            all_docs.append({"text": text_for_embedding, "metadata": meta})
+            for section in sections:
+                section_title = section.get("section_title")
+                section_description = section.get("description")
+                section_steps = section.get("steps", [])
+
+                text_for_embedding = (
+                    f"Tutorial: {tutorial_name} | "
+                    f"Language: {language} | "
+                    f"Section: {section_title} | "
+                    f"Task: {section_description} | "
+                    f"Steps: {len(section_steps)} steps to complete this task"
+                )
+                
+                meta = {
+                    "content_type": "tutorial",
+                    "tutorial_name": tutorial_name,
+                    "language": language,
+                    "section_title": section_title,
+                    "source": path.name,
+                    "steps_json": json.dumps(section_steps),
+                    "section_description": section_description
+                }
+
+                all_docs.append({"text": text_for_embedding, "metadata": meta})
+        except Exception as e:
+            print(f"  ERROR: Failed to process {path.name}: {e}")
     
     return all_docs
 
@@ -56,14 +66,14 @@ def compute_hash(text: str, metadata: dict) -> str:
     content = f"{text}{json.dumps(metadata, sort_keys=True)}"
     return hashlib.sha256(content.encode("utf-8")).hexdigest()
 
-def main():
+def run_ingestion():
+    """Main ingestion logic exposed as a function for app.py to call directly."""
     print("Loading JSON files from:", DOCS_DIR, flush=True)
     docs = load_json_docs(DOCS_DIR)
 
     if not docs:
         print("No docs found in documents folder.", flush=True)
-        # Optional: clear DB if no docs exist? Probably better to keep it for safety.
-        return
+        return "No documents found to ingest."
 
     print(f"Loaded {len(docs)} sections from files.\n", flush=True)
 
@@ -90,6 +100,7 @@ def main():
     
     add_count = 0
     update_count = 0
+    output_messages = []
 
     for d in docs:
         # Generate stable ID
@@ -118,7 +129,9 @@ def main():
             to_add_texts.append(d['text'])
             to_add_metadatas.append(d['metadata'])
             to_add_ids.append(id)
-            print(f"{action_label} Found changes in '{d['metadata']['tutorial_name']}' - Section: {d['metadata']['section_title']}", flush=True)
+            msg = f"{action_label} Found changes in '{d['metadata']['tutorial_name']}' - Section: {d['metadata']['section_title']}"
+            print(msg, flush=True)
+            output_messages.append(msg)
 
     # 3. Handle deletions (items in DB but not in local files)
     ids_to_delete = existing_ids - set(current_ids)
@@ -126,7 +139,9 @@ def main():
         print(f"COMMENCING DELETIONS: Found {len(ids_to_delete)} sections that are no longer present.", flush=True)
         for del_id in ids_to_delete:
             meta = existing_metadatas[del_id]
-            print(f"REMOVED: Old section '{meta.get('section_title')}' from '{meta.get('tutorial_name')}'", flush=True)
+            msg = f"REMOVED: Old section '{meta.get('section_title')}' from '{meta.get('tutorial_name')}'"
+            print(msg, flush=True)
+            output_messages.append(msg)
         vectordb.delete(ids=list(ids_to_delete))
 
     # 4. Perform upsert (add/update)
@@ -144,7 +159,70 @@ def main():
         else:
             print("SUCCESS: MIRA's memory was cleaned up successfully.", flush=True)
 
-    print(f"\nFINAL SUMMARY: MIRA now knows a total of {len(current_ids)} tutorial steps across all files.\n", flush=True)
+    summary = f"FINAL SUMMARY: MIRA now knows a total of {len(current_ids)} tutorial steps across all files."
+    print(f"\n{summary}\n", flush=True)
+    output_messages.append(summary)
+    
+    return "\n".join(output_messages)
+
+def cleanup_orphaned_images():
+    """
+    Scans all JSON files and deletes any images in static/images that are no longer referenced.
+    """
+    print("CLEANUP: Starting orphaned image cleanup...", flush=True)
+    
+    referenced_images = set()
+    
+    # 1. Collect all referenced images from JSON files
+    if not DOCS_DIR.exists():
+        return "Documents directory not found."
+        
+    for filename in os.listdir(DOCS_DIR):
+        if filename.endswith(".json"):
+            try:
+                with open(DOCS_DIR / filename, "r", encoding="utf-8") as f:
+                    data = json.load(f)
+                
+                for section in data.get("sections", []):
+                    for step in section.get("steps", []):
+                        snapshot = step.get("snapshot")
+                        if snapshot:
+                            # Normalize path: remove leading slash for comparison
+                            rel_path = snapshot.lstrip("/")
+                            # We only care about images in our static/images folder
+                            if rel_path.startswith("static/images/"):
+                                referenced_images.add(rel_path.split("/")[-1])
+            except Exception as e:
+                print(f"  ERROR: Could not read {filename} during cleanup: {e}")
+
+    # 2. Scan static/images folder
+    image_dir = Path("static/images")
+    if not image_dir.exists():
+        return "Image directory not found."
+        
+    deleted_count = 0
+    errors = 0
+    
+    for img_file in os.listdir(image_dir):
+        # Avoid deleting .gitkeep or other system files if they exist
+        if img_file.startswith("."):
+            continue
+            
+        if img_file not in referenced_images:
+            try:
+                os.remove(image_dir / img_file)
+                print(f"  REMOVED: Orphaned image '{img_file}'", flush=True)
+                deleted_count += 1
+            except Exception as e:
+                print(f"  ERROR: Failed to delete '{img_file}': {e}")
+                errors += 1
+                
+    result = f"CLEANUP COMPLETE: Deleted {deleted_count} orphaned images."
+    if errors > 0:
+        result += f" ({errors} errors occurred)"
+    print(result, flush=True)
+    return result
 
 if __name__ == "__main__":
-    main()
+    run_ingestion()
+    cleanup_orphaned_images()

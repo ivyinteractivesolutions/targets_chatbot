@@ -22,6 +22,7 @@ def init_db():
         CREATE TABLE IF NOT EXISTS Session (
             session_id TEXT PRIMARY KEY,
             user_id TEXT NOT NULL,
+            license_id TEXT NOT NULL,
             date TEXT NOT NULL,
             time TEXT NOT NULL,
             title TEXT,

@@ -1,9 +1,13 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Tutorial JSON Builder</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
 
     <style>
       /* Reset and Base Styles */
@@ -15,1227 +19,767 @@
 
       body {
         font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        background: #f5f7fa;
         min-height: 100vh;
         color: #333;
         line-height: 1.6;
+        overflow-x: hidden; /* Prevent horizontal scroll */
       }
 
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 20px;
+      /* Layout Containers */
+      .layout-container {
+        display: flex;
+        min-height: 100vh;
       }
 
-      /* Header Styles */
-      .header {
-        text-align: center;
-        margin-bottom: 40px;
-        padding: 30px;
-        background: linear-gradient(135deg, #198754 0%, #198754 100%);
-        border-radius: 16px;
+      /* LEFT SIDEBAR STYLES */
+      .sidebar {
+        width: 280px;
+        background: white;
+        border-right: 1px solid #e0e0e0;
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 100;
+        box-shadow: 2px 0 15px rgba(0, 0, 0, 0.03);
+      }
+
+      .sidebar-header {
+        padding: 25px 20px;
+        background: #198754;
         color: white;
-        box-shadow: 0 10px 30px #198754;
+        text-align: center;
       }
 
-      .header-content {
+      .sidebar-header h2 {
+        font-size: 1.4rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        gap: 15px;
-        margin-bottom: 10px;
+        gap: 10px;
+        margin-bottom: 5px;
       }
 
-      .header-icon {
-        font-size: 2.5rem;
-        animation: float 3s ease-in-out infinite;
-      }
-
-      @keyframes float {
-        0%,
-        100% {
-          transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-10px);
-        }
-      }
-
-      h1 {
-        font-size: 2.5rem;
-        font-weight: 700;
-      }
-
-      .subtitle {
-        font-size: 1.1rem;
+      .sidebar-header p {
+        font-size: 0.85rem;
         opacity: 0.9;
-        max-width: 600px;
-        margin: 0 auto;
+        font-weight: 300;
       }
 
-      /* Main Content */
-      .main-content {
-        background: white;
-        border-radius: 16px;
-        padding: 30px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        margin-bottom: 30px;
+      .sidebar-content {
+        flex: 1;
+        padding: 20px;
+        overflow-y: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
       }
 
-      /* Form Sections */
-      .form-section {
-        margin-bottom: 40px;
-        padding-bottom: 30px;
-        border-bottom: 2px solid #f0f0f0;
-      }
-
-      .form-section:last-of-type {
-        border-bottom: none;
-      }
-
-      .form-section h2 {
-        color: #2c3e50;
-        margin-bottom: 25px;
-        font-size: 1.5rem;
+      /* Sidebar Action Buttons */
+      .action-btn {
         display: flex;
         align-items: center;
+        justify-content: center;
         gap: 10px;
+        width: 100%;
+        padding: 15px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+        text-align: center;
       }
 
-      /* Form Groups */
+      .action-btn:active {
+        transform: translateY(1px);
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+      }
+
+      .action-btn i {
+        font-size: 1.1rem;
+      }
+
+      .btn-green {
+        background: linear-gradient(135deg, #198754, #218838);
+        color: white;
+      }
+      .btn-green:hover {
+        background: linear-gradient(135deg, #218838, #1e7e34);
+        transform: translateY(-2px);
+      }
+
+      .btn-red {
+        background: linear-gradient(135deg, #dc3545, #c82333);
+        color: white;
+      }
+      .btn-red:hover {
+        background: linear-gradient(135deg, #c82333, #bd2130);
+        transform: translateY(-2px);
+      }
+
+      .btn-load {
+        background: #0d6efd;
+        color: white;
+      }
+
+      .sidebar-divider {
+        height: 1px;
+        background: #e9ecef;
+        margin: 5px 0;
+      }
+
+      /* MAIN CONTENT AREA */
+      .main-content-wrapper {
+        flex: 1;
+        margin-left: 280px; /* Match sidebar width */
+        padding: 30px;
+        background: #f5f7fa;
+        min-height: 100vh;
+      }
+
+      .content-header {
+        margin-bottom: 30px;
+        background: white;
+        padding: 20px;
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+        border-left: 5px solid #198754;
+      }
+
+      .content-header h1 {
+        font-size: 1.8rem;
+        color: #2c3e50;
+        margin-bottom: 5px;
+      }
+      .content-header p {
+        color: #6c757d;
+      }
+
+      /* Card Styles */
+      .form-card {
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        padding: 25px;
+        margin-bottom: 30px;
+        border: 1px solid rgba(0, 0, 0, 0.05);
+      }
+
+      .form-card h2 {
+        border-bottom: 1px solid #eee;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+        color: #198754;
+        font-size: 1.3rem;
+      }
+
+      /* Form Elements */
       .form-group {
-        margin-bottom: 25px;
+        margin-bottom: 20px;
       }
-
       label {
         display: block;
         margin-bottom: 8px;
         font-weight: 600;
-        color: #2c3e50;
+        color: #495057;
       }
-
       .req {
-        color: #e74c3c;
-        font-weight: bold;
+        color: #dc3545;
       }
 
-      /* Input with Icon */
-      .input-with-icon,
+      .input-with-icon {
+        position: relative;
+      }
+      .input-with-icon i {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #adb5bd;
+      }
+
+      input,
+      select,
+      textarea {
+        width: 100%;
+        padding: 12px 15px 12px 40px; /* Left padding for icon */
+        border: 2px solid #e9ecef;
+        border-radius: 8px;
+        font-size: 0.95rem;
+        transition: border-color 0.2s;
+        font-family: inherit;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: #198754;
+        box-shadow: 0 0 0 3px rgba(25, 135, 84, 0.1);
+      }
+
+      /* Adjust select padding */
+      .select-with-icon select {
+        padding-left: 40px;
+      }
       .select-with-icon {
         position: relative;
       }
-
-      .input-with-icon i,
       .select-with-icon i {
         position: absolute;
         left: 15px;
         top: 50%;
         transform: translateY(-50%);
-        color: #6c757d;
-        font-size: 1.1rem;
-      }
-
-      .input-with-icon input,
-      .input-with-icon textarea,
-      .select-with-icon select {
-        width: 100%;
-        padding: 14px 15px 14px 45px;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
-      }
-
-      .input-with-icon textarea {
-        resize: vertical;
-        min-height: 60px;
-      }
-
-      .input-with-icon input:focus,
-      .input-with-icon textarea:focus,
-      .select-with-icon select:focus {
-        outline: none;
-        border-color: #198754;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-      }
-
-      .file-extension {
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
-        font-weight: 500;
-      }
-
-      .select-with-icon select {
-        appearance: none;
-        cursor: pointer;
-      }
-
-      .select-with-icon::after {
-        content: "▼";
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
+        color: #adb5bd;
+        z-index: 2;
         pointer-events: none;
       }
 
-      .helper-text {
-        display: block;
-        margin-top: 5px;
-        color: #6c757d;
-        font-size: 0.85rem;
-      }
-
-      /* Sections Container */
-      .sections-container {
-        margin: 40px 0;
+      /* Sections & Steps */
+      .section-card {
+        background: #fff;
+        border: 1px solid #e9ecef;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 20px;
+        border-top: 4px solid #198754;
       }
 
       .section-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 25px;
-      }
-
-      /* Section Cards */
-      .section-card {
-        background: #f8f9fa;
-        border-radius: 12px;
-        padding: 25px;
-        margin-bottom: 25px;
-        border-left: 5px solid #198754;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
-      }
-
-      .section-card:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-      }
-
-      .section-card .section-header {
         margin-bottom: 20px;
         padding-bottom: 15px;
-        border-bottom: 1px solid #e0e0e0;
+        border-bottom: 1px dashed #e9ecef;
       }
 
-      .section-card h3 {
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      .section-number {
-        background: #198754;
-        color: white;
-        width: 28px;
-        height: 28px;
-        border-radius: 50%;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 0.9rem;
-        margin-right: 5px;
-      }
-
-      /* Steps Container */
       .steps-container {
-        margin-top: 30px;
-        padding: 20px;
-        background: white;
-        border-radius: 10px;
-        border: 2px dashed #e0e0e0;
-        position: relative;
-      }
-
-      .steps-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 20px;
-      }
-
-      .steps-header h4 {
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      /* Step Cards */
-      .step {
         background: #f8f9fa;
-        border-radius: 10px;
-        padding: 20px;
-        margin-bottom: 20px;
-        border-left: 4px solid #2ecc71;
+        padding: 15px;
+        border-radius: 8px;
+        margin-top: 20px;
       }
 
-      /* FIXED: Step header layout with proper button alignment */
+      .step {
+        background: white;
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+      }
+
       .step-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
         margin-bottom: 15px;
-        padding-bottom: 10px;
-        border-bottom: 1px solid #e0e0e0;
       }
 
       .step-number {
-        display: flex;
-        align-items: center;
-        gap: 10px;
         font-weight: 600;
+        font-size: 1.05rem;
         color: #2c3e50;
-      }
-
-      /* FIXED: Step delete button with visible trash icon */
-      .step-header .btn-danger.btn-sm {
-        padding: 8px 10px !important;
-        min-width: 40px !important;
-        height: 36px !important;
-        display: flex !important;
-        align-items: center !important;
-        justify-content: center !important;
-        background: linear-gradient(135deg, #e74c3c, #c0392b) !important;
-        border: none !important;
-        border-radius: 6px !important;
-      }
-
-      .step-header .btn-danger.btn-sm i {
-        font-size: 14px !important;
-        margin: 0 !important;
-        color: white !important;
-        display: block !important;
-        line-height: 1 !important;
-      }
-
-      .step-header .btn-danger.btn-sm:hover {
-        background: linear-gradient(135deg, #c0392b, #a93226) !important;
-        transform: scale(1.05);
-      }
-
-      /* Ensure button icon spacing is correct */
-      .btn-icon i {
-        margin: 0 !important;
-      }
-
-      /* File Upload */
-      .file-upload {
-        margin-top: 10px;
-      }
-
-      .file-upload-label {
-        display: block;
-        cursor: pointer;
-      }
-
-      .file-upload-label input[type="file"] {
-        display: none;
-      }
-
-      .file-upload-content {
         display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 15px;
-        background: #e3f2fd;
-        border: 2px dashed #198754;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        color: #198754;
-        font-weight: 500;
-      }
-
-      .file-upload-content:hover {
-        background: #d1e9ff;
-        border-color: #198754;
-      }
-
-      .file-preview {
-        margin-top: 10px;
-        padding: 10px;
-        background: #f8f9fa;
-        border-radius: 8px;
-        min-height: 40px;
-      }
-
-      .img-path {
-        display: block;
-        padding: 8px;
-        border-radius: 6px;
-        font-family: monospace;
-        font-size: 0.9rem;
-      }
-
-      .img-path.success {
-        background: #d4edda;
-        color: #155724;
-        border-left: 4px solid #28a745;
-      }
-
-      .img-path.error {
-        background: #f8d7da;
-        color: #721c24;
-        border-left: 4px solid #dc3545;
-      }
-
-      .upload-progress {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-      }
-
-      .progress-bar {
-        flex: 1;
-        height: 6px;
-        background: #e0e0e0;
-        border-radius: 3px;
-        overflow: hidden;
-      }
-
-      .progress-bar::after {
-        content: "";
-        display: block;
-        height: 100%;
-        width: 60%;
-        background: linear-gradient(90deg, #198754, #2ecc71);
-        animation: progress 1.5s ease-in-out infinite;
-      }
-
-      @keyframes progress {
-        0%,
-        100% {
-          transform: translateX(-100%);
-        }
-        50% {
-          transform: translateX(100%);
-        }
-      }
-
-      /* Empty State */
-      .empty-state {
-        text-align: center;
-        padding: 60px 20px;
-        background: #f8f9fa;
-        border-radius: 12px;
-        border: 2px dashed #dee2e6;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .empty-icon {
-        font-size: 3rem;
-        color: #adb5bd;
-        margin-bottom: 20px;
-      }
-
-      .empty-state h3 {
-        color: #6c757d;
-        margin-bottom: 10px;
-      }
-
-      .empty-state p {
-        color: #adb5bd;
-        margin-bottom: 25px;
-        max-width: 400px;
-      }
-
-      /* Buttons */
-      .btn {
-        padding: 12px 24px;
-        border: none;
-        border-radius: 8px;
-        font-size: 1rem;
-        font-weight: 600;
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: inline-flex;
         align-items: center;
         gap: 8px;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, #198754, #198754);
-        color: white;
-      }
-
-      .btn-primary:hover {
-        background: linear-gradient(135deg, #198754, #198754);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-      }
-
-      .btn-success {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        color: white;
-      }
-
-      .btn-success:hover:not(:disabled) {
-        background: linear-gradient(135deg, #27ae60, #219653);
-        transform: translateY(-2px);
-        box-shadow: 0 5px 15px rgba(46, 204, 113, 0.3);
-      }
-
-      .btn-success:disabled {
-        opacity: 0.7;
-        cursor: not-allowed;
-      }
-
-      .btn-outline {
-        background: transparent;
-        border: 2px solid #198754;
-        color: #3498db;
-      }
-
-      .btn-outline:hover {
-        background: #198754;
-        color: white;
       }
 
       .btn-danger {
-        background: linear-gradient(135deg, #e74c3c, #c0392b);
-        color: white;
-      }
-
-      .btn-danger:hover {
-        background: linear-gradient(135deg, #c0392b, #a93226);
-      }
-
-      .btn-icon {
-        padding: 10px;
-        border-radius: 6px;
-        min-width: 40px;
-        justify-content: center;
-        display: flex;
-        align-items: center;
-      }
-
-      .btn-sm {
-        padding: 8px 16px;
-        font-size: 0.9rem;
-      }
-
-      .btn-large {
-        padding: 16px 32px;
-        font-size: 1.1rem;
-      }
-
-      /* Form Actions */
-      .form-actions {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-top: 40px;
-        padding-top: 25px;
-        border-top: 2px solid #f0f0f0;
-      }
-
-      .form-stats {
-        display: flex;
-        gap: 20px;
-        color: #6c757d;
-        font-weight: 500;
-      }
-
-      .form-stats span {
-        padding: 8px 16px;
-        background: #f8f9fa;
-        border-radius: 20px;
-        border: 1px solid #e0e0e0;
-      }
-
-      /* Footer */
-      .footer {
-        text-align: center;
-        padding: 20px;
-        color: #6c757d;
-        font-size: 0.9rem;
-      }
-
-      /* Error States */
-      .error {
-        border-color: #e74c3c !important;
-      }
-
-      /* NEW: Add section button at bottom */
-      .add-section-footer {
-        margin-top: 20px;
-        text-align: center;
-        padding-top: 20px;
-        border-top: 2px dashed #e0e0e0;
-      }
-
-      /* NEW: Add step button at bottom */
-      .add-step-footer {
-        margin-top: 20px;
-        text-align: center;
-        padding-top: 20px;
-        border-top: 2px dashed #e0e0e0;
-      }
-
-      /* Toast Notification Styles */
-      .toast-container {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 1000;
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-      }
-
-      .toast {
-        padding: 15px 20px;
-        border-radius: 10px;
-        color: white;
-        font-weight: 500;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-        animation: slideIn 0.3s ease-out forwards;
-        max-width: 350px;
-        min-width: 250px;
-        transform: translateX(120%);
-        transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-      }
-
-      .toast.show {
-        transform: translateX(0);
-      }
-
-      .toast.hide {
-        transform: translateX(120%);
-        opacity: 0;
-      }
-
-      .toast-success {
-        background: linear-gradient(135deg, #198754, #28a745);
-        border-left: 4px solid #146c43;
-      }
-
-      .toast-error {
-        background: linear-gradient(135deg, #dc3545, #c82333);
-        border-left: 4px solid #a71d2a;
-      }
-
-      .toast-info {
-        background: linear-gradient(135deg, #198754, #198754);
-        border-left: 4px solid #198754;
-      }
-
-      .toast-icon {
-        font-size: 1.2rem;
-      }
-
-      .toast-content {
-        flex: 1;
-      }
-
-      .toast-title {
-        font-weight: 600;
-        font-size: 1rem;
-        margin-bottom: 3px;
-      }
-
-      .toast-message {
-        font-size: 0.9rem;
-        opacity: 0.9;
-      }
-
-      .toast-close {
-        background: none;
-        border: none;
-        color: white;
-        font-size: 1.2rem;
-        cursor: pointer;
-        padding: 0;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0.7;
-        transition: opacity 0.2s;
-      }
-
-      .toast-close:hover {
-        opacity: 1;
-      }
-
-      @keyframes slideIn {
-        from {
-          transform: translateX(100%);
-          opacity: 0;
-        }
-        to {
-          transform: translateX(0);
-          opacity: 1;
-        }
-      }
-
-      @keyframes checkmark {
-        0% {
-          transform: scale(0);
-        }
-        50% {
-          transform: scale(1.2);
-        }
-        100% {
-          transform: scale(1);
-        }
-      }
-
-      .checkmark-animation {
-        animation: checkmark 0.5s ease-in-out;
-      }
-
-      /* Select with Icon Styles */
-      .select-with-icon {
-        position: relative;
-      }
-
-      .select-with-icon i {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
-        font-size: 1.1rem;
-        z-index: 1;
-      }
-
-      .select-with-icon select {
-        width: 100%;
-        padding: 14px 15px 14px 45px;
-        border: 2px solid #e0e0e0;
-        border-radius: 10px;
-        font-size: 1rem;
-        transition: all 0.3s ease;
-        background: #f8f9fa;
-        appearance: none;
-        cursor: pointer;
-        position: relative;
-        z-index: 2;
-      }
-
-      .select-with-icon select:focus {
-        outline: none;
-        border-color: #198754;
-        background: white;
-        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-      }
-
-      .select-with-icon::after {
-        content: "▼";
-        position: absolute;
-        right: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #6c757d;
-        pointer-events: none;
-        z-index: 2;
-      }
-
-      /* Image Preview Styles - Clean Version */
-      .image-preview-container {
-        display: none;
-        margin-top: 10px;
-        padding: 15px;
-        background: #f8f9fa;
-        border-radius: 8px;
-        border: 1px solid #e0e0e0;
-        animation: fadeIn 0.3s ease;
-      }
-
-      @keyframes fadeIn {
-        from {
-          opacity: 0;
-          transform: translateY(-10px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .preview-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 10px;
-        padding-bottom: 8px;
-        border-bottom: 1px solid #dee2e6;
-      }
-
-      .preview-title {
-        font-weight: 600;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-      }
-
-      .preview-title i {
-        color: #198754;
-      }
-
-      .btn-remove-image {
-        background: none;
-        border: 1px solid #dc3545;
-        color: #dc3545;
-        padding: 4px 10px;
-        border-radius: 4px;
-        font-size: 0.85rem;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        transition: all 0.2s;
-      }
-
-      .btn-remove-image:hover {
         background: #dc3545;
         color: white;
-      }
-
-      .preview-content {
-        display: flex;
-        gap: 15px;
-        align-items: flex-start;
-      }
-
-      .preview-image {
-        max-width: 150px;
-        max-height: 100px;
+        border: none;
+        padding: 8px 12px;
         border-radius: 6px;
-        border: 2px solid #dee2e6;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        object-fit: cover;
-        cursor: zoom-in;
-        transition: transform 0.2s;
+        cursor: pointer;
+      }
+      .btn {
+        cursor: pointer;
+      }
+      .btn-sm {
+        font-size: 0.85rem;
       }
 
-      .preview-image:hover {
-        transform: scale(1.03);
+      /* File Upload */
+      .file-upload-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        padding: 30px 20px;
+        background: #f8fff9;
+        border: 2px dashed #198754;
+        border-radius: 12px;
+        color: #198754;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+        text-align: center;
+      }
+      .file-upload-content:hover {
+        background: #e8f5e9;
+        border-style: solid;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 20px rgba(25, 135, 84, 0.1);
+      }
+      .file-upload-content i {
+        font-size: 2.5rem;
+        margin-bottom: 5px;
+        transition: transform 0.3s ease;
+      }
+      .file-upload-content:hover i {
+        transform: scale(1.1);
+      }
+      input[type="file"] {
+        display: none;
       }
 
-      .image-info {
-        flex: 1;
-      }
-
-      .img-path {
-        display: block;
-        padding: 8px 10px;
-        background: white;
-        border: 1px solid #dee2e6;
-        border-radius: 4px;
-        font-family: "Courier New", monospace;
-        font-size: 0.8rem;
-        color: #495057;
-        word-break: break-all;
-        margin-top: 5px;
-      }
-
-      /* No File State */
       .no-file-state {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         padding: 20px;
-        color: #6c757d;
-        text-align: center;
-        border: 2px dashed #dee2e6;
+        background: #fcfcfc;
+        border: 1px dashed #ced4da;
         border-radius: 8px;
+        color: #6c757d;
         margin-top: 10px;
-        min-height: 120px;
-        transition: all 0.3s;
       }
-
-      .no-file-state:hover {
-        border-color: #198754;
-        background: #f8fff9;
-      }
-
-      .icon-placeholder {
+      .no-file-state i {
         font-size: 2rem;
-        margin-bottom: 10px;
-        color: #adb5bd;
+        color: #dee2e6;
+        margin-bottom: 8px;
       }
-
       .no-file-text {
         font-size: 0.9rem;
-      }
-
-      /* Upload Progress */
-      .upload-progress {
-        display: none;
-        flex-direction: column;
-        align-items: center;
-        padding: 20px;
-        gap: 10px;
-      }
-
-      .upload-progress span {
-        font-size: 0.9rem;
-        color: #6c757d;
-      }
-
-      /* File Upload Content Enhancement */
-      .file-upload-content {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 12px 15px;
-        background: #f8f9fa;
-        border: 2px dashed #198754;
-        border-radius: 10px;
-        transition: all 0.3s ease;
-        color: #198754;
         font-weight: 500;
-        cursor: pointer;
-        margin-top: 5px;
       }
 
-      .file-upload-content:hover {
-        background: #e8f7ed;
-        border-color: #146c43;
+      /* Image Preview */
+      .image-preview-container {
+        margin-top: 20px;
+        display: none;
+        text-align: center;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #eee;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+      }
+      .preview-header {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 20px;
+        align-items: center;
+        justify-content: center;
+      }
+      .preview-image {
+        max-width: 100%;
+        max-height: 500px;
+        width: auto;
+        height: auto;
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        cursor: zoom-in;
+        transition: transform 0.2s;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      }
+      .preview-image:hover {
+        transform: scale(1.01);
+      }
+      .img-path {
+        margin-top: 15px;
+        font-family: monospace;
+        font-size: 0.85rem;
+        color: #6c757d;
+        word-break: break-all;
+        background: #f8f9fa;
+        padding: 8px 12px;
+        border-radius: 6px;
+        display: inline-block;
       }
 
+      /* Modal */
       .image-modal {
         display: none;
         position: fixed;
-        z-index: 10000;
+        z-index: 1000;
         left: 0;
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        justify-content: center;
+        background: rgba(0, 0, 0, 0.8);
         align-items: center;
-        animation: fadeIn 0.3s;
+        justify-content: center;
       }
-
       .image-modal-content {
         max-width: 90%;
         max-height: 90%;
         border-radius: 8px;
-        box-shadow: 0 5px 30px rgba(0, 0, 0, 0.5);
-        cursor: zoom-out;
-        animation: zoomIn 0.3s;
       }
-
-      @keyframes zoomIn {
-        from {
-          transform: scale(0.8);
-          opacity: 0;
-        }
-        to {
-          transform: scale(1);
-          opacity: 1;
-        }
-      }
-
       .image-modal-close {
         position: absolute;
         top: 20px;
         right: 30px;
         color: white;
         font-size: 40px;
-        font-weight: bold;
         cursor: pointer;
-        z-index: 10001;
-        transition: all 0.3s;
       }
 
-      .image-modal-close:hover {
-        color: #198754;
-        transform: scale(1.1);
-      }
-
-      .select-with-icon select.error {
-        border-color: #e74c3c !important;
-        box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.1) !important;
-        animation: shake 0.5s;
-      }
-
-      @keyframes shake {
-        0%,
-        100% {
-          transform: translateX(0);
-        }
-        10%,
-        30%,
-        50%,
-        70%,
-        90% {
-          transform: translateX(-5px);
-        }
-        20%,
-        40%,
-        60%,
-        80% {
-          transform: translateX(5px);
-        }
-      }
-
-      /* Responsive Design */
+      /* Responsive */
       @media (max-width: 768px) {
-        .container {
+        .layout-container {
+          flex-direction: column;
+        }
+        .sidebar {
+          width: 100%;
+          position: relative;
+          height: auto;
+          border-right: none;
+          border-bottom: 1px solid #ddd;
+        }
+        .main-content-wrapper {
+          margin-left: 0;
+          padding: 15px;
+        }
+        .action-btn {
           padding: 10px;
         }
+      }
 
-        .header {
-          padding: 20px;
+      /* Status Modal */
+      .status-modal-overlay {
+        display: none;
+        position: fixed;
+        z-index: 2000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        backdrop-filter: blur(4px);
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+      .status-modal-content {
+        background: white;
+        border-radius: 20px;
+        width: 100%;
+        max-width: 550px;
+        max-height: 90vh;
+        overflow-y: auto;
+        position: relative;
+        box-shadow: 0 30px 60px -12px rgba(0, 0, 0, 0.3);
+        animation: modalPopIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      @keyframes modalPopIn {
+        from {
+          transform: translateY(20px) scale(0.95);
+          opacity: 0;
         }
+        to {
+          transform: translateY(0) scale(1);
+          opacity: 1;
+        }
+      }
+      .status-modal-header {
+        padding: 20px 25px;
+        border-bottom: 1px solid #f0f0f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: sticky;
+        top: 0;
+        background: white;
+        z-index: 10;
+      }
+      .status-modal-header h3 {
+        color: #2c3e50;
+        font-size: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 0;
+      }
+      .status-modal-close {
+        background: #f8f9fa;
+        border: none;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        color: #6c757d;
+        transition: all 0.2s;
+      }
+      .status-modal-close:hover {
+        background: #e9ecef;
+        color: #333;
+        transform: rotate(90deg);
+      }
+      .status-modal-body {
+        padding: 25px;
+      }
 
-        h1 {
-          font-size: 2rem;
-        }
-
-        .main-content {
-          padding: 20px;
-        }
-
-        /* Ensure section delete button stays top-right */
-        .section-card > .section-header {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-        }
-
-        /* Ensure step delete button is properly visible on mobile */
-        .step-header .btn-danger.btn-sm {
-          padding: 6px 8px !important;
-          min-width: 36px !important;
-          height: 36px !important;
-        }
-
-        .step-header .btn-danger.btn-sm i {
-          font-size: 12px !important;
-        }
-
-        .form-actions {
-          flex-direction: column;
-          gap: 15px;
-          text-align: center;
-        }
-
-        .btn-large {
-          width: 100%;
-          justify-content: center;
-        }
-
-        .form-stats {
-          flex-direction: column;
-          gap: 10px;
-          width: 100%;
-        }
-
-        .form-stats span {
-          width: 100%;
-          text-align: center;
-        }
-
-        .preview-content {
-          flex-direction: column;
-        }
-
-        .preview-image {
-          max-width: 100%;
-        }
+      /* Utility */
+      .mt-20 {
+        margin-top: 20px;
+      }
+      .text-center {
+        text-align: center;
       }
     </style>
   </head>
   <body>
-    <div class="container">
-      <header class="header">
-        <div class="header-content">
-          <i class="fas fa-tools header-icon"></i>
-          <h1>Edit JSON</h1>
+    <div class="layout-container">
+      <!-- LEFT SIDEBAR -->
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <h2><i class="fas fa-edit"></i> JSON Editor</h2>
+          <p>MIRA Tutorial Builder</p>
         </div>
-        <p class="subtitle">Edit tutorials for the chatbot</p>
-      </header>
-      s
-      <div
-        class="edit-mode-container"
-        style="
-          margin-bottom: 20px;
-          padding: 15px;
-          background: white;
-          border-radius: 10px;
-          box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-        "
-      >
-        <h3 style="margin-bottom: 10px; color: #2c3e50">
-          <i class="fas fa-edit"></i> Edit Existing Tutorial
-        </h3>
-        <div style="display: flex; gap: 10px; align-items: center">
-          <div class="select-with-icon" style="flex: 1">
-            <i class="fas fa-file-code"></i>
-            <select id="edit-filename-select" onchange="onFileSelectChange()">
-              <option value="">-- Select a tutorial to edit --</option>
-              <!-- Options will be populated dynamically -->
-            </select>
+
+        <div class="sidebar-content">
+          <!-- File Selection -->
+          <div class="form-group" style="margin-bottom: 5px">
+            <label style="font-size: 0.85rem; margin-bottom: 4px"
+              >Select Tutorial</label
+            >
+            <div class="select-with-icon">
+              <i class="fas fa-file-alt"></i>
+              <select
+                id="edit-filename-select"
+                onchange="onFileSelectChange()"
+                style="padding: 10px 10px 10px 35px; font-size: 0.9rem"
+              >
+                <option value="">-- Select File --</option>
+                <!-- Options populated dynamically -->
+              </select>
+            </div>
           </div>
+
+          <div class="sidebar-divider"></div>
+
+          <!-- Action Buttons -->
           <button
-            class="btn btn-primary"
-            onclick="loadSelectedJSON()"
             id="load-tutorial-btn"
+            class="action-btn btn-green"
+            onclick="loadSelectedJSON()"
             disabled
           >
-            <i class="fas fa-pencil-alt"></i> Load JSON
+            <i class="fas fa-spinner"></i> Load JSON
           </button>
+
+          <button class="action-btn btn-green" onclick="clearForm()">
+            <i class="fas fa-layer-group"></i> New Tutorial
+          </button>
+
+          <button class="action-btn btn-green" onclick="exportJSON()">
+            <i class="fas fa-save"></i> Save JSON
+          </button>
+
+          <div class="sidebar-divider"></div>
+
           <button
-            class="btn btn-danger"
-            onclick="deleteSelectedJSON()"
             id="delete-tutorial-btn"
+            class="action-btn btn-red"
+            onclick="deleteSelectedJSON()"
             disabled
           >
-            <i class="fas fa-trash"></i> Delete
+            <i class="fas fa-trash"></i> Delete JSON
           </button>
-          <button class="btn btn-outline" onclick="clearForm()">
-            <i class="fas fa-plus"></i> New Tutorial
+
+          <div style="flex: 1"></div>
+          <!-- Spacer -->
+
+          <button
+            id="update-vectordb-btn"
+            class="action-btn btn-green"
+            style="background: linear-gradient(135deg, #198754, #0f5132)"
+            onclick="updateVectorDB()"
+          >
+            <i class="fas fa-book-open-reader"></i> Teach MIRA Now
           </button>
         </div>
-        <div id="tutorial-info" style="margin-top: 10px; display: none">
-          <small style="color: #666">
-            <span id="selected-tutorial-name"></span> •
-            <span id="selected-language"></span> •
-            <span id="selected-sections"></span>
-          </small>
-        </div>
-      </div>
-      <main class="main-content">
-        <div class="form-container">
-          <div class="form-section main-form">
-            <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
-            <div class="form-group">
-              <label for="tutorial_name"
-                >Tutorial Name <span class="req">*</span></label
-              >
-              <div class="input-with-icon">
-                <i class="fas fa-heading"></i>
-                <input
-                  id="tutorial_name"
-                  placeholder="Enter tutorial name"
-                  required
-                />
-              </div>
-            </div>
+      </aside>
 
-            <div class="form-group">
-              <label for="language">Language <span class="req">*</span></label>
-              <div class="select-with-icon">
-                <i class="fas fa-language"></i>
-                <select id="language" required>
-                  <option value="">-- Select Language --</option>
-                  <option value="en">English</option>
-                  <option value="ur-roman">Roman Urdu</option>
-                  <option value="ur">Urdu</option>
-                </select>
-              </div>
-            </div>
-
-            <div class="form-group">
-              <label for="json_filename"
-                >JSON File Name <span class="req">*</span></label
-              >
-              <div class="input-with-icon">
-                <i class="fas fa-file-code"></i>
-                <input
-                  id="json_filename"
-                  placeholder="e.g., my-tutorial"
-                  required
-                />
-                <span class="file-extension">.json</span>
-              </div>
-              <small class="helper-text"
-                >File will be saved as [name].json</small
-              >
-            </div>
-          </div>
-
-          <div class="sections-container">
-            <div class="section-header">
-              <h2><i class="fas fa-layer-group"></i> Tutorial Sections</h2>
-            </div>
-            <div id="sections" class="sections-list"></div>
-
-            <!-- Add Section Button at Bottom -->
-            <div class="add-section-footer">
-              <button class="btn btn-primary" onclick="addSection()">
-                <i class="fas fa-plus"></i> Add Section
-              </button>
-            </div>
-
-            <div class="empty-state" id="empty-state">
-              <i class="fas fa-layer-group empty-icon"></i>
-              <h3>No sections yet</h3>
-              <p>Click "Add Section" to start building your tutorial</p>
-              <button class="btn btn-primary" onclick="addSection()">
-                <i class="fas fa-plus"></i> Add First Section
-              </button>
-            </div>
-          </div>
-
-          <div class="form-actions">
-            <button class="btn btn-primary btn-large" onclick="exportJSON()">
-              <i class="fas fa-save"></i> Save Tutorial JSON
-            </button>
-            <div class="form-stats">
-              <span id="section-count">0 sections</span>
-              <span id="step-count">0 steps</span>
-            </div>
-          </div>
-
-          <!-- Add this after the form actions or create a new section -->
+      <!-- RIGHT MAIN CONTENT -->
+      <main class="main-content-wrapper">
+        <div class="content-header">
           <div
-            class="vectordb-actions"
             style="
-              margin-top: 20px;
-              padding: 15px;
-              background: #f8f9fa;
-              border-radius: 10px;
-              border-left: 4px solid #198754;
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
             "
           >
-            <h3 style="margin-bottom: 12px; color: #2c3e50; font-size: 1.4rem">
-              <i class="fas fa-brain"></i> Update MIRA's Knowledge
-            </h3>
-            <p
+            <div>
+              <h1>Tutorial Editor</h1>
+              <p>Create and modify your JSON-based tutorial content.</p>
+            </div>
+            <div class="form-stats">
+              <span
+                id="section-count"
+                style="
+                  margin-right: 15px;
+                  background: #e9ecef;
+                  padding: 5px 10px;
+                  border-radius: 15px;
+                  font-size: 0.9rem;
+                "
+                >0 sections</span
+              >
+              <span
+                id="step-count"
+                style="
+                  background: #e9ecef;
+                  padding: 5px 10px;
+                  border-radius: 15px;
+                  font-size: 0.9rem;
+                "
+                >0 steps</span
+              >
+            </div>
+          </div>
+        </div>
+
+        <!-- BASIC INFO CARD -->
+        <div class="form-card">
+          <h2><i class="fas fa-info-circle"></i> Basic Information</h2>
+
+          <div class="form-group">
+            <label for="tutorial_name"
+              >Tutorial Name <span class="req">*</span></label
+            >
+            <div class="input-with-icon">
+              <i class="fas fa-heading"></i>
+              <input
+                id="tutorial_name"
+                placeholder="Enter tutorial name"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- REMOVED Description as per user request (Wait, I removed it in mockup but should I remove it in code? Use said "keep fields as same as given in JSON editor".
+               Checking original code: There was NO description field in the Basic Info section of original code!
+               Original had: Tutorial Name, Language, JSON File Name.
+               Mockup had description. Code didn't. 
+               The user said "keep the fields as same as given in the JSON editor html page".
+               So I should adhere to the original fields.
+               Original Fields: tutorial_name, language, json_filename.
+          -->
+
+          <div class="form-group">
+            <label for="json_filename"
+              >JSON File Name <span class="req">*</span></label
+            >
+            <div class="input-with-icon">
+              <i class="fas fa-file-code"></i>
+              <input
+                id="json_filename"
+                placeholder="e.g., my-tutorial"
+                required
+              />
+              <span
+                style="
+                  position: absolute;
+                  right: 15px;
+                  top: 50%;
+                  transform: translateY(-50%);
+                  color: #6c757d;
+                  font-size: 0.9rem;
+                "
+                >.json</span
+              >
+            </div>
+            <small
               style="
-                margin-bottom: 18px;
-                color: #555;
-                font-size: 1rem;
-                line-height: 1.5;
+                color: #6c757d;
+                font-size: 0.8rem;
+                margin-top: 4px;
+                display: block;
               "
+              >File will be saved as [name].json</small
             >
-              After saving your tutorial changes, update MIRA so it can learn
-              the latest content and help users better.
+          </div>
+
+          <div class="form-group">
+            <label for="language">Language <span class="req">*</span></label>
+            <div class="select-with-icon">
+              <i class="fas fa-language"></i>
+              <select id="language" required>
+                <option value="">-- Select Language --</option>
+                <option value="en">English</option>
+                <option value="ur-roman">Roman Urdu</option>
+                <option value="ur">Urdu</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- SECTIONS CARD -->
+        <div class="form-card">
+          <div
+            style="
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              margin-bottom: 20px;
+              border-bottom: 1px solid #eee;
+              padding-bottom: 15px;
+            "
+          >
+            <h2 style="border: none; margin: 0; padding: 0">
+              Tutorial Sections
+            </h2>
+          </div>
+
+          <div id="sections" class="sections-list"></div>
+
+          <div
+            class="empty-state"
+            id="empty-state"
+            style="
+              text-align: center;
+              padding: 40px;
+              background: #f8f9fa;
+              border: 2px dashed #ddd;
+              border-radius: 8px;
+            "
+          >
+            <i
+              class="fas fa-layer-group"
+              style="font-size: 3rem; color: #ced4da; margin-bottom: 15px"
+            ></i>
+            <h3 style="color: #6c757d">No sections yet</h3>
+            <p style="color: #adb5bd; margin-top: 10px">
+              Click "Add New Section" to start building your tutorial
             </p>
+          </div>
+
+          <div
+            class="add-section-footer"
+            style="text-align: center; margin-top: 30px"
+          >
             <button
-              class="btn btn-success"
-              onclick="updateVectorDB()"
-              id="update-vectordb-btn"
-              style="padding: 14px 28px; font-size: 1.1rem"
+              class="action-btn btn-green"
+              style="width: auto; padding: 8px 15px; display: inline-flex"
+              onclick="addSection()"
             >
-              <i class="fas fa-sync-alt"></i> Teach MIRA Now
+              <i class="fas fa-plus"></i> Add New Section
             </button>
-            <div
-              id="vectordb-status"
-              style="margin-top: 10px; display: none"
-            ></div>
           </div>
         </div>
       </main>
@@ -1246,7 +790,182 @@
       <span class="image-modal-close" onclick="closeImageModal()">&times;</span>
       <img id="fullSizeImage" class="image-modal-content" />
     </div>
+
+    <!-- Toast Container -->
+    <!-- Status Modal -->
+    <div id="statusModal" class="status-modal-overlay">
+      <div class="status-modal-content">
+        <div class="status-modal-header">
+          <h3><i class="fas fa-brain"></i> MIRA Update Status</h3>
+          <button class="status-modal-close" onclick="closeStatusModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="status-modal-body" id="statusModalBody">
+          <!-- Status content will be injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Save Success Modal -->
+    <div id="saveSuccessModal" class="status-modal-overlay">
+      <div class="status-modal-content">
+        <div class="status-modal-header">
+          <h3>
+            <i class="fas fa-check-circle" style="color: #28a745"></i> Tutorial
+            Saved!
+          </h3>
+          <button class="status-modal-close" onclick="closeSaveSuccessModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="status-modal-body">
+          <div style="text-align: center; padding: 20px 0">
+            <div
+              class="fas fa-save"
+              style="
+                font-size: 3.5rem;
+                background: linear-gradient(135deg, #198754, #2ecc71);
+                background-clip: text;
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                margin-bottom: 25px;
+                opacity: 0.3;
+              "
+            ></div>
+            <p
+              style="
+                font-size: 1.15rem;
+                line-height: 1.6;
+                color: #2c3e50;
+                margin-bottom: 30px;
+                font-weight: 500;
+              "
+            >
+              Your tutorial data has been safely stored in the backend database.
+            </p>
+            <div
+              style="
+                background: linear-gradient(to right, #e9f7ef, #f8fff9);
+                padding: 22px;
+                border-radius: 14px;
+                border-left: 6px solid #198754;
+                text-align: left;
+                margin-bottom: 30px;
+                box-shadow: 0 4px 12px rgba(25, 135, 84, 0.08);
+              "
+            >
+              <strong
+                style="
+                  color: #198754;
+                  display: flex;
+                  align-items: center;
+                  gap: 8px;
+                  margin-bottom: 10px;
+                  font-size: 1rem;
+                "
+              >
+                <i class="fas fa-lightbulb" style="color: #f1c40f"></i>
+                Important Next Step:
+              </strong>
+              <p
+                style="
+                  margin: 0;
+                  font-size: 0.98rem;
+                  color: #34495e;
+                  line-height: 1.5;
+                "
+              >
+                To see these changes in the <strong>MIRA Chatbot</strong>, you
+                must now click the
+                <span style="color: #198754; font-weight: 700"
+                  >"Teach MIRA Now"</span
+                >
+                button in the sidebar. This will refresh MIRA's knowledge base
+                with your new content.
+              </p>
+            </div>
+            <button
+              onclick="closeSaveSuccessModal()"
+              class="action-btn btn-green"
+              style="
+                width: 100%;
+                padding: 14px;
+                font-weight: 600;
+                font-size: 1rem;
+                text-transform: uppercase;
+                letter-spacing: 0.5px;
+                box-shadow: 0 4px 15px rgba(25, 135, 84, 0.2);
+                transition:
+                  transform 0.2s,
+                  box-shadow 0.2s;
+              "
+              onmouseover="
+                this.style.transform = 'translateY(-2px)';
+                this.style.boxShadow = '0 6px 20px rgba(25, 135, 84, 0.3)';
+              "
+              onmouseout="
+                this.style.transform = 'translateY(0)';
+                this.style.boxShadow = '0 4px 15px rgba(25, 135, 84, 0.2)';
+              "
+            >
+              Got it, I'll update MIRA now!
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- New Tutorial Confirmation Modal -->
+    <div id="newTutorialModal" class="status-modal-overlay">
+      <div class="status-modal-content" style="max-width: 450px">
+        <div class="status-modal-header">
+          <h3><i class="fas fa-question-circle"></i> Confirmation</h3>
+          <button class="status-modal-close" onclick="closeNewTutorialModal()">
+            <i class="fas fa-times"></i>
+          </button>
+        </div>
+        <div class="status-modal-body">
+          <p
+            style="
+              font-size: 1.1rem;
+              color: #2c3e50;
+              margin-bottom: 25px;
+              text-align: center;
+            "
+          >
+            Are you sure you want to add new Tutorial JSON file?
+          </p>
+          <div style="display: flex; gap: 15px; justify-content: center">
+            <button
+              onclick="confirmNewTutorial()"
+              class="action-btn btn-green"
+              style="width: 120px"
+            >
+              Yes
+            </button>
+            <button
+              onclick="closeNewTutorialModal()"
+              class="action-btn btn-red"
+              style="width: 120px"
+            >
+              No
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script>
+      function closeStatusModal() {
+        document.getElementById("statusModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      function closeSaveSuccessModal() {
+        document.getElementById("saveSuccessModal").style.display = "none";
+        document.body.style.overflow = "auto";
+      }
       // Toast notification system
       function showToast(type, title, message, duration = 3000) {
         // Create toast container if it doesn't exist
@@ -1314,13 +1033,12 @@
 
       function updateStats() {
         const sections = document.querySelectorAll(
-          "#sections .section-card"
+          "#sections .section-card",
         ).length;
         const steps = document.querySelectorAll(".step").length;
 
-        document.getElementById(
-          "section-count"
-        ).textContent = `${sections} section${sections !== 1 ? "s" : ""}`;
+        document.getElementById("section-count").textContent =
+          `${sections} section${sections !== 1 ? "s" : ""}`;
         document.getElementById("step-count").textContent = `${steps} step${
           steps !== 1 ? "s" : ""
         }`;
@@ -1330,6 +1048,9 @@
           emptyState.style.display = "none";
         } else {
           emptyState.style.display = "flex";
+          emptyState.style.flexDirection = "column";
+          emptyState.style.alignItems = "center";
+          emptyState.style.justifyContent = "center";
         }
       }
 
@@ -1372,7 +1093,7 @@
             
             <!-- Add Step Button at Bottom -->
             <div class="add-step-footer">
-              <button class="btn btn-primary" onclick="addStep(this)">
+              <button class="action-btn btn-green add-step-btn" onclick="addStep(this)" style="width: auto; padding: 8px 15px; display: inline-flex;">
                 <i class="fas fa-plus"></i> Add Step
               </button>
             </div>
@@ -1389,7 +1110,7 @@
       function removeSection(sectionId) {
         if (
           confirm(
-            "Are you sure you want to remove this section and all its steps?"
+            "Are you sure you want to remove this section and all its steps?",
           )
         ) {
           const section = document.getElementById(`section-${sectionId}`);
@@ -1440,16 +1161,18 @@
         <label class="file-upload-label">
           <input type="file" accept="image/*" onchange="uploadImage(this)" />
           <div class="file-upload-content">
-            <i class="fas fa-image"></i>
-            <span>Choose an image</span>
+            <i class="fas fa-cloud-upload-alt"></i>
+            <span style="font-weight: 600;">Click or drag to upload image</span>
           </div>
         </label>
         <div class="file-preview">
           <div class="image-preview-container" style="display: none;">
             <div class="preview-header">
-              <span class="preview-title"><i class="fas fa-image"></i> Preview:</span>
-              <button type="button" class="btn-remove-image" onclick="removeImage(this)">
-                <i class="fas fa-times"></i> Remove
+              <button type="button" class="btn btn-danger btn-sm" onclick="removeImage(this)">
+                <i class="fas fa-trash"></i> Remove Image
+              </button>
+              <button type="button" class="action-btn btn-green" onclick="triggerFileUpload(this)" style="width: auto; padding: 8px 15px; font-size: 0.9rem;">
+                <i class="fas fa-sync-alt"></i> Replace Image
               </button>
             </div>
             <div class="preview-content">
@@ -1510,7 +1233,7 @@
           .closest(".file-upload")
           .querySelector(".file-preview");
         const imagePreviewContainer = filePreview.querySelector(
-          ".image-preview-container"
+          ".image-preview-container",
         );
         const noFileState = filePreview.querySelector(".no-file-state");
         const uploadProgress = filePreview.querySelector(".upload-progress");
@@ -1565,13 +1288,18 @@
 
           imagePreviewContainer.style.display = "block";
           noFileState.style.display = "none";
+          // Hide the upload label to avoid duplication/clutter
+          const uploadLabel = filePreview
+            .closest(".file-upload")
+            .querySelector(".file-upload-label");
+          if (uploadLabel) uploadLabel.style.display = "none";
 
           // Show success toast
           showToast(
             "success",
             "Upload Complete",
             "Image uploaded successfully!",
-            2000
+            2000,
           );
         } catch (error) {
           filePreview.querySelector(".upload-progress").style.display = "none";
@@ -1584,7 +1312,7 @@
             "error",
             "Upload Failed",
             "Failed to upload image. Please try again.",
-            3000
+            3000,
           );
           console.error("Upload error:", error);
         }
@@ -1594,7 +1322,7 @@
         // 1. Check mandatory fields
         let valid = true;
         const requiredFields = document.querySelectorAll(
-          "input[required], textarea[required], select[required]"
+          "input[required], textarea[required], select[required]",
         );
 
         requiredFields.forEach((el) => {
@@ -1611,21 +1339,21 @@
             "error",
             "Validation Error",
             "Please fill in all required fields marked with *",
-            4000
+            4000,
           );
           return false;
         }
 
         // 2. At least one section must exist
         const sectionCards = document.querySelectorAll(
-          "#sections .section-card"
+          "#sections .section-card",
         );
         if (sectionCards.length === 0) {
           showToast(
             "error",
             "Validation Error",
             "Please add at least one section to save the tutorial.",
-            4000
+            4000,
           );
           return false;
         }
@@ -1638,7 +1366,7 @@
               "error",
               "Validation Error",
               "Each section must have at least one step.",
-              4000
+              4000,
             );
             section.scrollIntoView({ behavior: "smooth" });
             return false;
@@ -1653,7 +1381,7 @@
                 "error",
                 "Validation Error",
                 "Step description is required.",
-                4000
+                4000,
               );
               step.scrollIntoView({ behavior: "smooth" });
               return false;
@@ -1673,7 +1401,7 @@
             "error",
             "Error",
             "No file selected to edit. Please select a file from the dropdown.",
-            3000
+            3000,
           );
 
           // Highlight the dropdown to show error
@@ -1695,7 +1423,7 @@
 
           // Load the JSON file
           const response = await fetch(
-            `/load-json?filename=${encodeURIComponent(filename)}`
+            `/load-json?filename=${encodeURIComponent(filename)}`,
           );
           const result = await response.json();
 
@@ -1714,20 +1442,21 @@
             "success",
             "Loaded",
             `Now editing "${result.tutorial_name}"`,
-            2000
+            2000,
           );
         } catch (error) {
           showToast(
             "error",
             "Error",
             error.message || "Failed to load tutorial",
-            3000
+            3000,
           );
           console.error("Load error:", error);
         } finally {
           // Restore button
           const loadBtn = document.getElementById("load-tutorial-btn");
-          loadBtn.innerHTML = '<i class="fas fa-pencil-alt"></i> Load JSON';
+          loadBtn.innerHTML =
+            '<i class="fas fa-spinner fa-spin"></i> Load JSON';
           loadBtn.disabled = false;
         }
       }
@@ -1763,7 +1492,7 @@
             if (section.steps && Array.isArray(section.steps)) {
               section.steps.forEach((step, stepIndex) => {
                 const addStepBtn = currentSection.querySelector(
-                  ".add-step-footer .btn-primary"
+                  ".add-step-footer .add-step-btn",
                 );
                 if (addStepBtn) {
                   addStep(addStepBtn);
@@ -1785,13 +1514,13 @@
                     fileInput.dataset.path = step.snapshot;
                     fileInput.setAttribute(
                       "data-old-filename",
-                      step.snapshot.split("/").pop()
+                      step.snapshot.split("/").pop(),
                     );
 
                     const filePreview =
                       currentStep.querySelector(".file-preview");
                     const imagePreviewContainer = filePreview.querySelector(
-                      ".image-preview-container"
+                      ".image-preview-container",
                     );
                     const previewImage =
                       imagePreviewContainer.querySelector(".preview-image");
@@ -1812,6 +1541,12 @@
                     previewImage.onclick = function () {
                       viewFullImage(this.src);
                     };
+
+                    // Hide the upload label since we have an image
+                    const uploadLabel = filePreview
+                      .closest(".file-upload")
+                      .querySelector(".file-upload-label");
+                    if (uploadLabel) uploadLabel.style.display = "none";
                   }
                 }
               });
@@ -1824,27 +1559,41 @@
         updateStats();
       }
       function clearForm() {
-        if (
-          confirm("Start a new tutorial? Any unsaved changes will be lost.")
-        ) {
-          // Clear all form fields
-          document.getElementById("tutorial_name").value = "";
-          document.getElementById("language").value = "";
-          document.getElementById("json_filename").value = "";
-          document.getElementById("sections").innerHTML = "";
+        openNewTutorialModal();
+      }
 
-          // Reset dropdown selection
-          document.getElementById("edit-filename-select").value = "";
-          onFileSelectChange();
+      function openNewTutorialModal() {
+        const modal = document.getElementById("newTutorialModal");
+        modal.style.display = "flex";
+        document.body.style.overflow = "hidden";
+      }
 
-          updateStats();
-          showToast(
-            "info",
-            "New Tutorial",
-            "Ready to create a new tutorial",
-            2000
-          );
-        }
+      function closeNewTutorialModal() {
+        const modal = document.getElementById("newTutorialModal");
+        modal.style.display = "none";
+        document.body.style.overflow = "auto";
+      }
+
+      function confirmNewTutorial() {
+        closeNewTutorialModal();
+
+        // Clear all form fields
+        document.getElementById("tutorial_name").value = "";
+        document.getElementById("language").value = "";
+        document.getElementById("json_filename").value = "";
+        document.getElementById("sections").innerHTML = "";
+
+        // Reset dropdown selection
+        document.getElementById("edit-filename-select").value = "";
+        onFileSelectChange();
+
+        updateStats();
+        showToast(
+          "info",
+          "New Tutorial",
+          "Ready to create a new tutorial",
+          2000,
+        );
       }
 
       async function loadAvailableFiles() {
@@ -1903,20 +1652,9 @@
         if (selectedOption.value) {
           loadBtn.disabled = false;
           deleteBtn.disabled = false;
-
-          // Show file info
-          document.getElementById("selected-tutorial-name").textContent =
-            selectedOption.dataset.tutorialName;
-          document.getElementById("selected-language").textContent =
-            getLanguageName(selectedOption.dataset.language);
-          document.getElementById("selected-sections").textContent = `${
-            selectedOption.dataset.sectionsCount
-          } section${selectedOption.dataset.sectionsCount != 1 ? "s" : ""}`;
-          infoDiv.style.display = "block";
         } else {
           loadBtn.disabled = true;
           deleteBtn.disabled = true;
-          infoDiv.style.display = "none";
         }
       }
 
@@ -1941,7 +1679,7 @@
 
         if (
           !confirm(
-            `Are you sure you want to delete "${tutorialName}"? This action cannot be undone.`
+            `Are you sure you want to delete "${tutorialName}"? This action cannot be undone.`,
           )
         ) {
           return;
@@ -1968,7 +1706,7 @@
               "success",
               "Deleted",
               `"${tutorialName}" has been deleted`,
-              3000
+              3000,
             );
 
             // Remove from dropdown
@@ -1978,7 +1716,7 @@
 
             // Clear form if the deleted file was being edited
             const currentFilename = document.getElementById(
-              "edit-filename-select"
+              "edit-filename-select",
             ).value;
             if (!currentFilename) {
               clearForm();
@@ -1991,12 +1729,12 @@
             "error",
             "Error",
             error.message || "Failed to delete tutorial",
-            3000
+            3000,
           );
           console.error("Delete error:", error);
         } finally {
           const deleteBtn = document.getElementById("delete-tutorial-btn");
-          deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete';
+          deleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete JSON';
           deleteBtn.disabled = false;
         }
       }
@@ -2017,11 +1755,26 @@
         // Hide preview, show "no file" state
         imagePreviewContainer.style.display = "none";
         noFileState.style.display = "flex";
+
+        // Show the upload label again
+        const uploadLabel = filePreview
+          .closest(".file-upload")
+          .querySelector(".file-upload-label");
+        if (uploadLabel) uploadLabel.style.display = "block"; // Or flex if that was original
+
         noFileState.querySelector(".no-file-text").textContent =
           "No image selected";
         noFileState.style.color = "#6c757d";
 
         showToast("info", "Image Removed", "Snapshot has been removed", 2000);
+      }
+
+      function triggerFileUpload(btn) {
+        const fileUpload = btn.closest(".file-upload");
+        const fileInput = fileUpload.querySelector('input[type="file"]');
+        if (fileInput) {
+          fileInput.click();
+        }
       }
 
       // Image zoom functionality
@@ -2062,16 +1815,22 @@
 
       async function updateVectorDB() {
         const btn = document.getElementById("update-vectordb-btn");
-        const statusDiv = document.getElementById("vectordb-status");
+        const statusModal = document.getElementById("statusModal");
+        const statusBody = document.getElementById("statusModalBody");
         const originalText = btn.innerHTML;
 
-        // Show loading state
-        btn.innerHTML =
-          '<i class="fas fa-spinner fa-spin"></i> MIRA is learning...';
+        // Show loading state in modal
+        statusBody.innerHTML = `
+          <div style="text-align: center; padding: 40px 20px;">
+            <div class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #198754; margin-bottom: 20px;"></div>
+            <h4 style="margin-bottom: 10px;">MIRA is learning...</h4>
+            <p style="color: #666;">Please wait while MIRA reads your new tutorials and updates its knowledge bank.</p>
+          </div>
+        `;
+        statusModal.style.display = "flex";
+        document.body.style.overflow = "hidden"; // Prevent scrolling behind modal
+
         btn.disabled = true;
-        statusDiv.style.display = "block";
-        statusDiv.innerHTML =
-          '<div style="color: #666; font-size: 1.1rem; padding: 10px;"><i class="fas fa-spinner fa-spin"></i> Please wait while MIRA reads your new tutorials...</div>';
 
         try {
           const response = await fetch("/update-vectordb", {
@@ -2107,22 +1866,27 @@
             // Add JSON Save Status if available
             if (window.lastSaveStatus) {
               detailsHtml += `
-                <div style="margin-bottom: 20px; padding: 12px; background: #fff; border-radius: 8px; border: 1px solid #c3e6cb;">
+                <div style="margin-bottom: 20px; padding: 15px; background: #f8fff9; border-radius: 10px; border: 1px solid #c3e6cb;">
                   <strong style="color: #198754;"><i class="fas fa-file-check"></i> File Status:</strong>
-                  <div style="font-size: 0.95rem; margin-top: 5px;">
-                    The tutorial <strong>"${window.lastSaveStatus.tutorial_name}"</strong> was successfully saved as <code>${window.lastSaveStatus.filename}</code> at ${window.lastSaveStatus.timestamp}.
+                  <div style="font-size: 0.95rem; margin-top: 8px;">
+                    The tutorial <strong>"${
+                      window.lastSaveStatus.tutorial_name
+                    }"</strong> was successfully saved as <code>${
+                      window.lastSaveStatus.filename
+                    }</code> at ${window.lastSaveStatus.timestamp}.
                   </div>
                 </div>`;
             }
 
             if (additions.length > 0) {
               detailsHtml += `
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 20px; padding: 15px; background: #f0f7ff; border-radius: 10px; border: 1px solid #b8daff;">
                   <strong style="color: #0d6efd;"><i class="fas fa-plus-circle"></i> New Information Learned:</strong>
-                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                  <ul style="margin: 10px 0 0; padding-left: 20px; font-size: 0.95rem;">
                     ${additions
                       .map(
-                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                        (item) =>
+                          `<li style="margin-bottom: 5px;">${item}</li>`,
                       )
                       .join("")}
                   </ul>
@@ -2131,12 +1895,13 @@
 
             if (updates.length > 0) {
               detailsHtml += `
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 20px; padding: 15px; background: #f4fff3; border-radius: 10px; border: 1px solid #c3e6cb;">
                   <strong style="color: #198754;"><i class="fas fa-sync-alt"></i> Information Updated:</strong>
-                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                  <ul style="margin: 10px 0 0; padding-left: 20px; font-size: 0.95rem;">
                     ${updates
                       .map(
-                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                        (item) =>
+                          `<li style="margin-bottom: 5px;">${item}</li>`,
                       )
                       .join("")}
                   </ul>
@@ -2145,12 +1910,13 @@
 
             if (removals.length > 0) {
               detailsHtml += `
-                <div style="margin-top: 15px;">
+                <div style="margin-top: 20px; padding: 15px; background: #fff5f5; border-radius: 10px; border: 1px solid #f5c6cb;">
                   <strong style="color: #dc3545;"><i class="fas fa-minus-circle"></i> Obsolete Information Removed:</strong>
-                  <ul style="margin: 5px 0; padding-left: 20px; font-size: 0.95rem;">
+                  <ul style="margin: 10px 0 0; padding-left: 20px; font-size: 0.95rem;">
                     ${removals
                       .map(
-                        (item) => `<li style="margin-bottom: 3px;">${item}</li>`
+                        (item) =>
+                          `<li style="margin-bottom: 5px;">${item}</li>`,
                       )
                       .join("")}
                   </ul>
@@ -2159,75 +1925,89 @@
 
             if (!detailsHtml) {
               detailsHtml = `
-                <div style="margin-top: 15px; padding: 10px; background: #e9ecef; border-radius: 8px; color: #495057;">
+                <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; color: #495057; border: 1px solid #dee2e6;">
                   <i class="fas fa-info-circle"></i> MIRA checked everything and it's already up to date! No new changes were needed.
                 </div>`;
             }
 
-            statusDiv.innerHTML = `
-                <div style="color: #155724; padding: 25px; background: #d4edda; border-radius: 12px; border: 2px solid #c3e6cb; box-shadow: 0 4px 12px rgba(25, 135, 84, 0.1); margin-top: 15px;">
-                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 10px;">
-                        <i class="fas fa-check-circle" style="font-size: 2rem; color: #28a745;"></i>
-                        <h4 style="margin: 0; font-size: 1.3rem;">Great News!</h4>
+            statusBody.innerHTML = `
+                <div style="color: #155724;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <div class="fas fa-check-circle" style="font-size: 2.5rem; color: #28a745;"></div>
+                        <div>
+                          <h4 style="margin: 0; font-size: 1.4rem; color: #198754;">Update Successful!</h4>
+                          <p style="margin: 5px 0 0; color: #666;">MIRA has successfully learned the latest changes.</p>
+                        </div>
                     </div>
-                    <p style="margin: 0; font-size: 1.1rem; font-weight: 600;">
-                        MIRA has successfully learned the latest changes!
-                    </p>
                     
                     ${detailsHtml}
 
-                    <div style="margin-top: 18px; padding-top: 12px; border-top: 1px solid #c3e6cb; font-size: 0.95rem; color: #155724; font-weight: 500;">
-                        <i class="fas fa-database"></i> ${
-                          summary || "Global knowledge bank refreshed."
-                        }
+                    <div style="margin-top: 25px; padding-top: 20px; border-top: 1px solid #f0f0f0; display: flex; flex-direction: column; gap: 10px;">
+                        <div style="font-size: 0.95rem; color: #155724; font-weight: 600;">
+                            <i class="fas fa-database"></i> ${
+                              summary || "Global knowledge bank refreshed."
+                            }
+                        </div>
+                        <div style="font-size: 0.85rem; color: #666;">
+                            Your tutorials are now live and MIRA is ready to guide users with this new information.
+                        </div>
                     </div>
-                    <div style="margin-top: 8px; font-size: 0.85rem; color: #155724; opacity: 0.8;">
-                        Your tutorials are now live and MIRA is ready to guide users with this new information.
-                    </div>
+                    
+                    <button onclick="closeStatusModal()" class="action-btn btn-green" style="margin-top: 25px; width: 100%;">
+                        Got it, thanks!
+                    </button>
                 </div>
             `;
             showToast(
               "success",
               "Update Complete",
               "MIRA's knowledge has been refreshed!",
-              3000
+              3000,
             );
           } else {
-            statusDiv.innerHTML = `
-                <div style="color: #721c24; padding: 20px; background: #f8d7da; border-radius: 12px; border: 2px solid #f5c6cb; margin-top: 15px;">
-                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 8px;">
-                        <i class="fas fa-exclamation-triangle" style="font-size: 1.5rem;"></i>
-                        <h4 style="margin: 0;">Learning Interrupted</h4>
+            statusBody.innerHTML = `
+                <div style="color: #721c24;">
+                    <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 20px;">
+                        <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #dc3545;"></i>
+                        <div>
+                          <h4 style="margin: 0; font-size: 1.3rem;">Learning Interrupted</h4>
+                          <p style="margin: 5px 0 0; color: #666;">Something went wrong while MIRA was trying to learn.</p>
+                        </div>
                     </div>
-                    <p style="margin: 0; font-size: 1rem;">
-                        Something went wrong while MIRA was trying to learn. 
-                        <strong>Error:</strong> ${
+                    <div style="padding: 15px; background: #fff5f5; border-radius: 10px; border: 1px solid #f5c6cb; color: #dc3545;">
+                        <strong style="display: block; margin-bottom: 5px;">Error Details:</strong>
+                        <div style="font-size: 0.95rem;">${
                           result.message || "Failed to process content"
-                        }
-                    </p>
+                        }</div>
+                    </div>
+                    <button onclick="closeStatusModal()" class="action-btn btn-red" style="margin-top: 25px; width: 100%;">
+                        Close
+                    </button>
                 </div>
             `;
             showToast(
               "error",
               "Update Failed",
               "Failed to update vector database",
-              4000
+              4000,
             );
           }
         } catch (error) {
-          statusDiv.innerHTML = `
-            <div style="color: #721c24; padding: 10px; background: #f8d7da; border-radius: 5px; border-left: 4px solid #dc3545;">
-                <i class="fas fa-exclamation-circle"></i> <strong>Connection Error!</strong>
-                <div style="margin-top: 5px; font-size: 0.85rem; color: #721c24;">
-                    ${error.message}
-                </div>
+          statusBody.innerHTML = `
+            <div style="color: #721c24; text-align: center; padding: 20px;">
+                <i class="fas fa-exclamation-circle" style="font-size: 3rem; color: #dc3545; margin-bottom: 15px;"></i>
+                <h4 style="margin-bottom: 10px;">Connection Error!</h4>
+                <p style="color: #666; margin-bottom: 20px;">${error.message}</p>
+                <button onclick="closeStatusModal()" class="action-btn btn-red" style="width: 100%;">
+                    Close
+                </button>
             </div>
         `;
           showToast(
             "error",
             "Network Error",
             "Could not connect to server",
-            4000
+            4000,
           );
         } finally {
           // Restore button
@@ -2314,11 +2094,6 @@
           const result = await response.json();
 
           if (response.ok) {
-            const message = editFilename
-              ? "Tutorial updated successfully!"
-              : "Tutorial saved successfully!";
-            showToast("success", "Success!", message, 3000);
-
             // Store the last save status for MIRA feedback
             window.lastSaveStatus = {
               filename:
@@ -2328,6 +2103,10 @@
               tutorial_name: data.tutorial_name,
               timestamp: new Date().toLocaleTimeString(),
             };
+
+            // Show success modal
+            document.getElementById("saveSuccessModal").style.display = "flex";
+            document.body.style.overflow = "hidden";
 
             // If we were editing, update the dropdown
             if (editFilename) {
@@ -2356,7 +2135,7 @@
               "error",
               "Error",
               result.error || "Failed to save tutorial",
-              4000
+              4000,
             );
           }
         } catch (error) {
@@ -2364,7 +2143,7 @@
             "error",
             "Error",
             "Failed to save tutorial. Please try again.",
-            4000
+            4000,
           );
           console.error("Save error:", error);
         } finally {

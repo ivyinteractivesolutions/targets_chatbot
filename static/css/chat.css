@@ -4,8 +4,9 @@
   box-sizing: border-box;
 }
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue",
-    Arial, sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial,
+    sans-serif;
   background: #f7f7f8;
   width: 100vw;
   height: 100vh;
@@ -27,7 +28,9 @@ body {
   flex-direction: column;
   flex-shrink: 0;
   overflow: hidden;
-  transition: transform 0.3s ease, width 0.3s ease;
+  transition:
+    transform 0.3s ease,
+    width 0.3s ease;
   position: relative;
 }
 .sidebar.collapsed {
@@ -642,7 +645,8 @@ body {
 
 .capability-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   border-color: #10a37f;
 }
@@ -1052,7 +1056,8 @@ body {
   max-width: 400px;
   padding: 32px;
   border-radius: 16px;
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1),
+  box-shadow:
+    0 20px 25px -5px rgba(0, 0, 0, 0.1),
     0 10px 10px -5px rgba(0, 0, 0, 0.04);
   text-align: center;
   transform: scale(0.9);
@@ -1124,4 +1129,81 @@ body {
   to {
     opacity: 1;
   }
+}
+
+/* Voice Integration Styles */
+.voice-btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  color: #8e8ea0;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+  font-size: 14px;
+  padding: 0;
+  margin-left: 4px;
+}
+
+.voice-btn:hover {
+  background: #e5e5e6;
+  color: #353740;
+}
+
+.voice-btn.recording {
+  color: #ef4444;
+  background: rgba(239, 68, 68, 0.1);
+  animation: pulse-red 1.5s infinite;
+}
+
+.recording-timer {
+  font-size: 13px;
+  color: #ef4444;
+  font-weight: 600;
+  margin-right: 8px;
+  margin-left: auto; /* Push to the right if needed, but flex handles it */
+  user-select: none;
+  display: flex;
+  align-items: center;
+}
+
+.recording-timer.hidden {
+  display: none;
+}
+
+@keyframes pulse-red {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+    transform: scale(1);
+  }
+  70% {
+    box-shadow: 0 0 0 6px rgba(239, 68, 68, 0);
+    transform: scale(1.1);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+    transform: scale(1);
+  }
+}
+
+/* Ensure no arrows on textarea (if any were appearing) */
+textarea {
+  overflow: auto;
+}
+textarea::-webkit-scrollbar {
+  width: 6px;
+}
+textarea::-webkit-scrollbar-thumb {
+  background-color: #d1d5db;
+  border-radius: 3px;
+}
+textarea::-webkit-inner-spin-button,
+textarea::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

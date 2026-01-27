@@ -1,0 +1,304 @@
+{
+  "info": {
+    "_postman_id": "c0183187-5503-4672-9694-546522941566",
+    "name": "TargetsLive ChatBot API",
+    "description": "API collection for the TargetsLive ChatBot backend.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Chatbot",
+      "item": [
+        {
+          "name": "Chat",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"message\": \"How do I add a new region?\",\n    \"session_id\": \"<session_id>\",\n    \"last_tutorial\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/chat",
+              "host": ["{{base_url}}"],
+              "path": ["chat"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Transcribe Audio",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "audio_data",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "language",
+                  "value": "en",
+                  "type": "text",
+                  "description": "en or ur"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/transcribe",
+              "host": ["{{base_url}}"],
+              "path": ["transcribe"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "Create Session",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"user_id\": \"user_123\",\n    \"license_id\": \"license_abc\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/sessions",
+              "host": ["{{base_url}}"],
+              "path": ["sessions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List Sessions",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sessions",
+              "host": ["{{base_url}}"],
+              "path": ["sessions"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get Session",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sessions/<session_id>",
+              "host": ["{{base_url}}"],
+              "path": ["sessions", "<session_id>"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Rename Session",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"title\": \"New Session Title\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/sessions/<session_id>",
+              "host": ["{{base_url}}"],
+              "path": ["sessions", "<session_id>"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete Session",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/sessions/<session_id>",
+              "host": ["{{base_url}}"],
+              "path": ["sessions", "<session_id>"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "JSON Editor",
+      "item": [
+        {
+          "name": "List JSON Files",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/list-json-files",
+              "host": ["{{base_url}}"],
+              "path": ["list-json-files"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Load JSON",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/load-json?filename=example.json",
+              "host": ["{{base_url}}"],
+              "path": ["load-json"],
+              "query": [
+                {
+                  "key": "filename",
+                  "value": "example.json"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Save JSON",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"tutorial_name\": \"My Tutorial\",\n    \"language\": \"en\",\n    \"json_filename\": \"my-tutorial\",\n    \"sections\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/save-json",
+              "host": ["{{base_url}}"],
+              "path": ["save-json"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update JSON",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"original_filename\": \"my-tutorial.json\",\n    \"tutorial_name\": \"My Updated Tutorial\",\n    \"language\": \"en\",\n    \"json_filename\": \"my-updated-tutorial\",\n    \"sections\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/update-json",
+              "host": ["{{base_url}}"],
+              "path": ["update-json"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete JSON",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"filename\": \"my-tutorial.json\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{base_url}}/delete-json",
+              "host": ["{{base_url}}"],
+              "path": ["delete-json"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update VectorDB (Ingest)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/update-vectordb",
+              "host": ["{{base_url}}"],
+              "path": ["update-vectordb"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Upload Image",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "image",
+                  "type": "file",
+                  "src": []
+                },
+                {
+                  "key": "old_filename",
+                  "value": "",
+                  "type": "text"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{base_url}}/upload-image",
+              "host": ["{{base_url}}"],
+              "path": ["upload-image"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://127.0.0.1:5000"
+    }
+  ]
+}

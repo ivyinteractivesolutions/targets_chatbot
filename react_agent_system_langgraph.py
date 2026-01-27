@@ -3,6 +3,7 @@ import os
 import json
 import re
 from typing import TypedDict, Any, Dict, List, Annotated, Optional
+from concurrent.futures import ThreadPoolExecutor
 from dotenv import load_dotenv
 from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
@@ -74,7 +75,8 @@ Return JSON format:
 Language Detection Rules:
 - If user uses Roman Urdu words (e.g., 'kaisay', 'kahan', 'madad'), classify as "Roman-Urdu".
 - If user uses Urdu script, classify as "Urdu".
-- Otherwise, classify as "English".
+- If user uses any OTHER language (e.g., Spanish, French), classify as "English" (so we can politely refuse in English).
+- Default to "English".
 """
         
         try:
@@ -162,8 +164,8 @@ class KnowledgeBase:
                     self.capabilities[base_lang].append(title)
                     
         except Exception as e:
-            print(f"Error loading knowledge from Vector Store: {e}")
-            # Optional: Add logger or more robust error handling here
+            # Silently handle empty DB during first run
+            pass
 
     def get_topics(self, language: str) -> List[str]:
         """Get topics for a language"""
@@ -193,7 +195,13 @@ class DynamicSuggestionGenerator:
         available_topics = self.kb.get_topics(language)
         topics_str = ", ".join(available_topics[:15]) # Limit to 15 topics for prompt brevity
 
-        system_prompt = f"""Generate 3-4 relevant follow-up questions for MIRA, a Management Portal assistant.
+        # Custom instruction for fallback
+        if intent == "fallback":
+            query_context = "Ignore the user query as it was out of scope. Suggest 4 diverse, valid actions based on the available topics."
+        else:
+            query_context = f"User Query: {user_query}"
+
+        system_prompt = f"""Generate 4 relevant follow-up questions for MIRA, a Management Portal assistant.
 {lang_instruction}
 
 CRITICAL: Only suggest actions that MIRA can actually do. 
@@ -201,11 +209,11 @@ Available topics MIRA can help with: [{topics_str}]
 
 Guidelines:
 1. Every suggestion MUST directly relate to the available topics listed above.
-2. If the user query is about a specific topic (e.g., 'Region'), suggest sub-tasks like 'View details of Region'.
-3. Do NOT hallucinate features MIRA doesn't have.
-4. If appropriate, suggest 'Explain system capabilities' to help users learn what MIRA can do.
+2. If Intent is 'fallback', DO NOT hallucinate based on the user's invalid query. Suggest broad, valid system actions instead.
+3. If the user query is about a specific valid topic (e.g., 'Region'), suggest sub-tasks like 'View details of Region'.
+4. Do NOT hallucinate features MIRA doesn't have.
 
-User Query: {user_query}
+{query_context}
 Intent: {intent}
 Recent History: {history_context}
 
@@ -227,7 +235,10 @@ Return ONLY a JSON array of strings: ["Suggestion 1", "Suggestion 2", ...]"""
                 # Direct attempt if regex fails
                 suggestions = json.loads(content)
                 
-            return suggestions if isinstance(suggestions, list) else []
+            if isinstance(suggestions, list) and len(suggestions) > 0:
+                return suggestions
+            else:
+                raise Exception("Empty suggestions list")
             
         except Exception:
             input_lang = language.lower().replace(" ", "-")
@@ -253,15 +264,25 @@ class GreetingGenerator:
         """Generate a personalized greeting"""
         system_prompt = f"""You are 'MIRA', the portal assistant. 
 Create a ONE-LINE, natural greeting to introduce a list of tutorial steps.
-The greeting should bridge the user's question and the topic of the tutorial.
+The greeting should bridge the user's question and the topic, using the USER'S terminology where appropriate.
 
-Topic: {section_title}
+User's Question: {user_query}
+Retrieved Topic: {section_title}
 Language: {language}
+
+CRITICAL:
+- If Language is "English", the greeting MUST be in English.
+- If Language is "Roman Urdu", the greeting MUST be in Roman Urdu.
+- Do NOT output in Spanish, French, or any other language, even if the user input is in that language.
 
 Examples:
 Input: "where is the agents page?"
 Topic: "Where is Agent page located"
-Response: "Here are the steps to see where the agent page is located:"
+Response: "Here are the steps to find the agents page:"
+
+Input: "create new stuff"
+Topic: "Add New Item"
+Response: "Here are the steps to create new stuff:"
 
 Input: "bank kahan hai?"
 Topic: "Where is Bank page located"
@@ -271,7 +292,7 @@ Rules:
 - Keep it to a single line.
 - End with a colon (:).
 - Be polite and direct.
-- Match the input language.
+- Mirror the user's keywords/terminology if safe to do so.
 """
         try:
             response = self.llm.invoke([
@@ -291,12 +312,21 @@ class AgentNodes:
     """Collection of LangGraph nodes"""
     
     def __init__(self):
+        self.refresh()
+    
+    def refresh(self):
+        """Re-initialize all internal components with fresh retrieval indices."""
+        from chat import get_components
         self.knowledge_base = KnowledgeBase()
         self.request_analyzer = RequestAnalyzer()
         self.suggestion_generator = DynamicSuggestionGenerator(self.knowledge_base)
         self.greeting_generator = GreetingGenerator()
         self.general_llm = ChatOpenAI(temperature=0.9, model=MODEL)
         self.tutorial_llm = ChatOpenAI(temperature=0.0, model=MODEL)
+        
+        # Share the same vectordb and embeddings from chat.py to save resources
+        components = get_components()
+        self.vectordb = components.get("vectordb")
     
     def analyze_request(self, state: AgentState) -> AgentState:
         """Analyze intent and language in one step"""
@@ -350,29 +380,29 @@ class AgentNodes:
         is_urdu = lang_info.get("language", "").lower() in ["urdu", "roman-urdu"]
         
         if is_urdu:
-            system_prompt = "You are MIRA, a Roman-Urdu Management Portal assistant."
+            system_prompt = "You are MIRA, a Roman-Urdu Management Portal assistant. You must STRICTLY answer only in Roman Urdu. Do not use English script or any other language."
         else:
-            system_prompt = "You are MIRA, a Management Portal assistant."
+            system_prompt = "You are MIRA, a Management Portal assistant. You must STRICTLY answer only in English. If the user speaks a different language (e.g., Spanish, French, Arabic), politely reply in English stating that you only support English and Roman Urdu."
         
-        messages = [SystemMessage(content=system_prompt)]
-        
-        for msg in state["conversation_history"][-4:]:
-            messages.append(HumanMessage(content=msg))
-        
-        messages.append(HumanMessage(content=state["user_query"]))
-        
-        try:
-            response = self.general_llm.invoke(messages)
-            content = response.content
-        except Exception:
-            content = "Hello! How can I help you?" if not is_urdu else "Hi! Main aapki kaisay madad kar sakti hoon."
-        
-        suggestions = self.suggestion_generator.generate(
-            state["user_query"],
-            "general",
-            state["conversation_history"],
-            language="Roman Urdu" if is_urdu else "English"
-        )
+        # Parallelize General LLM response and Suggestion Generation
+        with ThreadPoolExecutor() as executor:
+            future_content = executor.submit(
+                self._generate_general_response, 
+                system_prompt, 
+                state["conversation_history"], 
+                state["user_query"],
+                is_urdu
+            )
+            future_suggestions = executor.submit(
+                self.suggestion_generator.generate,
+                state["user_query"],
+                "general",
+                state["conversation_history"],
+                "Roman Urdu" if is_urdu else "English"
+            )
+            
+            content = future_content.result()
+            suggestions = future_suggestions.result()
         
         state["response"] = {
             "type": "general",
@@ -384,6 +414,18 @@ class AgentNodes:
         state["suggestions"] = suggestions
         state["processing_path"].append("general_agent")
         return state
+
+    def _generate_general_response(self, system_prompt, history, query, is_urdu):
+        try:
+            messages = [SystemMessage(content=system_prompt)]
+            for msg in history[-4:]:
+                messages.append(HumanMessage(content=msg))
+            messages.append(HumanMessage(content=query))
+            
+            response = self.general_llm.invoke(messages)
+            return response.content
+        except Exception:
+            return "Hello! How can I help you?" if not is_urdu else "Hi! Main aapki kaisay madad kar sakti hoon."
     
     def capabilities_agent(self, state: AgentState) -> AgentState:
         """Explain system capabilities in a layman-friendly, rich way"""
@@ -406,7 +448,7 @@ class AgentNodes:
                     "icon": "📸"
                 },
                 {
-                    "title": "Asaan Explaination",
+                    "title": "Easy Explaination",
                     "description": "Agar koi step mushkil lagay, bas mujh se poochain aur main usay asaan alfaz mein bataungi.",
                     "icon": "💡"
                 },
@@ -503,29 +545,35 @@ class AgentNodes:
                 lang_info = state["validation_results"].get("language_analysis", {})
                 is_urdu = lang_info.get("language", "").lower() in ["urdu", "roman-urdu"]
                 
-                # Dynamic Personalized Greeting
+                # Dynamic Personalized Greeting and Suggestions in Parallel
                 section_title = bot_response.get("section_title", "")
-                intro = self.greeting_generator.generate(
-                    state["user_query"], 
-                    section_title, 
-                    language="Roman Urdu" if is_urdu else "English"
-                )
+                
+                with ThreadPoolExecutor() as executor:
+                    future_intro = executor.submit(
+                        self.greeting_generator.generate,
+                        state["user_query"], 
+                        section_title, 
+                        "Roman Urdu" if is_urdu else "English"
+                    )
+                    future_suggestions = executor.submit(
+                        self.suggestion_generator.generate,
+                        state["user_query"],
+                        "tutorial",
+                        state["conversation_history"],
+                        "Roman Urdu" if is_urdu else "English"
+                    )
+                    
+                    intro = future_intro.result()
+                    suggestions = future_suggestions.result()
                 
                 if is_urdu:
                     summary = f"Main pur-umeed hoon ke in {len(formatted_steps)} steps se aapki madad hui hogi."
-                    pro_tip = "Tip: Steps ko carefully follow karain."
+                    pro_tip = "Steps ko carefully follow karain."
                     outro = "Shukriya!"
                 else:
                     summary = f"I hope these {len(formatted_steps)} steps help you achieve your goal."
-                    pro_tip = "Pro tip: Follow each step carefully."
+                    pro_tip = "Follow each step carefully."
                     outro = "Thank you!"
-                
-                suggestions = self.suggestion_generator.generate(
-                    state["user_query"],
-                    "tutorial",
-                    state["conversation_history"],
-                    language="Roman Urdu" if is_urdu else "English"
-                )
                 
                 state["response"] = {
                     "type": "tutorial",
@@ -537,7 +585,33 @@ class AgentNodes:
                     "is_urdu": is_urdu,
                     "suggested_actions": suggestions
                 }
+                state["response"] = {
+                    "type": "tutorial",
+                    "content": intro,
+                    "steps": formatted_steps,
+                    "summary": summary,
+                    "pro_tip": pro_tip,
+                    "completion_message": outro,
+                    "is_urdu": is_urdu,
+                    "suggested_actions": suggestions
+                }
                 
+            elif bot_response.get("type") == "no_relevant_content":
+                lang_info = state["validation_results"].get("language_analysis", {})
+                is_urdu = lang_info.get("language", "").lower() in ["urdu", "roman-urdu"]
+                suggestions = self.suggestion_generator.generate(
+                    state["user_query"],
+                    "fallback", # Use fallback intent to trigger safer suggestions
+                    state["conversation_history"],
+                    language="Roman Urdu" if is_urdu else "English"
+                )
+                
+                state["response"] = {
+                    "type": "no_relevant_content", # Pass this type through to frontend
+                    "content": f"It looks like the topic **'{state['user_query']}'** is not related to this system. If you have a general question, feel free to ask! However, I cannot provide a tutorial for this specific topic as it is not part of the system documentation.",
+                    "suggested_actions": suggestions
+                }
+
             else:
                 lang_info = state["validation_results"].get("language_analysis", {})
                 is_urdu = lang_info.get("language", "").lower() in ["urdu", "roman-urdu"]
@@ -783,11 +857,12 @@ History:
 
 
 # ==================== LANGGRAPH SETUP ====================
-def create_agent_graph():
-    """Create LangGraph"""
+def create_agent_graph(checkpointer=None):
+    """Create LangGraph with an optional checkpointer"""
     nodes = AgentNodes()
     workflow = StateGraph(AgentState)
     
+    # ... (rest of node setup remains the same)
     # Add nodes
     workflow.add_node("analyze_request", nodes.analyze_request)
     workflow.add_node("route_decision", nodes.route_decision)
@@ -832,12 +907,37 @@ def create_agent_graph():
     
     workflow.add_edge("validate_response", END)
     
-    # Compile graph
-    graph = workflow.compile(checkpointer=MemorySaver())
-    return graph
+    # Compile graph with provided or new checkpointer
+    if checkpointer is None:
+        checkpointer = MemorySaver()
+        
+    graph = workflow.compile(checkpointer=checkpointer)
+    return graph, nodes
 
-
-# apply_bold_to_quotes is now replaced by chat.format_step_text
+def refresh_knowledge_base():
+    """Refresh the entire knowledge base and agent system state"""
+    try:
+        from chat import refresh_components
+        print("AGENT SYSTEM: Starting knowledge refresh...", flush=True)
+        
+        # 1. Refresh retrieval components in chat.py
+        refresh_components()
+        
+        # 2. Re-create graph and nodes but reuse the EXISTING checkpointer
+        # This is the KEY to preserving memory
+        existing_checkpointer = langgraph_system.checkpointer
+        new_graph, new_nodes = create_agent_graph(checkpointer=existing_checkpointer)
+        
+        # 3. Update the global system instances
+        langgraph_system.graph = new_graph
+        
+        print("AGENT SYSTEM: Knowledge refresh complete.", flush=True)
+        return True
+    except Exception as e:
+        print(f"Error refreshing knowledge base: {e}")
+        import traceback
+        traceback.print_exc()
+        return False
 
 def format_response_recursive(data: Any) -> Any:
     """Recursively apply bold formatting to all strings in a data structure."""
@@ -854,7 +954,8 @@ class LangGraphAgentSystem:
     """Main interface"""
     
     def __init__(self):
-        self.graph = create_agent_graph()
+        self.checkpointer = MemorySaver()
+        self.graph, _ = create_agent_graph(checkpointer=self.checkpointer)
         self.config = {"configurable": {"thread_id": "default_thread"}}
     
     def process_user_query(self, user_query: str, conversation_history: List[str] = None, 
@@ -914,7 +1015,7 @@ class LangGraphAgentSystem:
 # ==================== INITIALIZE SYSTEM ====================
 langgraph_system = LangGraphAgentSystem()
 
-def refresh_knowledge_base():
+def refresh_knowledge_base_deprecated():
     """Refresh the knowledge base cache"""
     try:
         langgraph_system.graph = create_agent_graph()

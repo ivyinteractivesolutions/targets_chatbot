@@ -1,5 +1,3 @@
-
-
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
 import os
@@ -7,9 +5,18 @@ import json
 import sys
 import subprocess
 import traceback
+import assemblyai as aai
+from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
 from react_agent_system_langgraph import process_user_query, refresh_knowledge_base
 from session_manager import SessionManager
+from ingest import run_ingestion, cleanup_orphaned_images
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import SystemMessage, HumanMessage
+
+# Load environment variables
+load_dotenv()
+aai.settings.api_key = os.getenv("ASSEMBLYAI_API_KEY")
 
 app = Flask(__name__)
 
@@ -26,9 +33,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 # Session Management
 session_manager = SessionManager()
 
-def get_current_user_id():
-    """Placeholder for actual user authentication"""
-    return "default_user"  # For now, everything is under 'default_user'
+
 
 def validate_tutorial_data(data, check_original=False):
     """Shared validation logic for tutorial JSON data"""
@@ -54,7 +59,7 @@ def validate_tutorial_data(data, check_original=False):
 
 
 # ===== ROUTES FOR CHATBOT =====
-@app.route("/chatbot")
+@app.route("/")
 def index():
     return render_template("index_chatbot.html")
 
@@ -62,14 +67,14 @@ def index():
 def chat():
     user_message = request.json.get("message")
     session_id = request.json.get("session_id")
-    user_id = get_current_user_id()
+    
 
     if not session_id:
         return jsonify({"error": "session_id is required"}), 400
 
     try:
         # Get session data
-        session_data = session_manager.get_session(user_id, session_id)
+        session_data = session_manager.get_session(session_id)
         if not session_data:
             return jsonify({"error": "Session not found"}), 404
             
@@ -107,7 +112,7 @@ def chat():
         if len(full_history) <= 2: 
             title = user_message
             
-        session_manager.save_session(user_id, session_id, full_history, title=title)
+        session_manager.save_session(session_id, full_history, title=title)
         
         return jsonify(response)
         
@@ -127,40 +132,42 @@ def chat():
 # ===== SESSION ENDPOINTS =====
 @app.route("/sessions", methods=["GET"])
 def list_sessions():
-    user_id = get_current_user_id()
+    user_id = request.args.get("user_id")
+    if not user_id:
+        return jsonify({"error": "user_id is required"}), 400
     sessions = session_manager.list_sessions(user_id)
     return jsonify({"sessions": sessions})
 
 @app.route("/sessions", methods=["POST"])
 def create_session():
-    user_id = get_current_user_id()
-    session_id = session_manager.create_session(user_id)
+    ## parse user_id and license_id from req.body
+    user_id = request.json.get("user_id")
+    license_id = request.json.get("license_id")
+    
+    session_id = session_manager.create_session(user_id, license_id)
     return jsonify({"session_id": session_id})
 
 @app.route("/sessions/<session_id>", methods=["GET"])
 def get_session(session_id):
-    user_id = get_current_user_id()
-    session_data = session_manager.get_session(user_id, session_id)
+    session_data = session_manager.get_session(session_id)
     if not session_data:
         return jsonify({"error": "Session not found"}), 404
     return jsonify(session_data)
 
 @app.route("/sessions/<session_id>", methods=["DELETE"])
 def delete_session(session_id):
-    user_id = get_current_user_id()
-    success = session_manager.delete_session(user_id, session_id)
+    success = session_manager.delete_session(session_id)
     if success:
         return jsonify({"message": "Session deleted successfully"})
     return jsonify({"error": "Session not found"}), 404
 
 @app.route("/sessions/<session_id>", methods=["PUT"])
 def rename_session(session_id):
-    user_id = get_current_user_id()
     new_title = request.json.get("title")
     if not new_title:
         return jsonify({"error": "Title is required"}), 400
         
-    success = session_manager.rename_session(user_id, session_id, new_title)
+    success = session_manager.rename_session(session_id, new_title)
     if success:
         return jsonify({"message": "Session renamed successfully"})
     return jsonify({"error": "Session not found"}), 404
@@ -328,38 +335,26 @@ def delete_json():
 @app.route("/update-vectordb", methods=["POST"])
 def update_vectordb():
     """
-    Endpoint to update the vector database by running ingest.py
+    Endpoint to update the vector database by running ingestion in-process
     """
     try:
-        # Robustly find the python executable
-        python_exe = sys.executable
-        venv_python = os.path.join(os.path.dirname(os.path.abspath(__file__)), ".venv", "Scripts", "python.exe")
-        if os.path.exists(venv_python):
-            python_exe = venv_python
-            
-        # Run the ingest.py script
-        result = subprocess.run(
-            [python_exe, "ingest.py"],
-            capture_output=True,
-            text=True,
-            cwd=os.path.dirname(os.path.abspath(__file__))  # Run from app directory
-        )
+        # Run ingestion logic directly
+        ingest_output = run_ingestion()
         
-        if result.returncode == 0:
-            # Refresh knowledge base cache so it knows about new tutorials
-            refresh_knowledge_base()
-            
-            return jsonify({
-                "success": True,
-                "message": "Vector database updated and AI knowledge refreshed successfully!",
-                "output": result.stdout.strip()
-            }), 200
-        else:
-            return jsonify({
-                "success": False,
-                "message": "Failed to update vector database",
-                "error": result.stderr.strip()
-            }), 500
+        # Run image cleanup
+        cleanup_output = cleanup_orphaned_images()
+        
+        # Combine outputs for the frontend
+        combined_output = f"{ingest_output}\n\n{cleanup_output}"
+        
+        # Refresh knowledge base cache so it knows about new tutorials
+        refresh_knowledge_base()
+        
+        return jsonify({
+            "success": True,
+            "message": "Vector database updated, images cleaned, and AI knowledge refreshed successfully!",
+            "output": combined_output
+        }), 200
             
     except Exception as e:
         return jsonify({
@@ -367,5 +362,85 @@ def update_vectordb():
             "message": f"Error updating vector database: {str(e)}",
             "traceback": traceback.format_exc()
         }), 500
+
+@app.route("/transcribe", methods=["POST"])
+def transcribe_audio():
+    if "audio_data" not in request.files:
+        return jsonify({"error": "No audio file provided"}), 400
+
+    audio_file = request.files["audio_data"]
+    language = request.form.get("language", "en") # Default to English
+    
+    filename = secure_filename(audio_file.filename or "voice_note.webm")
+    save_path = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+    
+    # Ensure upload folder exists
+    os.makedirs(app.config["UPLOAD_FOLDER"], exist_ok=True)
+
+    try:
+        audio_file.save(save_path)
+        
+        # Configure AssemblyAI
+        transcriber = aai.Transcriber()
+        
+        # AssemblyAI noise suppression is inherent in their 'best' models. 
+        # We ensure we use the best available model.
+        config_params = {
+            "speech_model": aai.SpeechModel.best,
+            "language_code": "ur" if language == "ur" else "en"
+        }
+        
+        config = aai.TranscriptionConfig(**config_params)
+        
+        transcript = transcriber.transcribe(save_path, config=config)
+        
+        if transcript.status == aai.TranscriptStatus.error:
+            return jsonify({"error": transcript.error}), 500
+
+        audio_file_size = os.path.getsize(save_path)
+        text = transcript.text
+        
+        # Post-Processing for Urdu: Convert to Roman Urdu
+        if language == "ur" and text:
+            try:
+                # Initialize LLM for conversion
+                llm = ChatOpenAI(model=os.getenv("OPENAI_MODEL"), temperature=0.0)
+                
+                conversion_prompt = """You are a specialized transliteration tool.
+Convert the following Urdu script into Roman Urdu (Urdu written in English alphabets).
+Keep the meaning exactly the same. Do not translate into English.
+
+Input Urdu: {text}
+
+Output (Roman Urdu only):"""
+                
+                response = llm.invoke([
+                    SystemMessage(content="You convert Urdu script to Roman Urdu directly."),
+                    HumanMessage(content=conversion_prompt.format(text=text))
+                ])
+                
+                roman_text = response.content.strip()
+                print(f"Urdu Conversion: '{text}' -> '{roman_text}'")
+                text = roman_text # Replace original text with Roman Urdu
+                
+            except Exception as e:
+                print(f"Error converting Urdu to Roman: {e}")
+                # Fallback: return original Urdu script if conversion fails
+        
+        print(f"Transcribed text: {text} with the length of {len(text)} characters. Audio file size: {audio_file_size} bytes")
+        return jsonify({"text": text})
+        
+    except Exception as e:
+        print(f"Transcription error: {e}")
+        traceback.print_exc()
+        return jsonify({"error": str(e)}), 500
+    finally:
+        # Cleanup
+        if os.path.exists(save_path):
+            try:
+                os.remove(save_path)
+            except:
+                pass
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

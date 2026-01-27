@@ -9,3 +9,4 @@ langgraph
 langchain
 flask
 flask-cors
+assemblyai

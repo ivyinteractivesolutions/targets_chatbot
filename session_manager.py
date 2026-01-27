@@ -9,7 +9,7 @@ class SessionManager:
         # Ensure database is initialized
         init_db()
 
-    def create_session(self, user_id):
+    def create_session(self, user_id, license_id):
         session_id = str(uuid.uuid4())
         now = datetime.now()
         date_str = now.strftime("%Y-%m-%d")
@@ -19,21 +19,21 @@ class SessionManager:
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "INSERT INTO Session (session_id, user_id, date, time, title, updated_at) VALUES (?, ?, ?, ?, ?, ?)",
-            (session_id, user_id, date_str, time_str, "New Chat", timestamp_str)
+            "INSERT INTO Session (session_id, user_id, license_id, date, time, title, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)",
+            (session_id, user_id, license_id, date_str, time_str, "New Chat", timestamp_str)
         )
         conn.commit()
         conn.close()
         return session_id
 
-    def get_session(self, user_id, session_id):
+    def get_session(self, session_id):
         conn = get_db_connection()
         cursor = conn.cursor()
         
-        # Get session info
+        # Check if session exists in the main table first
         cursor.execute(
-            "SELECT * FROM Session WHERE session_id = ? AND user_id = ?",
-            (session_id, user_id)
+            "SELECT session_id FROM Session WHERE session_id = ?",
+            (session_id,)
         )
         session_row = cursor.fetchone()
         
@@ -65,15 +65,11 @@ class SessionManager:
                 history.append(assistant_msg)
                 
         return {
-            "session_id": session_row['session_id'],
-            "user_id": session_row['user_id'],
-            "title": session_row['title'],
-            "created_at": f"{session_row['date']} T{session_row['time']}",
-            "updated_at": session_row['updated_at'],
+            "session_id": session_id,
             "history": history
         }
 
-    def save_session(self, user_id, session_id, history, title=None):
+    def save_session(self, session_id, history, title=None):
         # Note: 'history' in 'save_session' is the FULL history list.
         # However, for efficiency with SQLite, we might just want to append the LAST turn.
         # But to maintain compatibility with the current app.py, we'll check what's already there
@@ -132,7 +128,7 @@ class SessionManager:
             
         conn.commit()
         conn.close()
-        return self.get_session(user_id, session_id)
+        return self.get_session(session_id)
 
     def list_sessions(self, user_id):
         conn = get_db_connection()
@@ -146,25 +142,24 @@ class SessionManager:
         
         return [dict(row) for row in rows]
 
-    def delete_session(self, user_id, session_id):
+    def delete_session(self, session_id):
         conn = get_db_connection()
         cursor = conn.cursor()
-        # Due to ON DELETE CASCADE, deleting from Session will delete from SessionInformation
         cursor.execute(
-            "DELETE FROM Session WHERE session_id = ? AND user_id = ?",
-            (session_id, user_id)
+            "DELETE FROM Session WHERE session_id = ?",
+            (session_id,)
         )
         success = cursor.rowcount > 0
         conn.commit()
         conn.close()
         return success
 
-    def rename_session(self, user_id, session_id, new_title):
+    def rename_session(self, session_id, new_title):
         conn = get_db_connection()
         cursor = conn.cursor()
         cursor.execute(
-            "UPDATE Session SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE session_id = ? AND user_id = ?",
-            (new_title, session_id, user_id)
+            "UPDATE Session SET title = ?, updated_at = CURRENT_TIMESTAMP WHERE session_id = ?",
+            (new_title, session_id)
         )
         success = cursor.rowcount > 0
         conn.commit()
