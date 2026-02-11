@@ -32,7 +32,8 @@
         <div class="header">
           <button
             class="sidebar-toggle"
-            onclick="toggleSidebar()"
+            onclick="toggleSidebar()
+"
             title="Toggle sidebar"
           >
             <svg
@@ -47,6 +48,16 @@
             </svg>
           </button>
           <div class="header-title">Chat Assistant</div>
+          <div class="header-spacer"></div>
+          <div class="tool-selector">
+            <span class="tool-label">Mode:</span>
+            <select id="toolSelect" onchange="handleToolChange(this.value)">
+              <option value="general" selected>General Assistant</option>
+              <option value="query">Query Tool</option>
+              <option value="sales_analyst">Sales Analyst</option>
+              <option value="report_analyst">Report Analyst</option>
+            </select>
+          </div>
         </div>
 
         <div class="content">

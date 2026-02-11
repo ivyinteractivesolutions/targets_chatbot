@@ -183,6 +183,36 @@ body {
   font-weight: 600;
   color: #353740;
 }
+.header-spacer {
+  flex: 1;
+}
+.tool-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #6e6e80;
+}
+.tool-label {
+  white-space: nowrap;
+  font-size: 16px;
+  font-weight: 600;
+  font-style: bold;
+}
+.tool-selector select {
+  padding: 4px 8px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 16px;
+  color: #353740;
+  background: #ffffff;
+  outline: none;
+  cursor: pointer;
+}
+.tool-selector select:focus {
+  border-color: #10a37f;
+  box-shadow: 0 0 0 1px rgba(16, 163, 127, 0.15);
+}
 .content {
   flex: 1;
   overflow-y: auto;
