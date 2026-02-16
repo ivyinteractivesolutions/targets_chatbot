@@ -1,4 +1,3 @@
-# react_agent_system_langgraph.py
 import os
 import json
 import re
@@ -9,7 +8,7 @@ from langgraph.graph import StateGraph, END
 from langgraph.checkpoint.memory import MemorySaver
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_chroma import Chroma
-from langchain_classic.schema import HumanMessage, SystemMessage
+from langchain_core.messages import HumanMessage, SystemMessage
 
 from chat import get_bot_response, format_step_text
 
@@ -324,7 +323,7 @@ class AgentNodes:
         self.general_llm = ChatOpenAI(temperature=0.9, model=MODEL)
         self.tutorial_llm = ChatOpenAI(temperature=0.0, model=MODEL)
         
-        # Share the same vectordb and embeddings from chat.py to save resources
+        # Share the same vectordb from chat.py to save resources
         components = get_components()
         self.vectordb = components.get("vectordb")
     
@@ -367,7 +366,7 @@ class AgentNodes:
                 "clarify": "clarification_agent",
                 "history_recall": "history_summary_agent",
                 "summarization": "history_summary_agent",
-                "fallback": "fallback_agent"
+                "fallback": "fallback_agent",
             }
             state["next_node"] = route_map.get(intent, "fallback_agent")
         
@@ -585,16 +584,6 @@ class AgentNodes:
                     "is_urdu": is_urdu,
                     "suggested_actions": suggestions
                 }
-                state["response"] = {
-                    "type": "tutorial",
-                    "content": intro,
-                    "steps": formatted_steps,
-                    "summary": summary,
-                    "pro_tip": pro_tip,
-                    "completion_message": outro,
-                    "is_urdu": is_urdu,
-                    "suggested_actions": suggestions
-                }
                 
             elif bot_response.get("type") == "no_relevant_content":
                 lang_info = state["validation_results"].get("language_analysis", {})
@@ -758,7 +747,7 @@ class AgentNodes:
         if not history:
             state["response"] = {
                 "type": "general",
-                "content": "Hamari abhi koi guftagu nahi hui." if is_urdu else "We haven't had much of a conversation yet!"
+                "content": "Hamari abhi koi baat nahi hui." if is_urdu else "We haven't had much of a conversation yet!"
             }
             return state
 
@@ -893,7 +882,7 @@ def create_agent_graph(checkpointer=None):
             "tutorial_agent": "tutorial_agent",
             "clarification_agent": "clarification_agent",
             "history_summary_agent": "history_summary_agent",
-            "fallback_agent": "fallback_agent"
+            "fallback_agent": "fallback_agent",
         }
     )
     
@@ -924,12 +913,12 @@ def refresh_knowledge_base():
         refresh_components()
         
         # 2. Re-create graph and nodes but reuse the EXISTING checkpointer
-        # This is the KEY to preserving memory
-        existing_checkpointer = langgraph_system.checkpointer
+        system = get_agent_system()
+        existing_checkpointer = system.checkpointer
         new_graph, new_nodes = create_agent_graph(checkpointer=existing_checkpointer)
         
-        # 3. Update the global system instances
-        langgraph_system.graph = new_graph
+        # 3. Update the global system instance
+        system.graph = new_graph
         
         print("AGENT SYSTEM: Knowledge refresh complete.", flush=True)
         return True
@@ -1013,16 +1002,26 @@ class LangGraphAgentSystem:
 
 
 # ==================== INITIALIZE SYSTEM ====================
-langgraph_system = LangGraphAgentSystem()
+_langgraph_system = None
+
+def get_agent_system():
+    """Lazy initialization of the agent system"""
+    global _langgraph_system
+    if _langgraph_system is None:
+        print("AGENT SYSTEM: Initializing LangGraph system...", flush=True)
+        _langgraph_system = LangGraphAgentSystem()
+    return _langgraph_system
 
 def refresh_knowledge_base_deprecated():
     """Refresh the knowledge base cache"""
     try:
-        langgraph_system.graph = create_agent_graph()
+        system = get_agent_system()
+        system.graph = create_agent_graph()
     except Exception as e:
         print(f"Error refreshing knowledge base: {e}")
 
 def process_user_query(user_query: str, conversation_history: List[str] = None, 
                       last_tutorial: List[Dict[str, Any]] = None) -> Dict[str, Any]:
     """Main entrypoint"""
-    return langgraph_system.process_user_query(user_query, conversation_history, last_tutorial)
+    system = get_agent_system()
+    return system.process_user_query(user_query, conversation_history, last_tutorial)

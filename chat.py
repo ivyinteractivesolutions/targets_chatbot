@@ -53,11 +53,15 @@ def build_components():
         "vectordb": vectordb
     }
 
-# Initialize global components
-_components = build_components()
+# Initialize global components container
+_components = None
 
 def get_components():
-    """Get the current global components."""
+    """Get or initialize the global components."""
+    global _components
+    if _components is None:
+        print("INITIALIZING: Creating global retrieval components...", flush=True)
+        _components = build_components()
     return _components
 
 def refresh_components():

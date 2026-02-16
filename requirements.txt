@@ -10,3 +10,5 @@ langchain
 flask
 flask-cors
 assemblyai
+mysql-connector-python
+sqlalchemy
