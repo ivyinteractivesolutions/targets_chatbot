@@ -25,9 +25,14 @@ let chatStateHistory = []; // stores "User: ..." and "Assistant: ..." strings
 let lastTutorialSteps = []; // stores last tutorial steps array returned from backend
 let currentSessionId = null;
 let isFirstLoad = true;
+let currentTool = "general";
 
 function toggleSidebar() {
   sidebar.classList.toggle("collapsed");
+}
+
+function handleToolChange(newTool) {
+  currentTool = newTool || "general";
 }
 
 function selectAction(action) {
@@ -654,6 +659,7 @@ async function sendMessage() {
       message: message,
       session_id: currentSessionId,
       last_tutorial: lastTutorialSteps,
+      tool_type: currentTool,
     };
 
     const response = await fetch(API_ENDPOINT, {
@@ -735,7 +741,13 @@ messageInput.addEventListener("input", () => {
 });
 
 // Initialize
-window.onload = fetchSessions;
+window.onload = () => {
+  fetchSessions();
+  const toolSelect = document.getElementById("toolSelect");
+  if (toolSelect) {
+    toolSelect.value = currentTool;
+  }
+};
 
 // ==========================================
 // VOICE INTEGRATION LOGIC
