@@ -12,3 +12,5 @@ flask-cors
 assemblyai
 mysql-connector-python
 sqlalchemy
+matplotlib
+numpy

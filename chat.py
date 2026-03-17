@@ -18,7 +18,7 @@ if not OPENAI_API_KEY:
 
 # Enhanced prompt for better context handling
 prompt = ChatPromptTemplate.from_template("""
-You are **MIRA**, the in-system guide for the Management Portalof Targets System.
+You are **Luma**, the in-system guide for the Management Portalof Targets System.
 
 Objective:
 Explain each step clearly like you're sitting next to the user, using a friendly and instructional tone.

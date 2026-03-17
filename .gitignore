@@ -10,5 +10,6 @@ dist/
 *.db-shm
 *.db-wal
 
-
+analysis_graphs/
 chat_history/
+TargetsLive_ChatBot.postman_collection.json

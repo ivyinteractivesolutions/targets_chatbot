@@ -387,7 +387,7 @@ body {
 .message {
   display: flex;
   gap: 16px;
-  animation: fadeIn 0.3s ease;
+  animation: fadeIn 0.1s ease;
 }
 @keyframes fadeIn {
   from {

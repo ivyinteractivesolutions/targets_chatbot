@@ -547,7 +547,7 @@
       <aside class="sidebar">
         <div class="sidebar-header">
           <h2><i class="fas fa-edit"></i> JSON Editor</h2>
-          <p>MIRA Tutorial Builder</p>
+          <p>Luma Tutorial Builder</p>
         </div>
 
         <div class="sidebar-content">
@@ -609,7 +609,7 @@
             style="background: linear-gradient(135deg, #198754, #0f5132)"
             onclick="updateVectorDB()"
           >
-            <i class="fas fa-book-open-reader"></i> Teach MIRA Now
+            <i class="fas fa-book-open-reader"></i> Teach Luma Now
           </button>
         </div>
       </aside>
@@ -796,7 +796,7 @@
     <div id="statusModal" class="status-modal-overlay">
       <div class="status-modal-content">
         <div class="status-modal-header">
-          <h3><i class="fas fa-brain"></i> MIRA Update Status</h3>
+          <h3><i class="fas fa-brain"></i> Luma Update Status</h3>
           <button class="status-modal-close" onclick="closeStatusModal()">
             <i class="fas fa-times"></i>
           </button>
@@ -1823,8 +1823,8 @@
         statusBody.innerHTML = `
           <div style="text-align: center; padding: 40px 20px;">
             <div class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #198754; margin-bottom: 20px;"></div>
-            <h4 style="margin-bottom: 10px;">MIRA is learning...</h4>
-            <p style="color: #666;">Please wait while MIRA reads your new tutorials and updates its knowledge bank.</p>
+            <h4 style="margin-bottom: 10px;">Luma is learning...</h4>
+            <p style="color: #666;">Please wait while Luma reads your new tutorials and updates its knowledge bank.</p>
           </div>
         `;
         statusModal.style.display = "flex";
@@ -1926,7 +1926,7 @@
             if (!detailsHtml) {
               detailsHtml = `
                 <div style="margin-top: 20px; padding: 15px; background: #f8f9fa; border-radius: 10px; color: #495057; border: 1px solid #dee2e6;">
-                  <i class="fas fa-info-circle"></i> MIRA checked everything and it's already up to date! No new changes were needed.
+                  <i class="fas fa-info-circle"></i> Luma checked everything and it's already up to date! No new changes were needed.
                 </div>`;
             }
 
@@ -1936,7 +1936,7 @@
                         <div class="fas fa-check-circle" style="font-size: 2.5rem; color: #28a745;"></div>
                         <div>
                           <h4 style="margin: 0; font-size: 1.4rem; color: #198754;">Update Successful!</h4>
-                          <p style="margin: 5px 0 0; color: #666;">MIRA has successfully learned the latest changes.</p>
+                          <p style="margin: 5px 0 0; color: #666;">Luma has successfully learned the latest changes.</p>
                         </div>
                     </div>
                     
@@ -1949,7 +1949,7 @@
                             }
                         </div>
                         <div style="font-size: 0.85rem; color: #666;">
-                            Your tutorials are now live and MIRA is ready to guide users with this new information.
+                            Your tutorials are now live and Luma is ready to guide users with this new information.
                         </div>
                     </div>
                     
@@ -1961,7 +1961,7 @@
             showToast(
               "success",
               "Update Complete",
-              "MIRA's knowledge has been refreshed!",
+              "Luma's knowledge has been refreshed!",
               3000,
             );
           } else {
@@ -1971,7 +1971,7 @@
                         <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #dc3545;"></i>
                         <div>
                           <h4 style="margin: 0; font-size: 1.3rem;">Learning Interrupted</h4>
-                          <p style="margin: 5px 0 0; color: #666;">Something went wrong while MIRA was trying to learn.</p>
+                          <p style="margin: 5px 0 0; color: #666;">Something went wrong while Luma was trying to learn.</p>
                         </div>
                     </div>
                     <div style="padding: 15px; background: #fff5f5; border-radius: 10px; border: 1px solid #f5c6cb; color: #dc3545;">
@@ -2094,7 +2094,7 @@
           const result = await response.json();
 
           if (response.ok) {
-            // Store the last save status for MIRA feedback
+            // Store the last save status for Luma feedback
             window.lastSaveStatus = {
               filename:
                 result.new_filename ||

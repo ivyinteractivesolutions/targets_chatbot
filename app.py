@@ -8,7 +8,7 @@ import traceback
 import assemblyai as aai
 from dotenv import load_dotenv
 from werkzeug.utils import secure_filename
-from react_agent_system_langgraph import process_user_query, refresh_knowledge_base
+from react_agent_system_langgraph import process_user_query, refresh_knowledge_base, get_agent_system
 from session_manager import SessionManager
 from ingest import run_ingestion, cleanup_orphaned_images
 from langchain_openai import ChatOpenAI
@@ -443,4 +443,7 @@ Output (Roman Urdu only):"""
                 pass
 
 if __name__ == "__main__":
+    # Eagerly initialize the AI system to eliminate first-request latency
+    get_agent_system()
+    
     app.run(debug=True, port=5000)

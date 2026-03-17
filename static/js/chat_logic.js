@@ -25,14 +25,9 @@ let chatStateHistory = []; // stores "User: ..." and "Assistant: ..." strings
 let lastTutorialSteps = []; // stores last tutorial steps array returned from backend
 let currentSessionId = null;
 let isFirstLoad = true;
-let currentTool = "general";
 
 function toggleSidebar() {
   sidebar.classList.toggle("collapsed");
-}
-
-function handleToolChange(newTool) {
-  currentTool = newTool || "general";
 }
 
 function selectAction(action) {
@@ -399,8 +394,8 @@ function addMessage(text, isUser, responseData = null, animate = true) {
 // Typewriter Effect Function
 function typeWriter(element, text, callback) {
   let i = 0;
-  const speed = 30; // ms per char (slower for aesthetics)
-  const step = 1; // 1 char per frame (smoother)
+  const speed = 0; // ms per char (ultra-fast)
+  const step = 8; // 8 chars per frame (bulk rendering for performance)
 
   // Create a temporary container for the typing text
   const textContainer = document.createElement("div");
@@ -659,7 +654,6 @@ async function sendMessage() {
       message: message,
       session_id: currentSessionId,
       last_tutorial: lastTutorialSteps,
-      tool_type: currentTool,
     };
 
     const response = await fetch(API_ENDPOINT, {
@@ -743,10 +737,6 @@ messageInput.addEventListener("input", () => {
 // Initialize
 window.onload = () => {
   fetchSessions();
-  const toolSelect = document.getElementById("toolSelect");
-  if (toolSelect) {
-    toolSelect.value = currentTool;
-  }
 };
 
 // ==========================================

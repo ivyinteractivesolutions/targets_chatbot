@@ -86,7 +86,7 @@ def run_ingestion():
     )
 
     # 1. Get existing content to compare
-    print("Reading MIRA's current memory...", flush=True)
+    print("Reading Luma's current memory...", flush=True)
     existing_data = vectordb.get()
     existing_ids = set(existing_data['ids'])
     existing_metadatas = {id: meta for id, meta in zip(existing_data['ids'], existing_data['metadatas'])}
@@ -146,20 +146,20 @@ def run_ingestion():
 
     # 4. Perform upsert (add/update)
     if to_add_ids:
-        print(f"SYNCING: Now teaching MIRA {len(to_add_ids)} new or updated sections...", flush=True)
+        print(f"SYNCING: Now teaching Luma {len(to_add_ids)} new or updated sections...", flush=True)
         vectordb.add_texts(
             texts=to_add_texts,
             metadatas=to_add_metadatas,
             ids=to_add_ids
         )
-        print(f"SUCCESS: MIRA has successfully learned {add_count} new sections and updated {update_count} existing sections.", flush=True)
+        print(f"SUCCESS: Luma has successfully learned {add_count} new sections and updated {update_count} existing sections.", flush=True)
     else:
         if not ids_to_delete:
-            print("STATUS: Everything is already up to date! MIRA didn't find any new changes.", flush=True)
+            print("STATUS: Everything is already up to date! Luma didn't find any new changes.", flush=True)
         else:
-            print("SUCCESS: MIRA's memory was cleaned up successfully.", flush=True)
+            print("SUCCESS: Luma's memory was cleaned up successfully.", flush=True)
 
-    summary = f"FINAL SUMMARY: MIRA now knows a total of {len(current_ids)} tutorial steps across all files."
+    summary = f"FINAL SUMMARY: Luma now knows a total of {len(current_ids)} tutorial steps across all files."
     print(f"\n{summary}\n", flush=True)
     output_messages.append(summary)
     
