@@ -34,7 +34,7 @@ app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 session_manager = SessionManager()
 
 
-
+   
 def validate_tutorial_data(data, check_original=False):
     """Shared validation logic for tutorial JSON data"""
     required_root = ["tutorial_name", "language", "json_filename", "sections"]
